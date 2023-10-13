@@ -3,8 +3,8 @@
  * @author Jon Price
  */
 
-#include <MainFrame.h>
 #include "pch.h"
+#include <MainFrame.h>
 #include "GameApp.h"
 
 /**

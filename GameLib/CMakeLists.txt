@@ -7,7 +7,13 @@ set(SOURCE_FILES
         MainFrame.cpp
         MainFrame.h
         Game.cpp
-        Game.h)
+        Game.h
+        Sparty.cpp
+        Sparty.h
+        Item.cpp
+        Item.h
+        Board.cpp
+        Board.h)
 
 set(wxBUILD_PRECOMP OFF)
 find_package(wxWidgets COMPONENTS core base xrc html xml REQUIRED)
