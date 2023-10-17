@@ -8,7 +8,7 @@
 #ifndef PROJECT1_GAMELIB_SPARTY_H
 #define PROJECT1_GAMELIB_SPARTY_H
 
-#include "item.h"
+#include "Item.h"
 #include <wx/graphics.h>
 #include <memory>
 
