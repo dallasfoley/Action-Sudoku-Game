@@ -15,6 +15,9 @@ bool GameApp::OnInit() {
     if (!wxApp::OnInit())
         return false;
 
+    // Add image type handlers
+    wxInitAllImageHandlers();
+
     auto mainFrame = new wxFrame();
     auto gameFrame = new MainFrame();
     gameFrame->Initialize(mainFrame);
