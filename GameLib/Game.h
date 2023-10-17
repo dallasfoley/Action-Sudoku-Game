@@ -15,6 +15,7 @@ private:
     std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
 
 public:
+    Game();
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
 };
 

@@ -9,8 +9,10 @@
 // #include "Number.h"
 // #include "XRay.h"
 
-// const wstring Sparty1Image = L"images/sparty-1.png";
-// const wstring Sparty2Image = L"images/sparty-2.png";
+using namespace std;
+
+const wstring Sparty1Image = L"images/sparty-1.png";
+const wstring Sparty2Image = L"images/sparty-2.png";
 
 /**
  * Constructor for Sparty

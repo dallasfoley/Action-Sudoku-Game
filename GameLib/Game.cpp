@@ -7,7 +7,18 @@
 #include "Game.h"
 #include <memory>
 
+using namespace std;
 
+const wstring BackgroundImage = L"images/background.png";
+
+/**
+ * Constructor
+ */
+Game::Game()
+{
+    mBackground = std::make_unique<wxBitmap>(
+        BackgroundImage, wxBITMAP_TYPE_PNG);
+}
 
 /**
  * Draw the game
@@ -17,6 +28,8 @@
  */
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height)
 {
+    // Draw the background image
+
     // Determine the size of the playing area in pixels
     // This is up to you...
     int pixelWidth = 480;

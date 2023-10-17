@@ -6,7 +6,9 @@
 #include "pch.h"
 #include "Board.h"
 
-// const wstring BoardImage = L"images/board.png";
+using namespace std;
+
+const wstring BoardImage = L"images/sudoku.png";
 /**
  * Constructor
  */
