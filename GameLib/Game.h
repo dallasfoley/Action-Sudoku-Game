@@ -8,7 +8,10 @@
 
 #include "Item.h"
 
+
 class Sparty;
+class Scoreboard;
+
 
 /// class which represents the Game
 class Game {
@@ -18,6 +21,8 @@ private:
     double mYOffset;
     std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
     std::shared_ptr<Sparty> mSparty;    ///< Sparty
+    /// Scoreboard
+    std::shared_ptr<Scoreboard> mScoreboard;
 
     std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
 

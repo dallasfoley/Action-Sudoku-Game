@@ -20,7 +20,9 @@ set(SOURCE_FILES
         Level.h
         Number.cpp
         Number.h
-        ids.h)
+        ids.h
+        Scoreboard.cpp
+        Scoreboard.h)
 
 set(wxBUILD_PRECOMP OFF)
 find_package(wxWidgets COMPONENTS core base xrc html xml REQUIRED)

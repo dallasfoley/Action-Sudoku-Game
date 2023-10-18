@@ -7,6 +7,7 @@
 #include "Game.h"
 #include <memory>
 #include "Sparty.h"
+#include "Scoreboard.h"
 
 using namespace std;
 
@@ -20,6 +21,7 @@ Game::Game()
     mBackground = std::make_unique<wxBitmap>(
         BackgroundImage, wxBITMAP_TYPE_PNG);
     mSparty = make_shared<Sparty>(this);
+    //mScoreboard = make_shared<Scoreboard>();
 }
 
 /**
@@ -73,6 +75,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 
     graphics->DrawBitmap(*mBackground, 0, 0, pixelWidth, pixelHeight);
 
+
+    //mScoreboard->Draw(graphics);
     mSparty->Draw(graphics);
 
     graphics->PopState();
