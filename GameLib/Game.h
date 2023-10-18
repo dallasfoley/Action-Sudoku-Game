@@ -6,6 +6,8 @@
 #ifndef PROJECT1_GAME_H
 #define PROJECT1_GAME_H
 
+class Sparty;
+
 /// class which represents the Game
 class Game {
 private:
@@ -13,9 +15,12 @@ private:
     double mXOffset;
     double mYOffset;
     std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
-
+    std::shared_ptr<Sparty> mSparty;
 public:
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
+    Game();
+    void Update(double elapsed);
+    void OnLeftDown(wxMouseEvent & event);
 };
 
 
