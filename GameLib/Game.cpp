@@ -8,6 +8,7 @@
 #include <memory>
 #include "Sparty.h"
 #include "Scoreboard.h"
+#include "Board.h"
 
 using namespace std;
 
@@ -74,7 +75,10 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 //    graphics->PopState();
 
     graphics->DrawBitmap(*mBackground, 0, 0, pixelWidth, pixelHeight);
-
+    for (auto item: mItems)
+    {
+        //item->Draw(graphics);
+    }
 
     //mScoreboard->Draw(graphics);
     mSparty->Draw(graphics);
@@ -89,7 +93,19 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 */
 void Game::XmlItem(wxXmlNode * node)
 {
-    // Implement today probably
+    /// A pointer for the item we are loading
+    shared_ptr<Item> item;
+
+    // We have an item. What type?
+    auto type = node->GetAttribute(L"type");
+    /// Check the type ...
+
+    if (item != nullptr)
+    {
+
+        //Add(item); #needs to be implemented
+        item->XmlLoad(node);
+    }
 }
 
 /**
@@ -98,7 +114,12 @@ void Game::XmlItem(wxXmlNode * node)
  */
 void Game::Update(double elapsed)
 {
+    for (auto item : mItems)
+    {
+        //item->Update(elapsed);
+    }
     mSparty->Update(elapsed);
+
 }
 
 /**
@@ -111,3 +132,50 @@ void Game::Update(double elapsed)
      double oY = (event.GetY() - mYOffset) / mScale;
      mSparty->SetLandingPoint(oX, oY);
  }
+
+/**
+* Test an x,y click location to see if it clicked
+* on some item in the game.
+* @param x X location in pixels
+* @param y Y location in pixels
+* @returns Pointer to item we clicked on or nullptr if none.
+*/
+std::shared_ptr<Item> Game::HitTest(int x, int y)
+{
+    for (auto i = mItems.rbegin(); i != mItems.rend();  i++)
+    {
+//        if ((*i)->HitTest(x, y))
+//        {
+//            return *i;
+//        }
+    }
+
+    return nullptr;
+}
+
+/**
+* Clears the game
+*/
+void Game::Clear()
+{
+    mItems.clear();
+}
+
+
+/**
+* Restarts a level
+*/
+void Game::Restart()
+{
+    this->Clear();
+    mScoreboard->Reset();
+}
+
+/**
+ * Checks if the given solution is correct
+ * @returns boolean value of correct solution
+ */
+bool Game::CheckSolved()
+{
+    return false;
+}

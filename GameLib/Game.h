@@ -11,6 +11,7 @@
 
 class Sparty;
 class Scoreboard;
+class Board;
 
 
 /// class which represents the Game
@@ -23,6 +24,8 @@ private:
     std::shared_ptr<Sparty> mSparty;    ///< Sparty
     /// Scoreboard
     std::shared_ptr<Scoreboard> mScoreboard;
+    /// Game board
+    std::shared_ptr<Board> mBoard;
 
     std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
 
@@ -32,6 +35,10 @@ public:
     void XmlItem(wxXmlNode * node);
     void Update(double elapsed);
     void OnLeftDown(wxMouseEvent & event);
+    std::shared_ptr<Item> HitTest(int x, int y);
+    void Clear();
+    void Restart();
+    bool CheckSolved();
 };
 
 
