@@ -72,6 +72,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     graphics->DrawBitmap(*mBackground, 0, 0, pixelWidth, pixelHeight);
 
     mSparty->Draw(graphics);
+
+    graphics->PopState();
+
 }
 
 

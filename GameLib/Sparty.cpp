@@ -8,8 +8,8 @@
 #include "Sparty.h"
 #include "Game.h"
 #include "cmath"
-// #include "Number.h"
-// #include "XRay.h"
+#include "Number.h"
+#include "XRay.h"
 
 using namespace std;
 
@@ -110,6 +110,7 @@ void Sparty::SetLandingPoint(double x, double y)
     mDestinationX = x - 60;
     mDestinationY = y - 70;
 }
+
 // /**
 //  * Set the Sparty character's launching point
 //  * @param x The x coordinate of the launching point
