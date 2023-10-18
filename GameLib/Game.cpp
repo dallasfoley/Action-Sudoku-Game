@@ -19,6 +19,7 @@ Game::Game()
 {
     mBackground = std::make_unique<wxBitmap>(
         BackgroundImage, wxBITMAP_TYPE_PNG);
+    mSparty = make_shared<Sparty>(this);
 }
 
 /**
