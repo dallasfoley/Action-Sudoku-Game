@@ -37,6 +37,9 @@ private:
     bool isCompleted;                                 /// If the current level is completed
     bool isIncorrect;                                 /// If player's solution is incorrect
 
+    std::vector<std::vector<int>> currentSolution;
+    std::vector<std::vector<int>> initialSolution;
+
 public:
     /**
       * Parses the XML file specified by the path and loads all configurations, declarations, and items.
@@ -67,6 +70,8 @@ public:
       * Places digits to their correct positions based on the solution.
      */
     void moveDigitsToCorrectLocations();
+
+
 };
 
 # endif //PROJECT1_LEVEL_H

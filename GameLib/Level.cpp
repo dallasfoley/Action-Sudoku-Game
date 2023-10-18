@@ -5,33 +5,52 @@
 
 #include "pch.h"
 #include "Level.h"
+#include <iostream>
 
-void Level::loadFromXML(const std::string& path)
-{
-    // Implementation for parsing XML and loading configurations
-    // Requires integrating with an XML parsing library
+void Level::loadFromXML(const std::string& path){
+    // This is for implementation for parsing XML and loading configurations
+    // Pretty sure this requires integrating with an XML parsing library
 }
+
 
 bool Level::checkCompletion()
 {
-    // Implementation to check if the current level is completed correctly
-    return false; // Placeholder
+
+
+    if (currentSolution == gameSolution) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-std::pair<int, int> Level::getItemPositionInPixels(int col, int row)
-{
-    // Convert col, row to actual pixel position
+std::pair<int, int> Level::getItemPositionInPixels(int col, int row) {
     int x = col * tileWidth;
-    int y = row * tileHeight;
+    // The y coordinate is calculated differently because the origin is at the top left corner, and we're given the bottom-left corner
+    int y = (height - row - 1) * tileHeight; // for this im assuming height is the height of the game area in tiles, not pixels
     return {x, y};
 }
 
-void Level::restartLevel()
-{
-    // Implementation to reset the level to its initial configuration
+
+void Level::restartLevel() {
+    // Reset the player's solution
+    currentSolution = initialSolution;  // or use clear(), assign()
+
+    // Reset item positions if they're supposed to move during the game (i dont know how to implement)
+
+
+    // Reset any other game state (i dont know how to implement)
+
 }
 
-void Level::moveDigitsToCorrectLocations()
-{
-    // Implementation to place all available digits to their correct positions
+
+void Level::moveDigitsToCorrectLocations() {
+    // This is for implementation for moving the digits to their correct locations
+
+    for (int row = 0; row < gameSolution.size(); ++row) {
+        for (int col = 0; col < gameSolution[row].size(); ++col) {
+            // Set the position of the digit at (row, col) to match the solution
+            // The specifics depend on how you're storing the digits and their positions
+        }
+    }
 }
