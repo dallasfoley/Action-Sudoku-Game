@@ -12,6 +12,16 @@ const int FrameDuration = 30;
 
 void GameView::OnPaint(wxPaintEvent& event)
 {
+
+    // Calc (short for calculate) the time that has elapsed
+    // since the last call to OnPaint
+    auto newTime = mStopWatch.Time();
+    auto elapsed = (double)(newTime - mTime) * 0.001;
+    mTime = newTime;
+
+    mGame.Update(elapsed);
+
+
     // Create a double-buffered display context
     wxAutoBufferedPaintDC dc(this);
 
@@ -66,7 +76,16 @@ void GameView::Initialize(wxFrame *parent)
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
     Bind(wxEVT_MOTION, &GameView::OnMouseMove, this);
+    Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
 
     mStopWatch.Start();
 
+}
+
+/**
+ * Handles click event globally
+ * @param event mouse event (click)
+ */
+void GameView::OnLeftDown(wxMouseEvent & event) {
+    mGame.OnLeftDown(event);
 }

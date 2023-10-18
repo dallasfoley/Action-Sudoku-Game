@@ -19,6 +19,7 @@ public:
     void Initialize(wxFrame* parent);
     void OnTimer(wxTimerEvent & event);
     void OnMouseMove(wxMouseEvent &event);
+    void OnLeftDown(wxMouseEvent & event);
 };
 
 

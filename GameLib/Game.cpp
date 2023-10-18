@@ -6,6 +6,19 @@
 #include "pch.h"
 #include "Game.h"
 #include <memory>
+#include "Sparty.h"
+
+using namespace std;
+
+/**
+ * Constructor for Game class
+ */
+Game::Game()
+{
+    mBackground = make_unique<wxBitmap>(
+            L"images/background.png", wxBITMAP_TYPE_ANY);
+    mSparty = make_shared<Sparty>(this);
+}
 
 using namespace std;
 
@@ -32,8 +45,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 
     // Determine the size of the playing area in pixels
     // This is up to you...
-    int pixelWidth = 480;
-    int pixelHeight = 640;
+    int pixelWidth = 960;
+    int pixelHeight = 720;
 
     //
     // Automatic Scaling
@@ -62,11 +75,35 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     //
     // Drawing a rectangle that is the playing area size
     //
-    wxBrush background(*wxRED);
+//    wxBrush background(*wxRED);
+//
+//    graphics->SetBrush(background);
+//    graphics->DrawRectangle(0, 0, pixelWidth, pixelHeight);
+//
+//    graphics->PopState();
 
-    graphics->SetBrush(background);
-    graphics->DrawRectangle(0, 0, pixelWidth, pixelHeight);
+    graphics->DrawBitmap(*mBackground, 0, 0, pixelWidth, pixelHeight);
 
-    graphics->PopState();
-
+    mSparty->Draw(graphics);
 }
+
+
+/**
+ * Handles updates for animation
+ * @param elapsed time since the last update
+ */
+void Game::Update(double elapsed)
+{
+    mSparty->Update(elapsed);
+}
+
+/**
+ * Handles click event with respect to Sparty
+ * @param event mouse event (click)
+ */
+ void Game::OnLeftDown(wxMouseEvent &event)
+ {
+     double oX = (event.GetX() - mXOffset) / mScale;
+     double oY = (event.GetY() - mYOffset) / mScale;
+     mSparty->SetLandingPoint(oX, oY);
+ }
