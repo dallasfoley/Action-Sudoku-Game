@@ -2,17 +2,107 @@
  * @file Item.h
  * @author rohch
  *
- *
+ * This file contains the declaration of the Item class
+ * which represents an item in the game
  */
 
 #ifndef PROJECT1_GAMELIB_ITEM_H
 #define PROJECT1_GAMELIB_ITEM_H
 
+
+#include <memory>
+
+
+class Game;
+
+/**
+ *
+ * Base class for items in the Game
+ */
 class Item
 {
 private:
 
+    Game *mGame;
+
+    // Item location in the game;
+
+    double  mX = 0;     ///< X location for the center of the item
+    double  mY = 0;     ///< Y location for the center of the item
+
+    /// The underlying fish image
+    std::unique_ptr<wxImage> mItemImage;
+
+    /// The bitmap we can display for this fish
+    std::unique_ptr<wxGraphicsBitmap> mItemBitmap;
+
+    bool mMirror = false;   ///< True mirrors the item image
+
+protected:
+    Item(Game* game, const std::wstring &filename);
+
 public:
+
+    /// Default constructor (disabled)
+    Item() = delete;
+
+    /// Copy constructor (disabled)
+    Item(const Item &) = delete;
+
+    ~Item();
+
+    /**
+     * The X location of the item
+     * @returns X location in pixels
+     */
+    double GetX() const { return mX; }
+
+    /**
+     * The Y location of the item
+     * @returns Y location in pixels
+     */
+    double GetY() const { return mY; }
+
+    /**
+     * Set the item location
+     * @param x X location in pixels
+     * @param y Y location in pixels
+     */
+    virtual void SetLocation(double x, double y) { mX = x; mY = y; }
+
+    virtual void Draw(wxDC *dc);
+
+    virtual bool HitTest(int x, int y);
+
+    virtual wxXmlNode *XmlSave(wxXmlNode *node);
+
+    /**
+     * Get the pointer to the Aquarium object
+     * @return Pointer to Aquarium object
+     */
+    Game *GetGame() { return mGame;  }
+
+    virtual void XmlLoad(wxXmlNode *node);
+
+    /**
+     * Handle updates for animation
+     * @param elapsed The time since the last update
+     */
+    virtual void Update(double elapsed) {}
+
+    void SetMirror(bool m);
+
+    /**
+     * Get the width of the bitmap image
+     * @return Bitmap width in pixels
+     */
+    int GetWidth() const { return mItemImage->GetWidth(); }
+
+    /**
+     * Get the height of the bitmap image
+     * @return Bitmap height in pixels
+     */
+    int GetHeight() const { return mItemImage->GetHeight(); }
 
 };
 
