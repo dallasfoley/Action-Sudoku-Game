@@ -13,7 +13,11 @@ set(SOURCE_FILES
         Item.cpp
         Item.h
         Board.cpp
-        Board.h)
+        Board.h
+        Level.cpp
+        Level.h
+        Number.cpp
+        Number.h)
 
 set(wxBUILD_PRECOMP OFF)
 find_package(wxWidgets COMPONENTS core base xrc html xml REQUIRED)
