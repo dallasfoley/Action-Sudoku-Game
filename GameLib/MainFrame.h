@@ -17,6 +17,7 @@ public:
     void Initialize(wxFrame* parent);
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
+
 };
 
 # endif //PROJECT1_MAINFRAME_H

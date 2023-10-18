@@ -19,8 +19,7 @@ set(SOURCE_FILES
         Level.cpp
         Level.h
         Number.cpp
-        Number.h
-)
+        Number.h)
 
 set(wxBUILD_PRECOMP OFF)
 find_package(wxWidgets COMPONENTS core base xrc html xml REQUIRED)

@@ -67,3 +67,4 @@ void MainFrame::OnAbout(wxCommandEvent& event)
                  wxOK,
                  this);
 }
+

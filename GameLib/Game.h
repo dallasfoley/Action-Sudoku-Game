@@ -17,16 +17,14 @@ private:
     double mXOffset;
     double mYOffset;
     std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
-    std::shared_ptr<Sparty> mSparty;
+    std::shared_ptr<Sparty> mSparty;    ///< Sparty
 
-
-    std::vector<std::shared_ptr<Item>> mItems;
-
-    void XmlItem(wxXmlNode *node);
+    std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
 
 public:
-    Game();
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
+    Game();
+    void XmlItem(wxXmlNode * node);
     void Update(double elapsed);
     void OnLeftDown(wxMouseEvent & event);
 };

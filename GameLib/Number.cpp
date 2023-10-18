@@ -5,6 +5,9 @@
 
 #include "pch.h"
 #include "Number.h"
+#include <string>
+
+//const std::string[9] images = {L"0r.png", L"1r.png", L"2r.png", L"3r.png", L"4r.png", L"5r.png", L"6r.png", L"7r.png", L"8r.png"};
 
 void Number::moveToPosition(int x, int y)
 {

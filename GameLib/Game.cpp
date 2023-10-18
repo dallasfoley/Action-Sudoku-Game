@@ -32,7 +32,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // Draw the background image
 
     // Determine the size of the playing area in pixels
-    // This is up to you...
+    // Subject to change
     int pixelWidth = 960;
     int pixelHeight = 720;
 
@@ -78,6 +78,14 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 
 }
 
+/**
+* Handle a node of type item.
+ * @param node XML node
+*/
+void Game::XmlItem(wxXmlNode * node)
+{
+    // Implement today probably
+}
 
 /**
  * Handles updates for animation
