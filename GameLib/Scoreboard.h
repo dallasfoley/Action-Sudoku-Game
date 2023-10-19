@@ -12,10 +12,11 @@
 class Scoreboard
 {
 private:
-    double mDuration;
+    ///current game context
+
+    double mDuration = 0;
 public:
-    Scoreboard();
-    ~Scoreboard();
+
     void Update(double elapsed);
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
     void Reset();

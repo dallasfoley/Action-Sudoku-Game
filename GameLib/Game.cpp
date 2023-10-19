@@ -80,7 +80,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         //item->Draw(graphics);
     }
 
-    //mScoreboard->Draw(graphics);
+    mScoreboard.Draw(graphics);
     mSparty->Draw(graphics);
 
     graphics->PopState();
@@ -168,7 +168,7 @@ void Game::Clear()
 void Game::Restart()
 {
     this->Clear();
-    mScoreboard->Reset();
+    mScoreboard.Reset();
 }
 
 /**

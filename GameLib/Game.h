@@ -7,10 +7,10 @@
 #define PROJECT1_GAME_H
 
 #include "Item.h"
-
+#include "Scoreboard.h"
 
 class Sparty;
-class Scoreboard;
+
 class Board;
 
 
@@ -23,7 +23,7 @@ private:
     std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
     std::shared_ptr<Sparty> mSparty;    ///< Sparty
     /// Scoreboard
-    std::shared_ptr<Scoreboard> mScoreboard;
+    Scoreboard mScoreboard;
     /// Game board
     std::shared_ptr<Board> mBoard;
 

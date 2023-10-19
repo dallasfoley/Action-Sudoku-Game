@@ -16,13 +16,7 @@ const wxPoint ScoreboardTopLeft(10, 10);
 const int ScoreboardTopLeftX(10);
 const int ScoreboardTopLeftY(10);
 
-/**
- * Scoreboard Constructor
- */
-Scoreboard::Scoreboard()
-{
-    mDuration = 0;
-}
+
 
 /**
  * Handle updates in time of our scoreboard
