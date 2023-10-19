@@ -9,6 +9,7 @@
 #include "Sparty.h"
 #include "Scoreboard.h"
 #include "Board.h"
+#include "Number.h"
 
 using namespace std;
 
@@ -22,6 +23,8 @@ Game::Game()
     mBackground = std::make_unique<wxBitmap>(
         BackgroundImage, wxBITMAP_TYPE_PNG);
     mSparty = make_shared<Sparty>(this);
+    auto number = std::make_shared<Number>(this, 4, true);
+    mItems.push_back(number);
     //mScoreboard = make_shared<Scoreboard>();
 }
 
@@ -77,7 +80,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     graphics->DrawBitmap(*mBackground, 0, 0, pixelWidth, pixelHeight);
     for (auto item: mItems)
     {
-        //item->Draw(graphics);
+        item->Draw(graphics);
     }
 
     mScoreboard.Draw(graphics);
@@ -104,7 +107,7 @@ void Game::XmlItem(wxXmlNode * node)
     {
 
         //Add(item); #needs to be implemented
-        item->XmlLoad(node);
+//        item->XmlLoad(node);
     }
 }
 
@@ -118,6 +121,7 @@ void Game::Update(double elapsed)
     {
         //item->Update(elapsed);
     }
+    mScoreboard.Update(elapsed);
     mSparty->Update(elapsed);
 
 }
@@ -126,12 +130,12 @@ void Game::Update(double elapsed)
  * Handles click event with respect to Sparty
  * @param event mouse event (click)
  */
- void Game::OnLeftDown(wxMouseEvent &event)
- {
-     double oX = (event.GetX() - mXOffset) / mScale;
-     double oY = (event.GetY() - mYOffset) / mScale;
-     mSparty->SetLandingPoint(oX, oY);
- }
+void Game::OnLeftDown(wxMouseEvent &event)
+{
+    double oX = (event.GetX() - mXOffset) / mScale;
+    double oY = (event.GetY() - mYOffset) / mScale;
+    mSparty->SetLandingPoint(oX, oY);
+}
 
 /**
 * Test an x,y click location to see if it clicked

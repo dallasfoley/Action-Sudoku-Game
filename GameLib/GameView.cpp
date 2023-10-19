@@ -70,7 +70,10 @@ void GameView::Initialize(wxFrame *parent)
     mTimer.SetOwner(this);
     mTimer.Start(FrameDuration);
 
-    Create(parent, wxID_ANY);
+    Create(parent, wxID_ANY,
+           wxDefaultPosition, wxDefaultSize,
+           wxFULL_REPAINT_ON_RESIZE);
+
     SetBackgroundStyle(wxBG_STYLE_PAINT);
 
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);

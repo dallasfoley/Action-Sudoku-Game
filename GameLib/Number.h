@@ -1,7 +1,7 @@
 /**
   * @file Number.h
   * @author Chirag Solanki
-  *
+  * @author Jon Price
   * The Number class represents an individual digit within the Sudoku game.
  */
 
@@ -16,42 +16,46 @@
 #include <utility>
 
 
-class Number
+class Number : public Item
 {
 private:
-    int value;                                   /// The actual digit value ranging from 0 to 8
-    bool isGiven;                                /// Indicates if this number is a given
-    std::pair<int, int> position;                /// Current position (x, y) of the number.
-    bool isInSpartyStomach;                      /// Indicates if this number is inside sparty's stomach
-    bool isInContainer;                          /// Indicates if this number is inside a container
+    int mValue;                                   /// The actual digit mValue ranging from 0 to 8
+    bool mIsGiven;                                /// Indicates if this number is a given
+    std::pair<int, int> mPosition;                /// Current mPosition (x, y) of the number.
+    bool mIsInSpartyStomach = false;              /// Indicates if this number is inside sparty's stomach
+    bool mIsInContainer{};                          /// Indicates if this number is inside a container
 
 public:
+
+    Number(Game * game, int number, bool given);
+
     /**
-      * Moves the number to a specified position on the board.
+      * Moves the number to a specified mPosition on the board.
       * @param x The x-coordinate.
       * @param y The y-coordinate.
      */
-    void moveToPosition(int x, int y);
+    void MoveToPosition(int x, int y);
 
     /**
       * Marks the number as being inside Sparty's stomach.
      */
-    void eatenBySparty();
+    void EatenBySparty();
+
 
     /**
       * Removes the number from Sparty's stomach.
      */
-    void regurgitatedBySparty();
+    void RegurgitatedBySparty();
 
     /**
       * Marks the number as being inside a container.
      */
-    void placeInContainer();
+    void PlaceInContainer();
 
     /**
       * Removes the number from the container.
      */
-    void releaseFromContainer();
+    void ReleaseFromContainer();
 };
 
 # endif //PROJECT1_NUMBER_H

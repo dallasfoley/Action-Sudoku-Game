@@ -27,6 +27,8 @@ private:
     /// Game board
     std::shared_ptr<Board> mBoard;
 
+
+
     std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
 
 public:

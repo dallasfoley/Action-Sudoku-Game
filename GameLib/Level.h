@@ -54,7 +54,7 @@ public:
     bool checkCompletion();
 
     /**
-      * Converts col, row from the XML to the actual pixel position on the screen.
+      * Converts col, row from the XML to the actual pixel mPosition on the screen.
       * @param col The column index.
       * @param row The row index.
       * @return A pair representing the pixel coordinates.

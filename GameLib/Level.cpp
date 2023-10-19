@@ -17,11 +17,7 @@ bool Level::checkCompletion()
 {
 
 
-    if (currentSolution == gameSolution) {
-        return true;
-    } else {
-        return false;
-    }
+    return currentSolution == gameSolution;
 }
 
 std::pair<int, int> Level::getItemPositionInPixels(int col, int row) {
@@ -49,7 +45,7 @@ void Level::moveDigitsToCorrectLocations() {
 
     for (int row = 0; row < gameSolution.size(); ++row) {
         for (int col = 0; col < gameSolution[row].size(); ++col) {
-            // Set the position of the digit at (row, col) to match the solution
+            // Set the mPosition of the digit at (row, col) to match the solution
             // The specifics depend on how you're storing the digits and their positions
         }
     }

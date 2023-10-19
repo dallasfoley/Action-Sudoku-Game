@@ -1,7 +1,7 @@
 /**
  * @file Item.h
  * @author rohch
- *
+ * @author Jon Price
  * This file contains the declaration of the Item class
  * which represents an item in the game
  */
@@ -30,14 +30,11 @@ private:
     double  mX = 0;     ///< X location for the center of the item
     double  mY = 0;     ///< Y location for the center of the item
 
-    /// The underlying fish image
+    /// The underlying item image
     std::unique_ptr<wxImage> mItemImage;
 
-    /// The bitmap we can display for this fish
-    std::unique_ptr<wxGraphicsBitmap> mItemBitmap;
-
-    bool mMirror = false;   ///< True mirrors the item image
-
+    /// The bitmap we can display for this item
+    std::unique_ptr<wxBitmap> mItemBitmap;
 protected:
     Item(Game* game, const std::wstring &filename);
 
@@ -49,7 +46,7 @@ public:
     /// Copy constructor (disabled)
     Item(const Item &) = delete;
 
-    ~Item();
+//    ~Item();
 
     /**
      * The X location of the item
@@ -70,11 +67,11 @@ public:
      */
     virtual void SetLocation(double x, double y) { mX = x; mY = y; }
 
-    virtual void Draw(wxDC *dc);
+    virtual void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
-    virtual bool HitTest(int x, int y);
+//    virtual bool HitTest(int x, int y);
 
-    virtual wxXmlNode *XmlSave(wxXmlNode *node);
+//    virtual wxXmlNode *XmlSave(wxXmlNode *node);
 
     /**
      * Get the pointer to the Aquarium object
@@ -82,7 +79,7 @@ public:
      */
     Game *GetGame() { return mGame;  }
 
-    virtual void XmlLoad(wxXmlNode *node);
+//    virtual void XmlLoad(wxXmlNode *node);
 
     /**
      * Handle updates for animation
@@ -90,7 +87,6 @@ public:
      */
     virtual void Update(double elapsed) {}
 
-    void SetMirror(bool m);
 
     /**
      * Get the width of the bitmap image

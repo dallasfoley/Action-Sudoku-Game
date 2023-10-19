@@ -14,7 +14,7 @@
 class MainFrame : public wxFrame
 {
 public:
-    void Initialize(wxFrame* parent);
+    void Initialize();
     void OnExit(wxCommandEvent& event);
     void OnAbout(wxCommandEvent& event);
 

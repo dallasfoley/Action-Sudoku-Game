@@ -41,10 +41,10 @@ private:
     /// The launching point for the Sparty
     // to be implemented
 
-    /// Current x position of Sparty
+    /// Current x mPosition of Sparty
     double mX = 200;
 
-    /// Current y position of Sparty
+    /// Current y mPosition of Sparty
     double mY = 200;
 
     /// The destination X coordinate

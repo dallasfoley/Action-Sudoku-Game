@@ -1,39 +1,57 @@
 /**
   * @file Number.cpp
   * @author Chirag Solanki
+  * @author Jon Price
  */
 
 #include "pch.h"
 #include "Number.h"
-#include <string>
 
-//const std::string[9] images = {L"0r.png", L"1r.png", L"2r.png", L"3r.png", L"4r.png", L"5r.png", L"6r.png", L"7r.png", L"8r.png"};
+using namespace std;
 
-void Number::moveToPosition(int x, int y)
+// Array of potential numbers.
+const wstring RedImages[] = {L"images/0r.png", L"images/1r.png", L"images/2r.png", L"images/3r.png", L"images/4r.png", L"images/5r.png", L"images/6r.png", L"images/7r.png", L"images/8r.png"};
+const wstring BlueImages[] = {L"images/0b.png", L"images/1b.png", L"images/2b.png", L"images/3b.png", L"images/4b.png", L"images/5b.png", L"images/6b.png", L"images/7b.png", L"images/8b.png"};
+void Number::MoveToPosition(int x, int y)
 {
-    position = {x, y};
+    mPosition = {x, y};
 }
 
-void Number::eatenBySparty()
+
+
+//  given? BlueImages[num] : RedImages[num]
+/**
+ * Constructor
+ * @param num value of this Number
+ */
+Number::Number(Game * game, int num, bool given)  : Item(game, given? BlueImages[num] : RedImages[num])
 {
-    isInSpartyStomach = true;
-    // Set position to undefined or a special value if required.
+    mValue = num;
+    mIsGiven = given;
+    mIsInContainer = false;
+
 }
 
-void Number::regurgitatedBySparty()
+void Number::EatenBySparty()
 {
-    isInSpartyStomach = false;
-    // Update position or other attributes if required.
+    mIsInSpartyStomach = true;
+    // Set mPosition to undefined or a special mValue if required.
 }
 
-void Number::placeInContainer()
+void Number::RegurgitatedBySparty()
 {
-    isInContainer = true;
-    // Update position or other attributes if required.
+    mIsInSpartyStomach = false;
+    // Update mPosition or other attributes if required.
 }
 
-void Number::releaseFromContainer()
+void Number::PlaceInContainer()
 {
-    isInContainer = false;
-    // Update position or other attributes if required.
+    mIsInContainer = true;
+    // Update mPosition or other attributes if required.
+}
+
+void Number::ReleaseFromContainer()
+{
+    mIsInContainer = false;
+    // Update mPosition or other attributes if required.
 }

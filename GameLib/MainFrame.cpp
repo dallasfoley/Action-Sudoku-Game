@@ -12,15 +12,10 @@
 /**
  * Initialize the MainFrame window.
  */
-void MainFrame::Initialize(wxFrame * parent)
+void MainFrame::Initialize()
 {
 
     Create(nullptr, wxID_ANY, L"Sudoku", wxDefaultPosition,  wxSize( 1000,800 ));
-
-
-//    Create(parent, wxID_ANY, L"Game",
-//           wxDefaultPosition, wxDefaultSize,
-//           wxFULL_REPAINT_ON_RESIZE);
 
     // Create a sizer that will lay out child windows vertically
     // one above each other
