@@ -6,7 +6,9 @@
 #ifndef PROJECT1_DECLARATION_H
 #define PROJECT1_DECLARATION_H
 
-
+/**
+ * Base class for declarations within XML
+ */
 class Declaration {
 private:
     std::wstring mID;

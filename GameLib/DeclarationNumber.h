@@ -8,6 +8,9 @@
 
 #include "Declaration.h"
 
+/**
+ * Base class for number declarations
+ */
 class DeclarationNumber : public Declaration{
 private:
     bool mGiven; ///< whether this declaration is for a given or for a digit

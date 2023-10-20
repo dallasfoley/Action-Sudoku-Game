@@ -10,6 +10,10 @@
 #include "Item.h"
 #include "Game.h"
 
+/**
+ *
+ * Base class for containers in the game
+ */
 class Container : public Item
 {
 private:

@@ -10,7 +10,9 @@
 
 #include "Item.h"
 
-
+/**
+ * Base class for board in the Game
+ */
 class Board
 {
 private:

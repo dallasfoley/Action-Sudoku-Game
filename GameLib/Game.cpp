@@ -94,7 +94,26 @@ void Game::XmlItem(wxXmlNode * node)
 
     // We have an item. What type?
     auto type = node->GetAttribute(L"type");
-    /// Check the type ...
+    if (type == L"given")
+    {
+//        item = make_shared<>(this);
+    }
+    if (type == L"digit")
+    {
+//        item = make_shared<>(this);
+    }
+    if (type == L"background")
+    {
+//        item = make_shared<>(this);
+    }
+    if (type == L"sparty")
+    {
+//        item = make_shared<>(this);
+    }
+    if (type == L"xray")
+    {
+//        item = make_shared<>(this);
+    }
 
     if (item != nullptr)
     {
@@ -220,6 +239,22 @@ void Game::Load(const wxString &filename)
     {
         auto name = child->GetName();
         if(name == L"background")
+        {
+            XmlItem(child);
+        }
+        if(name == L"given")
+        {
+            XmlItem(child);
+        }
+        if(name == L"digit")
+        {
+            XmlItem(child);
+        }
+        if(name == L"sparty")
+        {
+            XmlItem(child);
+        }
+        if(name == L"xray")
         {
             XmlItem(child);
         }

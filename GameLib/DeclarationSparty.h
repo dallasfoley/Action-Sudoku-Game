@@ -7,6 +7,10 @@
 #define PROJECT1_DECLARATIONSPARTY_H
 
 #include "Declaration.h"
+
+/**
+ * Decleration class for sparty
+ */
 class DeclarationSparty : public Declaration {
 private:
     std::wstring mHeadImage;

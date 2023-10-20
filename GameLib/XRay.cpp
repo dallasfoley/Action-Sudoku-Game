@@ -13,6 +13,7 @@ const wstring xRayImage = L"images/xray.png";
 
 /**
  * Constructor for XRay
+ * @param game
  */
 XRay::XRay(Game *game)
 {
