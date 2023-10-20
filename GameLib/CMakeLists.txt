@@ -26,7 +26,9 @@ set(SOURCE_FILES
         Declaration.cpp
         Declaration.h
         Wildcard.cpp
-        Wildcard.h)
+        Wildcard.h
+        Container.cpp
+        Container.h)
 
 
 set(wxBUILD_PRECOMP OFF)
