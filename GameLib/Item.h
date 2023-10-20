@@ -38,7 +38,16 @@ private:
 protected:
     Item(Game* game, const std::wstring &filename);
 
+
+
 public:
+
+    /**
+     * Set the item location
+     * @param x X location in pixels
+     * @param y Y location in pixels
+     */
+    virtual void SetLocation(double x, double y) { mX = x; mY = y; }
 
     /// Default constructor (disabled)
     Item() = delete;
@@ -60,26 +69,21 @@ public:
      */
     double GetY() const { return mY; }
 
-    /**
-     * Set the item location
-     * @param x X location in pixels
-     * @param y Y location in pixels
-     */
-    virtual void SetLocation(double x, double y) { mX = x; mY = y; }
+
 
     virtual void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
-//    virtual bool HitTest(int x, int y);
+    virtual bool HitTest(int x, int y);
 
 //    virtual wxXmlNode *XmlSave(wxXmlNode *node);
 
     /**
-     * Get the pointer to the Aquarium object
-     * @return Pointer to Aquarium object
+     * Get the pointer to the Game object
+     * @return Pointer to Game object
      */
     Game *GetGame() { return mGame;  }
 
-//    virtual void XmlLoad(wxXmlNode *node);
+    virtual void XmlLoad(wxXmlNode *node) {};
 
     /**
      * Handle updates for animation

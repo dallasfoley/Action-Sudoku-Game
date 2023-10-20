@@ -67,16 +67,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     //
     // INSERT YOUR DRAWING CODE HERE
 
-    //
-    // Drawing a rectangle that is the playing area size
-    //
-//    wxBrush background(*wxRED);
-//
-//    graphics->SetBrush(background);
-//    graphics->DrawRectangle(0, 0, pixelWidth, pixelHeight);
-//
-//    graphics->PopState();
-
     graphics->DrawBitmap(*mBackground, 0, 0, pixelWidth, pixelHeight);
     for (auto item: mItems)
     {
@@ -107,7 +97,7 @@ void Game::XmlItem(wxXmlNode * node)
     {
 
         //Add(item); #needs to be implemented
-//        item->XmlLoad(node);
+        item->XmlLoad(node);
     }
 }
 
@@ -148,10 +138,10 @@ std::shared_ptr<Item> Game::HitTest(int x, int y)
 {
     for (auto i = mItems.rbegin(); i != mItems.rend();  i++)
     {
-//        if ((*i)->HitTest(x, y))
-//        {
-//            return *i;
-//        }
+        if ((*i)->HitTest(x, y))
+        {
+            return *i;
+        }
     }
 
     return nullptr;
