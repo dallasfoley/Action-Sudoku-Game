@@ -6,6 +6,7 @@
 
 #include "pch.h"
 #include "Sparty.h"
+#include "Game.h"
 #include "cmath"
 #include "Number.h"
 #include "XRay.h"
@@ -15,6 +16,8 @@ using namespace std;
 const wstring SpartyHead1 = L"images/sparty-1.png";
 const wstring SpartyJaw1 = L"images/sparty-2.png";
 
+/// Rotation rate in radians per second
+const double RotationRate = 6;
 /**
  * Constructor for Sparty
  */
@@ -67,6 +70,7 @@ Sparty::~Sparty()
  */
 void Sparty::Update(double elapsed)
 {
+    mRotation += RotationRate * elapsed;
     if(mX != mDestinationX || mY != mDestinationY)
     {
         double currentSpeed = mMaxSpeed;
@@ -110,28 +114,31 @@ void Sparty::SetLandingPoint(double x, double y)
     mDestinationY = y - 70;
 }
 
+// /**
+//  * Set the Sparty character's launching point
+//  * @param x The x coordinate of the launching point
+//  * @param y The y coordinate of the launching point
+//  */
+// void Sparty::SetLaunchingPoint(double x, double y)
+// {
+//
+// }
 
-/**
- * Handle the Sparty's eating action
- * Sparty eats the number that he is currently on
- * The mouth image rotates around the pivot point
- */
-void Sparty::Eat(std::shared_ptr<wxGraphicsContext> graphics)
-{
-    // to be implemented
-    // rotate the mouth image around the pivot point
-    // update the number that Sparty is on
-    graphics->PushState();
+// /**
+//  * if the Sparty character is in motion
+//  */
+// bool Sparty::InMotion()
+// {
+//     // to be implemented
+// }
 
-    graphics->Translate(mMouthPivot.x, mMouthPivot.y);
-    graphics->Rotate(mMouthAngle);
-    graphics->Translate(-mMouthPivot.x, -mMouthPivot.y);
-
-    graphics->DrawBitmap(*mMouthBitmap, 0, 0, mMouthBitmap->GetWidth(), mMouthBitmap->GetHeight());
-
-    graphics->PopState();
-
-}
+// /**
+//  * Implement the Sparty character's eating action
+//  */
+// void Sparty::Eat()
+// {
+//     // to be implemented
+// }
 
 // /**
 //  * Implement the vomiting action
@@ -142,3 +149,20 @@ void Sparty::Eat(std::shared_ptr<wxGraphicsContext> graphics)
 // }
 
 
+void Sparty::Headbutt(std::shared_ptr<wxGraphicsContext> graphics)
+{
+    double wid = mHeadBitmap->GetWidth();
+    double hit = mHeadBitmap->GetHeight();
+    double wid1 = mMouthBitmap->GetWidth();
+    double hit1 = mMouthBitmap->GetHeight();
+    graphics->PushState();  // Save the graphics state
+    graphics->Rotate(mRotation);
+    graphics->DrawBitmap(*mHeadBitmap, (mX),(mY),wid,hit);
+    graphics->DrawBitmap(*mMouthBitmap, (mX),(mY),wid1,hit1);
+    graphics->PopState();
+    graphics->PushState();  // Save the graphics state
+    graphics->Rotate(-mRotation);
+    graphics->DrawBitmap(*mHeadBitmap, (mX),(mY),wid,hit);
+    graphics->DrawBitmap(*mMouthBitmap, (mX),(mY),wid1,hit1);
+    graphics->PopState();
+}
