@@ -42,7 +42,7 @@ void Scoreboard::Reset()
  */
 void Scoreboard::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
-    wxFont font(wxSize(0, 30),
+    wxFont font(wxSize(10, 60),
                 wxFONTFAMILY_SWISS,
                 wxFONTSTYLE_NORMAL,
                 wxFONTWEIGHT_BOLD);
@@ -53,9 +53,13 @@ void Scoreboard::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     {
         int mins = mDuration / 60;
         int secs = (int)mDuration % 60;
-        wstringstream ws;
-        ws << mins << " : " << secs;
-        graphics->DrawText(ws.str(), ScoreboardTopLeftX, ScoreboardTopLeftY);
+        ostringstream os;
+        os << mins << " : ";
+        if (secs < 10)
+            os << '0' << secs;
+        else
+            os << secs;
+        graphics->DrawText(os.str(), ScoreboardTopLeftX, ScoreboardTopLeftY);
 
     }
 

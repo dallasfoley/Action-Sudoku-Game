@@ -17,6 +17,8 @@ class Board;
 /// class which represents the Game
 class Game {
 private:
+    /// Current level
+    int mLevel = 1;
     double mScale; ///< current scaling of the window
     double mXOffset;
     double mYOffset;
@@ -32,8 +34,9 @@ private:
     std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
 
 public:
-    void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
     Game();
+    void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
+    int GetLevel() {return mLevel;}
     void XmlItem(wxXmlNode * node);
     void Update(double elapsed);
     void OnLeftDown(wxMouseEvent & event);
