@@ -7,9 +7,9 @@
 #include "Game.h"
 #include <memory>
 #include "Sparty.h"
-#include "Scoreboard.h"
 #include "Board.h"
 #include "Number.h"
+#include "XRay.h"
 
 using namespace std;
 
@@ -23,6 +23,7 @@ Game::Game()
     mBackground = std::make_unique<wxBitmap>(
         BackgroundImage, wxBITMAP_TYPE_PNG);
     mSparty = make_shared<Sparty>(this);
+    mXRay = make_shared<XRay>(this);
     auto number = std::make_shared<Number>(this, 4, true);
     mItems.push_back(number);
     //mScoreboard = make_shared<Scoreboard>();
@@ -37,6 +38,7 @@ Game::Game()
 void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height)
 {
     // Draw the background image
+
 
     // Determine the size of the playing area in pixels
     // Subject to change
@@ -75,6 +77,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 
     mScoreboard.Draw(graphics);
     mSparty->Draw(graphics);
+    mXRay->Draw(graphics);
 
     graphics->PopState();
 
@@ -125,6 +128,19 @@ void Game::OnLeftDown(wxMouseEvent &event)
     double oX = (event.GetX() - mXOffset) / mScale;
     double oY = (event.GetY() - mYOffset) / mScale;
     mSparty->SetLandingPoint(oX, oY);
+}
+
+/**
+ * Handles key press event for Sparty
+ * When space is pressed, Sparty eats a number
+ * @param event key press event
+ */
+void Game::OnKeyDown(wxKeyEvent &event)
+{
+    if (event.GetKeyCode() == WXK_SPACE)
+    {
+        //mSparty->Eat(graphics);
+    }
 }
 
 /**

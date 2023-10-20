@@ -80,6 +80,7 @@ void GameView::Initialize(wxFrame *parent)
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
     Bind(wxEVT_MOTION, &GameView::OnMouseMove, this);
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
+    Bind(wxEVT_KEY_DOWN, &GameView::OnKeyDown, this);
 
     mStopWatch.Start();
 
@@ -91,4 +92,12 @@ void GameView::Initialize(wxFrame *parent)
  */
 void GameView::OnLeftDown(wxMouseEvent & event) {
     mGame.OnLeftDown(event);
+}
+
+/**
+ * Handles key down event globally
+ * @param event key event (key down)
+ */
+void GameView::OnKeyDown(wxKeyEvent & event) {
+    mGame.OnKeyDown(event);
 }

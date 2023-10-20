@@ -6,7 +6,6 @@
 
 #include "pch.h"
 #include "Sparty.h"
-#include "Game.h"
 #include "cmath"
 #include "Number.h"
 #include "XRay.h"
@@ -111,31 +110,28 @@ void Sparty::SetLandingPoint(double x, double y)
     mDestinationY = y - 70;
 }
 
-// /**
-//  * Set the Sparty character's launching point
-//  * @param x The x coordinate of the launching point
-//  * @param y The y coordinate of the launching point
-//  */
-// void Sparty::SetLaunchingPoint(double x, double y)
-// {
-//
-// }
 
-// /**
-//  * if the Sparty character is in motion
-//  */
-// bool Sparty::InMotion()
-// {
-//     // to be implemented
-// }
+/**
+ * Handle the Sparty's eating action
+ * Sparty eats the number that he is currently on
+ * The mouth image rotates around the pivot point
+ */
+void Sparty::Eat(std::shared_ptr<wxGraphicsContext> graphics)
+{
+    // to be implemented
+    // rotate the mouth image around the pivot point
+    // update the number that Sparty is on
+    graphics->PushState();
 
-// /**
-//  * Implement the Sparty character's eating action
-//  */
-// void Sparty::Eat()
-// {
-//     // to be implemented
-// }
+    graphics->Translate(mMouthPivot.x, mMouthPivot.y);
+    graphics->Rotate(mMouthAngle);
+    graphics->Translate(-mMouthPivot.x, -mMouthPivot.y);
+
+    graphics->DrawBitmap(*mMouthBitmap, 0, 0, mMouthBitmap->GetWidth(), mMouthBitmap->GetHeight());
+
+    graphics->PopState();
+
+}
 
 // /**
 //  * Implement the vomiting action

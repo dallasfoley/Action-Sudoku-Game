@@ -38,9 +38,6 @@ private:
     /// The Sparty mouth bitmap (I couldnt make wxGraphicBitmap work, maybe try again later)
     std::unique_ptr<wxBitmap> mMouthBitmap;
 
-    /// The launching point for the Sparty
-    // to be implemented
-
     /// Current x mPosition of Sparty
     double mX = 200;
 
@@ -56,21 +53,15 @@ private:
     /// Value to determine which image to draw first
     int front = 2;
 
-    /// column Sparty is in
-    int col = 0;
-
-    /// row Sparty is in
-    int row = 0;
-
     /// mouth pivot point
     wxPoint mMouthPivot = wxPoint(20,60);
 
     /// mouth pivot angle
-    double mMouthAngle = 0;
-
+    double mMouthAngle = 1;
 
     ///current game context
     Game * mGame;
+
 public:
     /**
      * Constructor for Sparty
@@ -93,14 +84,6 @@ public:
      */
     void Update(double elapsed);
 
-    /**
-     * Set the Sparty character's launching point
-     * @param x The x coordinate of the launching point
-     * @param y The y coordinate of the launching point
-     */
-    void SetLaunchingPoint(double x, double y);
-
-
     void SetLandingPoint(double x, double y);
 
     /**
@@ -111,7 +94,7 @@ public:
     /**
      * Implement the Sparty character's eating action
      */
-    void Eat();
+    void Eat(std::shared_ptr<wxGraphicsContext> graphics);
 
     /**
      * Implement the vomiting action

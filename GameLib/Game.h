@@ -11,6 +11,8 @@
 
 class Sparty;
 
+class XRay;
+
 class Board;
 
 
@@ -24,12 +26,11 @@ private:
     double mYOffset;
     std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
     std::shared_ptr<Sparty> mSparty;    ///< Sparty
+    std::shared_ptr<XRay> mXRay;    ///< XRay
     /// Scoreboard
     Scoreboard mScoreboard;
     /// Game board
     std::shared_ptr<Board> mBoard;
-
-
 
     std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
 
@@ -40,6 +41,7 @@ public:
     void XmlItem(wxXmlNode * node);
     void Update(double elapsed);
     void OnLeftDown(wxMouseEvent & event);
+    void OnKeyDown(wxKeyEvent & event);
     std::shared_ptr<Item> HitTest(int x, int y);
     void Clear();
     void Restart();

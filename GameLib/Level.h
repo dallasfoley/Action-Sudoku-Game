@@ -9,7 +9,6 @@
 # ifndef PROJECT1_LEVEL_H
 # define PROJECT1_LEVEL_H
 
-#include "pch.h"
 #include "Item.h"
 #include "Number.h"
 #include "Sparty.h"

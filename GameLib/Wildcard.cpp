@@ -3,6 +3,7 @@
  * @author Chirag Solanki
  */
 
+#include "pch.h"
 #include "Wildcard.h"
 #include "Game.h"
 #include "Sparty.h"

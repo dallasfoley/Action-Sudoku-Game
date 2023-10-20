@@ -8,8 +8,6 @@
 # ifndef PROJECT1_NUMBER_H
 # define PROJECT1_NUMBER_H
 
-#include "pch.h"
-#include "Level.h"
 #include "Sparty.h"
 #include "Board.h"
 #include "Item.h"

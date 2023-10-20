@@ -20,6 +20,7 @@ public:
     void OnTimer(wxTimerEvent & event);
     void OnMouseMove(wxMouseEvent &event);
     void OnLeftDown(wxMouseEvent & event);
+    void OnKeyDown(wxKeyEvent & event);
 };
 
 
