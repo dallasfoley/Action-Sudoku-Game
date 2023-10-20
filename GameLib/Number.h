@@ -21,20 +21,14 @@ class Number : public Item
 private:
     int mValue;                                   /// The actual digit mValue ranging from 0 to 8
     bool mIsGiven;                                /// Indicates if this number is a given
-    std::pair<int, int> mPosition;                /// Current mPosition (x, y) of the number.
     bool mIsInSpartyStomach = false;              /// Indicates if this number is inside sparty's stomach
-    bool mIsInContainer{};                          /// Indicates if this number is inside a container
+    bool mIsInContainer;                          /// Indicates if this number is inside a container
 
 public:
 
-    Number(Game * game, int number, bool given);
+    void XmlLoad(wxXmlNode *node) override;
 
-    /**
-      * Moves the number to a specified mPosition on the board.
-      * @param x The x-coordinate.
-      * @param y The y-coordinate.
-     */
-    void MoveToPosition(int x, int y);
+    Number(Game * game, int number, bool given);
 
     /**
       * Marks the number as being inside Sparty's stomach.
