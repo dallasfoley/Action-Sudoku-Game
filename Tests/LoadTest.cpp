@@ -1,8 +1,7 @@
 /**
-* @file LoadTest.cpp
- * @author Jon Price
-*/
-
+ * @file LoadTest.cpp
+ * @author Joseph Renas
+ */
 
 #include <pch.h>
 #include "gtest/gtest.h"

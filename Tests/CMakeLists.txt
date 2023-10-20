@@ -1,8 +1,8 @@
 project(Tests)
 
 set(TEST_FILES
-        EmptyTest.cpp
         gtest_main.cpp
+        EmptyTest.cpp
         ItemTest.cpp
         LoadTest.cpp
 )

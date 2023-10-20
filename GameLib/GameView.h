@@ -17,9 +17,11 @@ private:
     long mTime = 0; ///< the last stopwatch time
 public:
     void Initialize(wxFrame* parent);
+    void OnLoadLvl1(wxCommandEvent& event);
     void OnTimer(wxTimerEvent & event);
     void OnMouseMove(wxMouseEvent &event);
     void OnLeftDown(wxMouseEvent & event);
+    void Stop();
     void OnKeyDown(wxKeyEvent & event);
 };
 

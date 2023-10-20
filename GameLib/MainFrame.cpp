@@ -56,8 +56,19 @@ void MainFrame::Initialize()
 
     CreateStatusBar( 1, wxSTB_SIZEGRIP, wxID_ANY );
 
+    Bind(wxEVT_CLOSE_WINDOW, &MainFrame::OnClose, this);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnExit, this, wxID_EXIT);
     Bind(wxEVT_COMMAND_MENU_SELECTED, &MainFrame::OnAbout, this, wxID_ABOUT);
+}
+
+/**
+ * Handle a close event. Stop the animation and destroy this window.
+ * @param event The Close event
+ */
+void MainFrame::OnClose(wxCloseEvent& event)
+{
+    mGameView->Stop();
+    Destroy();
 }
 
 /**

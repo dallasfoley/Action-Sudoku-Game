@@ -46,6 +46,7 @@ public:
     void Clear();
     void Restart();
     bool CheckSolved();
+    void Load(const wxString &filename);
 };
 
 

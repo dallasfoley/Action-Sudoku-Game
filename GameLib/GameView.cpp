@@ -4,6 +4,7 @@
  */
 
 #include "pch.h"
+#include "ids.h"
 #include "GameView.h"
 #include <wx/dcbuffer.h>
 
@@ -77,6 +78,7 @@ void GameView::Initialize(wxFrame *parent)
     SetBackgroundStyle(wxBG_STYLE_PAINT);
 
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLoadLvl1, this, IDM_ADDLVL1);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
     Bind(wxEVT_MOTION, &GameView::OnMouseMove, this);
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
@@ -92,6 +94,21 @@ void GameView::Initialize(wxFrame *parent)
  */
 void GameView::OnLeftDown(wxMouseEvent & event) {
     mGame.OnLeftDown(event);
+}
+
+/**
+  * Stop the timer so the window can close
+  */
+void GameView::Stop() {mTimer.Stop();}
+
+/**
+ * Level>Level 1 menu handler
+ * @param event Menu event
+ */
+void GameView::OnLoadLvl1(wxCommandEvent& event)
+{
+    mGame.Load(L"level1.xml");
+    Refresh();
 }
 
 /**

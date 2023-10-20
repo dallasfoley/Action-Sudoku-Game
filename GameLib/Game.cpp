@@ -189,3 +189,39 @@ bool Game::CheckSolved()
 {
     return false;
 }
+
+/**
+ * Load the level from a XML file.
+ *
+ * Opens the XML file and reads the nodes, creating items as appropriate.
+ *
+ * @param filename The filename of the file to load the level from.
+ */
+void Game::Load(const wxString &filename)
+{
+    wxXmlDocument xmlDoc;
+    if(!xmlDoc.Load(filename))
+    {
+        wxMessageBox(L"Unable to load level file");
+        return;
+    }
+
+    Clear();
+
+    // Get the XML document root node
+    auto root = xmlDoc.GetRoot();
+
+    //
+    // Traverse the children of the root
+    // node of the XML document in memory!!!!
+    //
+    auto child = root->GetChildren();
+    for( ; child; child=child->GetNext())
+    {
+        auto name = child->GetName();
+        if(name == L"background")
+        {
+            XmlItem(child);
+        }
+    }
+}

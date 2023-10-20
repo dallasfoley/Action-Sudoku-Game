@@ -1,7 +1,7 @@
 /**
-* @file ItemTest.cpp
- * @author Jon Price
-*/
+ * @file ItemTest.cpp
+ * @author Joseph Renas
+ */
 
 #include <pch.h>
 #include "gtest/gtest.h"

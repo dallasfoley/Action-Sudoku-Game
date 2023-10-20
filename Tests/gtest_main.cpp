@@ -1,3 +1,8 @@
+/**
+ * @file gtest_main.cpp
+ * @author Joseph Renas
+ */
+
 #include <pch.h>
 #include "gtest/gtest.h"
 #include <wx/filefn.h>

@@ -1,3 +1,8 @@
+/**
+ * @file EmptyTest.cpp
+ * @author Joseph Renas
+ */
+
 #include <pch.h>
 #include "gtest/gtest.h"
 
