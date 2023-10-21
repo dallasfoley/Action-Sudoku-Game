@@ -20,19 +20,15 @@ class Board;
 /// class which represents the Game
 class Game {
 private:
-    /// Current level
-    int mLevel = 1;
+    int mLevel = 1;  ///< Current level
     double mScale; ///< current scaling of the window
     double mXOffset;
     double mYOffset;
     std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
     std::shared_ptr<Sparty> mSparty;    ///< Sparty
     std::shared_ptr<XRay> mXRay;    ///< XRay
-    /// Scoreboard
-    Scoreboard mScoreboard;
-    /// Game board
-    std::shared_ptr<Board> mBoard;
-
+    Scoreboard mScoreboard;    ///< Scoreboard(timer)
+    std::shared_ptr<Board> mBoard;   ///< Board
     std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
 
     std::unordered_map<wxString, std::shared_ptr<Declaration>> mDeclarations;
@@ -40,7 +36,8 @@ private:
 public:
     Game();
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
-    int GetLevel() {return mLevel;}
+    void DrawMessage(std::shared_ptr<wxGraphicsContext> graphics);
+    int GetLevel() const {return mLevel;}
     void XmlItem(wxXmlNode * node);
     void Update(double elapsed);
     void OnLeftDown(wxMouseEvent & event);

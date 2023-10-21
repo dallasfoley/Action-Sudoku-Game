@@ -12,14 +12,15 @@
 class Scoreboard
 {
 private:
-    ///current game context
-
+    ///total time
     double mDuration = 0;
 public:
 
     void Update(double elapsed);
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
     void Reset();
+    double GetDuration() const {return mDuration;}
+
 };
 
 #endif //ACTIONSUDOKU_SUDOKULIB_SCOREBOARD_H

@@ -124,7 +124,7 @@ public:
     /**
      * Implement the headbutt action
      */
-    void Headbutt(std::shared_ptr<wxGraphicsContext> graphics);
+    void Headbutt();
 };
 
 #endif //PROJECT1_GAMELIB_SPARTY_H

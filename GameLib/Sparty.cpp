@@ -149,20 +149,7 @@ void Sparty::SetLandingPoint(double x, double y)
 // }
 
 
-void Sparty::Headbutt(std::shared_ptr<wxGraphicsContext> graphics)
+void Sparty::Headbutt()
 {
-    double wid = mHeadBitmap->GetWidth();
-    double hit = mHeadBitmap->GetHeight();
-    double wid1 = mMouthBitmap->GetWidth();
-    double hit1 = mMouthBitmap->GetHeight();
-    graphics->PushState();  // Save the graphics state
-    graphics->Rotate(mRotation);
-    graphics->DrawBitmap(*mHeadBitmap, (mX),(mY),wid,hit);
-    graphics->DrawBitmap(*mMouthBitmap, (mX),(mY),wid1,hit1);
-    graphics->PopState();
-    graphics->PushState();  // Save the graphics state
-    graphics->Rotate(-mRotation);
-    graphics->DrawBitmap(*mHeadBitmap, (mX),(mY),wid,hit);
-    graphics->DrawBitmap(*mMouthBitmap, (mX),(mY),wid1,hit1);
-    graphics->PopState();
+
 }

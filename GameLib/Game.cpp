@@ -1,6 +1,7 @@
 /**
  * @file Game.cpp
  * @author Jon Price
+ * @author Dallas Foley
  */
 
 #include "pch.h"
@@ -12,7 +13,7 @@
 #include "XRay.h"
 #include "Declaration.h"
 #include "DeclarationNumber.h"
-
+#include <sstream>
 using namespace std;
 
 const wstring BackgroundImage = L"images/background.png";
@@ -110,6 +111,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // INSERT YOUR DRAWING CODE HERE
 
     graphics->DrawBitmap(*mBackground, 0, 0, pixelWidth, pixelHeight);
+
     for (auto item: mItems)
     {
         item->Draw(graphics);
@@ -118,7 +120,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     mScoreboard.Draw(graphics);
     mSparty->Draw(graphics);
     mXRay->Draw(graphics);
-
+    if (mScoreboard.GetDuration() < 3)
+        this->DrawMessage(graphics);
     graphics->PopState();
 
 }
@@ -315,4 +318,30 @@ void Game::Load(const wxString &filename)
         }
 
     }
+}
+void Game::DrawMessage(std::shared_ptr<wxGraphicsContext> graphics)
+{
+//
+    // Draw a filled rectangle
+    //
+    wxBrush rectBrush(*wxWHITE);
+    graphics->SetBrush(rectBrush);
+    graphics->SetPen(wxNullGraphicsPen);
+    graphics->DrawRectangle(150, 225, 710, 300);
+    wxFont font(wxSize(20, 70),
+                wxFONTFAMILY_SWISS,
+                wxFONTSTYLE_NORMAL,
+                wxFONTWEIGHT_BOLD);
+    graphics->SetFont(font, wxColour(0, 250, 0));
+    ostringstream os;
+    os << "Level " << mLevel << " Begin";
+    graphics->DrawText(os.str(), 250, 235);
+    wxFont font1(wxSize(10, 40),
+                wxFONTFAMILY_SWISS,
+                wxFONTSTYLE_NORMAL,
+                wxFONTWEIGHT_BOLD);
+    graphics->SetFont(font1, wxColour(200, 200, 200));
+    ostringstream os1;
+    os1 << "space: Eat \n 0-8: Regurgitate \n B: Headbutt";
+    graphics->DrawText(os1.str(), 250, 350);
 }
