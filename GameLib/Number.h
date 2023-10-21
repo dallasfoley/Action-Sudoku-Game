@@ -11,6 +11,7 @@
 #include "Sparty.h"
 #include "Board.h"
 #include "Item.h"
+#include "DeclarationNumber.h"
 #include <utility>
 
 
@@ -23,6 +24,8 @@ private:
     bool mIsInContainer;                          /// Indicates if this number is inside a container
 
 public:
+
+    Number(std::shared_ptr<DeclarationNumber> declaration, double col, double row);
 
     void XmlLoad(wxXmlNode *node) override;
 

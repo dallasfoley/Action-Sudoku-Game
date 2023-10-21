@@ -99,7 +99,7 @@ void GameView::OnLeftDown(wxMouseEvent & event) {
 /**
   * Stop the timer so the window can close
   */
-void GameView::Stop() {mTimer.Stop();}
+void GameView::Stop() { mTimer.Stop(); }
 
 /**
  * Level>Level 1 menu handler
@@ -107,7 +107,7 @@ void GameView::Stop() {mTimer.Stop();}
  */
 void GameView::OnLoadLvl1(wxCommandEvent& event)
 {
-    mGame.Load(L"level1.xml");
+    mGame.Load(L"levels/level1.xml");
     Refresh();
 }
 

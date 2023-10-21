@@ -10,6 +10,8 @@
 #include "Board.h"
 #include "Number.h"
 #include "XRay.h"
+#include "Declaration.h"
+#include "DeclarationNumber.h"
 
 using namespace std;
 
@@ -25,7 +27,11 @@ Game::Game()
     mSparty = make_shared<Sparty>(this);
     mXRay = make_shared<XRay>(this);
     auto number = std::make_shared<Number>(this, 4, true);
+    number->SetLocation(400, 200);
     mItems.push_back(number);
+    auto number2 = std::make_shared<Number>(this, 6, false);
+    number2->SetLocation(120, 30);
+    mItems.push_back(number2);
     //mScoreboard = make_shared<Scoreboard>();
 }
 
@@ -187,9 +193,10 @@ std::shared_ptr<Item> Game::HitTest(int x, int y)
 */
 void Game::Clear()
 {
+    //mSparty.reset();
+    mDeclarations.clear();
     mItems.clear();
 }
-
 
 /**
 * Restarts a level
@@ -230,33 +237,48 @@ void Game::Load(const wxString &filename)
     // Get the XML document root node
     auto root = xmlDoc.GetRoot();
 
+    double tileWid;
+    double tileHit;
+
+    root->GetAttribute(L"tilewidth").ToDouble(&tileWid);
+    root->GetAttribute(L"tileheight").ToDouble(&tileHit);
+
     //
     // Traverse the children of the root
     // node of the XML document in memory!!!!
     //
     auto child = root->GetChildren();
-    for( ; child; child=child->GetNext())
-    {
+    for( ; child; child=child->GetNext()) {
         auto name = child->GetName();
-        if(name == L"background")
-        {
-            XmlItem(child);
+        auto superChild = child->GetChildren();
+        // traverse the children of whatever
+        // node of the XML document in memory.
+        for (; superChild; superChild = superChild->GetNext()) {
+            auto superChildName = superChild->GetName();
+            superChild->GetAttribute(L"id");
+            // if we are in the declarations part of the XML file
+            // then add the declarations to the map
+            if (name == L"declarations") {
+                // I could definitely use a switch statement here if I knew how to use enum
+                if (superChildName == L"given") {
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild, true)});
+                } else if (superChildName == L"digit") {
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild, false)});
+                }
+            } else if (name == L"items") {
+                // if we are in the item part of the xml
+                // then instantiate the items into the level list
+                if (superChildName == L"given" || superChildName == L"digit") {
+                    double col;
+                    superChild->GetAttribute(L"col").ToDouble(&col);
+                    double row;
+                    superChild->GetAttribute(L"row").ToDouble(&row);
+                    auto dec = mDeclarations[superChild->GetAttribute(L"id")];
+                    //Number num = Number(dec, col * tileWid, row * tileHit); NO CLUE WHY THIS LINE DOESNT WORK IM GONNA DIE
+                }
+
+            }
         }
-        if(name == L"given")
-        {
-            XmlItem(child);
-        }
-        if(name == L"digit")
-        {
-            XmlItem(child);
-        }
-        if(name == L"sparty")
-        {
-            XmlItem(child);
-        }
-        if(name == L"xray")
-        {
-            XmlItem(child);
-        }
+
     }
 }

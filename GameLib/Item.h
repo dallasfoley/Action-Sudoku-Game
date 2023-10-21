@@ -11,6 +11,7 @@
 
 
 #include <memory>
+#include "Declaration.h"
 
 
 class Game;
@@ -37,7 +38,7 @@ private:
     std::unique_ptr<wxBitmap> mItemBitmap;
 protected:
     Item(Game* game, const std::wstring &filename);
-
+    Item(std::shared_ptr<Declaration>, double x, double y);
 
 
 public:

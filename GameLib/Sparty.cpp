@@ -23,7 +23,7 @@ const double RotationRate = 6;
  */
 Sparty::Sparty(Game *game)
 {
-    mGame=game;
+    mGame = game;
 
     // Image and bitmap for the head of Sparty
     mHead = make_unique<wxImage>(SpartyHead1, wxBITMAP_TYPE_ANY);
@@ -61,7 +61,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
  */
 Sparty::~Sparty()
 {
-    // to be implemented
+
 }
 
 /**
@@ -75,7 +75,7 @@ void Sparty::Update(double elapsed)
     {
         double currentSpeed = mMaxSpeed;
 
-        // some quick vector math, make a vector along the path from sparty to his destination
+        // some quick vector math, make a vector along the path from Sparty to his destination
         double xComponent = mDestinationX - mX;
         double yComponent = mDestinationY - mY;
         // then normalize the vector, so we can cleanly multiply it by the speed
@@ -87,7 +87,7 @@ void Sparty::Update(double elapsed)
         auto xIncrement = currentSpeed * xComponent * elapsed;
         auto yIncrement = currentSpeed * yComponent * elapsed;
 
-        // if the step is larger than the distance between sparty and his destination, put Sparty at his destination
+        // if the step is larger than the distance between Sparty and his destination, put Sparty at his destination
         // otherwise, increment Sparty's location as normal
         if(abs(mDestinationX - mX) < abs(xIncrement)) {
             mX = mDestinationX;

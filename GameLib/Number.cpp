@@ -6,6 +6,7 @@
 
 #include "pch.h"
 #include "Number.h"
+#include "DeclarationNumber.h"
 
 using namespace std;
 
@@ -15,13 +16,23 @@ const wstring BlueImages[] = {L"images/0b.png", L"images/1b.png", L"images/2b.pn
 
 /**
  * Constructor
+ * @param game current game for the number to be loaded into
  * @param num value of this Number
+ * @param given whether or not this Number is a given
  */
 Number::Number(Game * game, int num, bool given)  : Item(game, given? BlueImages[num] : RedImages[num])
 {
     mValue = num;
     mIsGiven = given;
     mIsInContainer = false;
+
+}
+
+/**
+ * Constructor for number loading
+ */
+Number::Number(shared_ptr<DeclarationNumber> d, double x, double y) : Item(d, x, y)
+{
 
 }
 

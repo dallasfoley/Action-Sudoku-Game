@@ -6,6 +6,7 @@
 
 #include "pch.h"
 #include "Item.h"
+#include "Declaration.h"
 
 using namespace std;
 
@@ -18,6 +19,20 @@ Item::Item(Game * game, const std::wstring &filename) : mGame(game)
 {
     mItemImage = make_unique<wxImage>(filename, wxBITMAP_TYPE_ANY);
     mItemBitmap = make_unique<wxBitmap>(*mItemImage);
+}
+
+/**
+ * Constructor for loading context
+ * @param declaration Information about the object
+ * @param x location x
+ * @param y location y
+ */
+Item::Item(shared_ptr<Declaration> declaration, double x, double y)
+{
+    mItemImage = make_unique<wxImage>(declaration->GetImage(), wxBITMAP_TYPE_ANY);
+    mItemBitmap = make_unique<wxBitmap>(*mItemImage);
+    mX = x;
+    mY = y;
 }
 
 

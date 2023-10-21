@@ -8,6 +8,7 @@
 
 #include "Item.h"
 #include "Scoreboard.h"
+#include "Declaration.h"
 
 class Sparty;
 
@@ -34,6 +35,8 @@ private:
 
     std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
 
+    std::unordered_map<wxString, std::shared_ptr<Declaration>> mDeclarations;
+
 public:
     Game();
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
@@ -47,6 +50,7 @@ public:
     void Restart();
     bool CheckSolved();
     void Load(const wxString &filename);
+    int GetMapLength() { return mDeclarations.size(); } ///< returns length of declaration file, used right now for a test
 };
 
 
