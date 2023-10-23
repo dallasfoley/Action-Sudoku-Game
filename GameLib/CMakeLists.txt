@@ -32,7 +32,9 @@ set(SOURCE_FILES
         DeclarationNumber.cpp
         DeclarationNumber.h
         DeclarationSparty.cpp
-        DeclarationSparty.h)
+        DeclarationSparty.h
+        FpsDisplay.cpp
+        FpsDisplay.h)
 
 
 set(wxBUILD_PRECOMP OFF)

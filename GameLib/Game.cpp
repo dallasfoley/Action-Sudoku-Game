@@ -13,6 +13,7 @@
 #include "XRay.h"
 #include "Declaration.h"
 #include "DeclarationNumber.h"
+#include "FpsDisplay.h"
 #include <sstream>
 using namespace std;
 
@@ -72,6 +73,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     }
 
     mScoreboard.Draw(graphics);
+    if(mDisplayFps)
+        mFpsDisplay.Draw(graphics);
     mSparty->Draw(graphics);
     mXRay->Draw(graphics);
     if (mScoreboard.GetDuration() < 3)
@@ -130,6 +133,8 @@ void Game::Update(double elapsed)
     {
         //item->Update(elapsed);
     }
+    if(mDisplayFps)
+        mFpsDisplay.Update(elapsed);
     mScoreboard.Update(elapsed);
     mSparty->Update(elapsed);
 

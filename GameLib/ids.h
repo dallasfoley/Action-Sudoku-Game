@@ -15,6 +15,7 @@ enum IDs {
     IDM_ADDLVL1,
     IDM_ADDLVL2,
     IDM_ADDLVL3,
+    IDM_FPS,
 };
 
 #endif //PROJECT1_GAMELIB_IDS_H

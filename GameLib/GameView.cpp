@@ -61,6 +61,14 @@ void GameView::OnMouseMove(wxMouseEvent &event)
     Refresh();
 }
 
+/**
+ * toggle the fps display
+ */
+void GameView::OnFpsDisplay(wxCommandEvent& event)
+{
+    mGame.SetDisplayFps();
+}
+
 
 /**
 * initialize the Game view class
@@ -81,6 +89,9 @@ void GameView::Initialize(wxFrame *parent)
     parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLoadLvl1, this, IDM_ADDLVL1);
     parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLoadLvl2, this, IDM_ADDLVL2);
     parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLoadLvl3, this, IDM_ADDLVL3);
+
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnFpsDisplay, this, IDM_FPS);
+
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
     Bind(wxEVT_MOTION, &GameView::OnMouseMove, this);
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
@@ -89,6 +100,9 @@ void GameView::Initialize(wxFrame *parent)
     mStopWatch.Start();
 
 }
+
+
+
 
 /**
  * Handles click event globally

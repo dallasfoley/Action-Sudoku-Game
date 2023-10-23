@@ -39,7 +39,8 @@ private:
 protected:
     Item(Game* game, const std::wstring &filename);
 
-
+    void SetX(double x) { mX = x; } ///< @param x is new mX
+    void SetY(double y) { mY = y; } ///< @param y is new mY
 
 public:
 

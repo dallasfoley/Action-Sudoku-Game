@@ -9,13 +9,14 @@
 #define PROJECT1_GAMELIB_SPARTY_H
 
 #include "Game.h"
+#include "Item.h"
 #include <wx/graphics.h>
 #include <memory>
 
 /**
  * Class to describe the Sparty character
  */
-class Sparty {
+class Sparty : public Item {
 private:
     /// Character speed in pixels per second
     const double mMaxSpeed = 400.00;
@@ -26,47 +27,26 @@ private:
     /// The time for a headbutt cycle in seconds
     const double mHeadbuttTime = 0.5;
 
-    /// The Sparty head image
-    std::unique_ptr<wxImage> mHead;
-
-    /// The Sparty head bitmap (I couldnt make wxGraphicBitmap work, maybe try again later)
-    std::unique_ptr<wxBitmap> mHeadBitmap;
-
     /// The Sparty mouth image
     std::unique_ptr<wxImage> mMouth;
 
     /// The Sparty mouth bitmap (I couldnt make wxGraphicBitmap work, maybe try again later)
     std::unique_ptr<wxBitmap> mMouthBitmap;
 
-    /// The launching point for the Sparty
-    // to be implemented
-
-    /// Current x mPosition of Sparty
-    double mX = 200;
-
-    /// Current y mPosition of Sparty
-    double mY = 200;
-
     /// Rotation angle
     double mRotation = 0;
 
     /// The destination X coordinate
-    double mDestinationX = mX;
+    double mDestinationX = GetX();
 
     /// The destination Y coordinate
-    double mDestinationY = mY;
+    double mDestinationY = GetY();
 
     /// Value to determine which image to draw first
     int front = 2;
 
-    /// column Sparty is in
-    int col = 0;
-
-    /// row Sparty is in
-    int row = 0;
-
     /// mouth pivot point
-    wxPoint mMouthPivot = wxPoint(mX,mY);
+    wxPoint mMouthPivot = wxPoint((int)GetX(),(int)GetY());
 
     /// mouth pivot angle
     double mMouthAngle = 5;
@@ -81,15 +61,12 @@ public:
     /**
      * Constructor for Sparty
      */
-    Sparty(Game *game);
+    explicit Sparty(Game *game);
 
     /**
      * Destructor for Sparty
      */
     ~Sparty();
-
-    double GetX() const {return mX; } ///< @returns X location in pixels
-    double GetY() const {return mY; } ///< @returns Y location in pixels
 
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
@@ -97,15 +74,7 @@ public:
      * Update the Sparty character
      * @param elapsed The time elapsed since the last update
      */
-    void Update(double elapsed);
-
-    /**
-     * Set the Sparty character's launching point
-     * @param x The x coordinate of the launching point
-     * @param y The y coordinate of the launching point
-     */
-    void SetLaunchingPoint(double x, double y);
-
+    void Update(double elapsed) override;
 
     void SetLandingPoint(double x, double y);
 
