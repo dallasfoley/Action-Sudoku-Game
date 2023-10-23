@@ -79,6 +79,8 @@ void GameView::Initialize(wxFrame *parent)
 
     Bind(wxEVT_PAINT, &GameView::OnPaint, this);
     parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLoadLvl1, this, IDM_ADDLVL1);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLoadLvl2, this, IDM_ADDLVL2);
+    parent->Bind(wxEVT_COMMAND_MENU_SELECTED, &GameView::OnLoadLvl3, this, IDM_ADDLVL3);
     Bind(wxEVT_TIMER, &GameView::OnTimer, this);
     Bind(wxEVT_MOTION, &GameView::OnMouseMove, this);
     Bind(wxEVT_LEFT_DOWN, &GameView::OnLeftDown, this);
@@ -108,6 +110,26 @@ void GameView::Stop() { mTimer.Stop(); }
 void GameView::OnLoadLvl1(wxCommandEvent& event)
 {
     mGame.Load(L"levels/level1.xml");
+    Refresh();
+}
+
+/**
+ * Level>Level 2 menu handler
+ * @param event Menu event
+ */
+void GameView::OnLoadLvl2(wxCommandEvent& event)
+{
+    mGame.Load(L"levels/level2.xml");
+    Refresh();
+}
+
+/**
+ * Level>Level 3 menu handler
+ * @param event Menu event
+ */
+void GameView::OnLoadLvl3(wxCommandEvent& event)
+{
+    mGame.Load(L"levels/level3.xml");
     Refresh();
 }
 

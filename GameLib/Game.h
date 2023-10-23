@@ -24,6 +24,8 @@ private:
     double mScale; ///< current scaling of the window
     double mXOffset;
     double mYOffset;
+    int mPixelHeight;
+    int mPixelWidth;
     std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
     std::shared_ptr<Sparty> mSparty;    ///< Sparty
     std::shared_ptr<XRay> mXRay;    ///< XRay

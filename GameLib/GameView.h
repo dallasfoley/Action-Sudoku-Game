@@ -18,6 +18,8 @@ private:
 public:
     void Initialize(wxFrame* parent);
     void OnLoadLvl1(wxCommandEvent& event);
+    void OnLoadLvl2(wxCommandEvent& event);
+    void OnLoadLvl3(wxCommandEvent& event);
     void OnTimer(wxTimerEvent & event);
     void OnMouseMove(wxMouseEvent &event);
     void OnLeftDown(wxMouseEvent & event);

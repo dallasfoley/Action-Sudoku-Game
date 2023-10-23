@@ -27,6 +27,7 @@ Game::Game()
         BackgroundImage, wxBITMAP_TYPE_PNG);
     mSparty = make_shared<Sparty>(this);
     mXRay = make_shared<XRay>(this);
+    Load(L"levels/level1.xml");
 }
 
 /**
@@ -39,24 +40,18 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 {
     // Draw the background image
 
-
-    // Determine the size of the playing area in pixels
-    // Subject to change
-    int pixelWidth = 960;
-    int pixelHeight = 720;
-
     //
     // Automatic Scaling
     //
-    auto scaleX = double(width) / double(pixelWidth);
-    auto scaleY = double(height) / double(pixelHeight);
+    auto scaleX = double(width) / double(mPixelWidth);
+    auto scaleY = double(height) / double(mPixelHeight);
     mScale = std::min(scaleX, scaleY);
 
-    mXOffset = (width - pixelWidth * mScale) / 2.0;
+    mXOffset = (width - mPixelWidth * mScale) / 2.0;
     mYOffset = 0;
-    if (height > pixelHeight * mScale)
+    if (height > mPixelHeight * mScale)
     {
-        mYOffset = (double)((height - pixelHeight * mScale) / 2.0);
+        mYOffset = (double)((height - mPixelHeight * mScale) / 2.0);
     }
 
     graphics->PushState();
@@ -69,7 +64,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     //
     // INSERT YOUR DRAWING CODE HERE
 
-    graphics->DrawBitmap(*mBackground, 0, 0, pixelWidth, pixelHeight);
+    graphics->DrawBitmap(*mBackground, 0, 0, mPixelWidth, mPixelHeight);
 
     for (auto item: mItems)
     {
@@ -238,6 +233,15 @@ void Game::Load(const wxString &filename)
 
     root->GetAttribute(L"tilewidth").ToDouble(&tileWid);
     root->GetAttribute(L"tileheight").ToDouble(&tileHit);
+
+    double width;
+    double height;
+
+    root->GetAttribute(L"width").ToDouble(&width);
+    root->GetAttribute(L"height").ToDouble(&height);
+
+    mPixelWidth = (int)(width * tileWid);
+    mPixelHeight = (int)(height * tileHit);
 
     //
     // Traverse the children of the root
