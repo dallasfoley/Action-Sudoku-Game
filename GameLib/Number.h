@@ -29,6 +29,10 @@ public:
 
     void XmlLoad(wxXmlNode *node) override;
 
+    /**
+      * Constructor
+      * @param num value of this Number
+     */
     Number(Game * game, int number, bool given);
 
     /**

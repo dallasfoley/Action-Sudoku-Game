@@ -66,10 +66,13 @@ private:
     int row = 0;
 
     /// mouth pivot point
-    wxPoint mMouthPivot = wxPoint(20,60);
+    wxPoint mMouthPivot = wxPoint(mX,mY);
 
     /// mouth pivot angle
-    double mMouthAngle = 0;
+    double mMouthAngle = 5;
+
+    /// boolean to determine if Sparty is currently eating
+    bool mEating = false;
 
 
     ///current game context

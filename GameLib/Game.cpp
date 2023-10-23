@@ -201,7 +201,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
 {
     if (event.GetKeyCode() == WXK_SPACE)
     {
-        //mSparty->Eat(graphics);
+        mSparty->Eat();
     }
 }
 

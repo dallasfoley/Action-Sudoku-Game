@@ -70,6 +70,6 @@ void Number::XmlLoad(wxXmlNode *node)
     double x;
     node->GetAttribute(L"col").ToDouble(&x);
     double y;
-    node->GetAttribute(L"col").ToDouble(&y);
+    node->GetAttribute(L"row").ToDouble(&y);
     SetLocation(x, y);
 }
