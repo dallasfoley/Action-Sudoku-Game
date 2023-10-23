@@ -27,47 +27,6 @@ Game::Game()
         BackgroundImage, wxBITMAP_TYPE_PNG);
     mSparty = make_shared<Sparty>(this);
     mXRay = make_shared<XRay>(this);
-    auto number = std::make_shared<Number>(this, 4, true);
-    number->SetLocation(288, 144);
-    mItems.push_back(number);
-    auto number2 = std::make_shared<Number>(this, 6, true);
-    number2->SetLocation(336, 240);
-    mItems.push_back(number2);
-    auto number3 = std::make_shared<Number>(this, 3, true);
-    number3->SetLocation(480, 192);
-    mItems.push_back(number3);
-    auto number4 = std::make_shared<Number>(this, 2, true);
-    number4->SetLocation(192, 336);
-    mItems.push_back(number4);
-    auto number5 = std::make_shared<Number>(this, 1, true);
-    number5->SetLocation(384, 240);
-    mItems.push_back(number5);
-    auto number6 = std::make_shared<Number>(this, 0, true);
-    number6->SetLocation(240, 480);
-    mItems.push_back(number6);
-    auto number7 = std::make_shared<Number>(this, 5, true);
-    number7->SetLocation(384, 336);
-    mItems.push_back(number7);
-    auto number8 = std::make_shared<Number>(this, 7, true);
-    number8->SetLocation(528, 240);
-    mItems.push_back(number8);
-    auto number9 = std::make_shared<Number>(this, 8, true);
-    number9->SetLocation(192, 480);
-    mItems.push_back(number9);
-
-    auto number10 = std::make_shared<Number>(this, 2, false);
-    number10->SetLocation(768, 144);
-    mItems.push_back(number10);
-    auto number11 = std::make_shared<Number>(this, 1, false);
-    number11->SetLocation(816, 144);
-    mItems.push_back(number11);
-    auto number12 = std::make_shared<Number>(this, 0, false);
-    number12->SetLocation(792, 268);
-    mItems.push_back(number12);
-    auto number13 = std::make_shared<Number>(this, 5, false);
-    number13->SetLocation(820, 446);
-    mItems.push_back(number13);
-    //mScoreboard = make_shared<Scoreboard>();
 }
 
 /**
@@ -298,9 +257,9 @@ void Game::Load(const wxString &filename)
             if (name == L"declarations") {
                 // I could definitely use a switch statement here if I knew how to use enum
                 if (superChildName == L"given") {
-                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild, true)});
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild)});
                 } else if (superChildName == L"digit") {
-                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild, false)});
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild)});
                 }
             } else if (name == L"items") {
                 // if we are in the item part of the xml
@@ -311,12 +270,11 @@ void Game::Load(const wxString &filename)
                     double row;
                     superChild->GetAttribute(L"row").ToDouble(&row);
                     auto dec = mDeclarations[superChild->GetAttribute(L"id")];
-                    //Number num = Number(dec, col * tileWid, row * tileHit); NO CLUE WHY THIS LINE DOESNT WORK IM GONNA DIE
+                    auto num = make_shared<Item>(dec, col * tileWid, row * tileHit);
+                    mItems.push_back(num);
                 }
-
             }
         }
-
     }
 }
 void Game::DrawMessage(std::shared_ptr<wxGraphicsContext> graphics)

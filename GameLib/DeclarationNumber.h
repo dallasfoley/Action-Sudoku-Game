@@ -16,7 +16,7 @@ private:
     bool mGiven; ///< whether this declaration is for a given or for a digit
     int mValue; ///< the value corresponding to this digit
 public:
-    DeclarationNumber(wxXmlNode * node, bool given);
+    DeclarationNumber(wxXmlNode * node);
     bool GetGiven() { return mGiven; } ///< @returns mGiven
     int GetValue() { return mValue; } ///< @returns mValue
 };

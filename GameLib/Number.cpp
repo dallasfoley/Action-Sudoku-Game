@@ -14,19 +14,19 @@ using namespace std;
 const wstring RedImages[] = {L"images/0r.png", L"images/1r.png", L"images/2r.png", L"images/3r.png", L"images/4r.png", L"images/5r.png", L"images/6r.png", L"images/7r.png", L"images/8r.png"};
 const wstring BlueImages[] = {L"images/0b.png", L"images/1b.png", L"images/2b.png", L"images/3b.png", L"images/4b.png", L"images/5b.png", L"images/6b.png", L"images/7b.png", L"images/8b.png"};
 
-/**
- * Constructor
- * @param game current game for the number to be loaded into
- * @param num value of this Number
- * @param given whether or not this Number is a given
- */
-Number::Number(Game * game, int num, bool given)  : Item(game, given? BlueImages[num] : RedImages[num])
-{
-    mValue = num;
-    mIsGiven = given;
-    mIsInContainer = false;
-
-}
+///**
+// * Constructor
+// * @param game current game for the number to be loaded into
+// * @param num value of this Number
+// * @param given whether or not this Number is a given
+// */
+//Number::Number(Game * game, int num, bool given)  : Item(game, given? BlueImages[num] : RedImages[num])
+//{
+//    mValue = num;
+//    mIsGiven = given;
+//    mIsInContainer = false;
+//
+//}
 
 /**
  * Constructor for number loading
