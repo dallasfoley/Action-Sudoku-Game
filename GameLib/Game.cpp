@@ -77,7 +77,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         mFpsDisplay.Draw(graphics);
     mSparty->Draw(graphics);
     mXRay->Draw(graphics);
-    if (mScoreboard.GetDuration() < 3)
+    if (mScoreboard.GetDuration() < 1.5)
         this->DrawMessage(graphics);
     graphics->PopState();
 

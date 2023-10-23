@@ -6,10 +6,12 @@
 #ifndef PROJECT1_FPSDISPLAY_H
 #define PROJECT1_FPSDISPLAY_H
 
-
+/**
+ * Class to display fps
+ */
 class FpsDisplay {
 private:
-    double mFrames;
+    double mFrames; ///< FPS
 public:
     void Update(double elapsed);
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);

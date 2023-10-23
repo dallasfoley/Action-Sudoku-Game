@@ -40,6 +40,16 @@ Sparty::Sparty(Game *game) : Item(game, SpartyHead1)
 void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     Item::Draw(graphics);
+
+    graphics->PushState();
+    if (mEating)
+    {
+        // Put correct code here
+        mEating = false;
+        graphics->Translate(mMouthPivot.x, mMouthPivot.y);
+        graphics->Rotate(mMouthAngle);
+        graphics->Translate(-mMouthPivot.x, -mMouthPivot.y);
+    }
     double wid = mMouthBitmap->GetWidth();
     double hit = mMouthBitmap->GetHeight();
     graphics->DrawBitmap(*mMouthBitmap,
@@ -47,20 +57,9 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                          (GetY()),
                          wid,
                          hit);
-    if (mEating)
-    {
-        mEating = false;
-        graphics->PushState();
-
-        graphics->Translate(mMouthPivot.x, mMouthPivot.y);
-        graphics->Rotate(mMouthAngle);
-        graphics->Translate(-mMouthPivot.x, -mMouthPivot.y);
-
-        graphics->DrawBitmap(*mMouthBitmap, -wid/2, -hit/2, wid, hit);
-
-        graphics->PopState();
-    }
+    graphics->PopState();
 }
+
 
 /**
  * Destructor for Sparty
@@ -116,8 +115,6 @@ void Sparty::Update(double elapsed)
 
         // set an angle for the mouth to rotate around the pivot point
         mMouthAngle = atan2(pivotDestination.y - mMouthPivot.y, pivotDestination.x - mMouthPivot.x);
-        
-
     }
 }
 
@@ -131,16 +128,6 @@ void Sparty::SetLandingPoint(double x, double y)
     mDestinationX = x - 60;
     mDestinationY = y - 70;
 }
-
-// /**
-//  * Set the Sparty character's launching point
-//  * @param x The x coordinate of the launching point
-//  * @param y The y coordinate of the launching point
-//  */
-// void Sparty::SetLaunchingPoint(double x, double y)
-// {
-//
-// }
 
 // /**
 //  * if the Sparty character is in motion
