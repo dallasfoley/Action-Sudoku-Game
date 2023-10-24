@@ -18,7 +18,7 @@
 class Sparty {
 private:
     /// Character speed in pixels per second
-    double mMaxSpeed = 400.00;
+    const double mMaxSpeed = 400.00;
 
     /// The time for an eating cycles in seconds
     const double mEatingTime = 0.5;
@@ -129,17 +129,6 @@ public:
      */
     void Headbutt();
 
-    /**
-    * Sets the speed of the Sparty character
-    * @param speed The new speed in pixels per second
-    */
-    void SetSpeed(double speed) { mMaxSpeed = speed; }
-
-    /**
-     * Gets the current speed of the Sparty character
-     * @return The speed in pixels per second
-     */
-    double GetSpeed() const { return mMaxSpeed; }
 };
 
 #endif //PROJECT1_GAMELIB_SPARTY_H
