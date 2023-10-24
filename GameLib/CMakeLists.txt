@@ -33,6 +33,10 @@ set(SOURCE_FILES
         DeclarationNumber.h
         DeclarationSparty.cpp
         DeclarationSparty.h
+        DeclarationContainer.cpp
+        DeclarationContainer.h
+        DeclaractionXray.cpp
+        DeclaractionXray.h
         FpsDisplay.cpp
         FpsDisplay.h)
 

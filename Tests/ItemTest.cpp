@@ -10,7 +10,7 @@
 
 
 
-/// Fish filename
+/// Number filename
 const std::wstring NumberImage = L"images/0b.png";
 
 /** Mock class for testing the class Item*/

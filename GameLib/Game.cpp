@@ -269,15 +269,16 @@ void Game::Load(const wxString &filename)
                     mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild)});
                 } else if (superChildName == L"sparty") {
                     mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationSparty>(superChild)});
+                } else if (superChildName == L"background") {
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<Declaration>(superChild)});
                 }
             } else if (name == L"items") {
                 // if we are in the item part of the xml
                 // then instantiate the items into the level list
-                if (superChildName == L"given" || superChildName == L"digit") {
+                if (superChildName == L"given" || superChildName == L"digit" || superChildName == L"background") {
                     auto item = mDeclarations[superChild->GetAttribute(L"id")]->Create(superChild);
                     mItems.push_back(item);
-                } else if(superChildName == L"sparty")
-                {
+                } else if(superChildName == L"sparty") {
                     auto thing = mDeclarations[superChild->GetAttribute(L"id")];
                     auto item = thing->Create(superChild);
                     mItems.push_back(item);
@@ -286,6 +287,7 @@ void Game::Load(const wxString &filename)
         }
     }
 }
+
 void Game::DrawMessage(std::shared_ptr<wxGraphicsContext> graphics)
 {
 //
