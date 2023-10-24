@@ -87,3 +87,17 @@ void SpeedPotion::GenerateSpeedModifier() {
 
 
 
+// need to add this to Sparty.h, getting errors right now.
+//
+///**
+//* Sets the speed of the Sparty character
+//* @param speed The new speed in pixels per second
+//*/
+//void SetSpeed(double speed) { mMaxSpeed = speed; }
+
+///**
+//* Gets the current speed of the Sparty character
+// * @return The speed in pixels per second
+// */
+//double GetSpeed() const { return mMaxSpeed; }
+
