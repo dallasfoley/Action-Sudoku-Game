@@ -51,6 +51,7 @@ void MainFrame::Initialize()
     levelMenu->Append(IDM_ADDLVL2, L"&Level 2", "Load level 2");
     levelMenu->Append(IDM_ADDLVL3, L"&Level 3", "Load level 3");
     helpMenu->Append(wxID_ABOUT, "&About\tF1", "Show about dialog");
+    helpMenu->Append(IDM_FPS, L"&Display FPS", "Show FPS");
 
     SetMenuBar( menuBar );
 

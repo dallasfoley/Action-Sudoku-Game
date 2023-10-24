@@ -32,7 +32,13 @@ set(SOURCE_FILES
         DeclarationNumber.cpp
         DeclarationNumber.h
         DeclarationSparty.cpp
-        DeclarationSparty.h)
+        DeclarationSparty.h
+        DeclarationContainer.cpp
+        DeclarationContainer.h
+        DeclaractionXray.cpp
+        DeclaractionXray.h
+        FpsDisplay.cpp
+        FpsDisplay.h)
 
 
 set(wxBUILD_PRECOMP OFF)

@@ -29,11 +29,11 @@ public:
 
     void XmlLoad(wxXmlNode *node) override;
 
-    /**
-      * Constructor
-      * @param num value of this Number
-     */
-    Number(Game * game, int number, bool given);
+//    /**
+//      * Constructor
+//      * @param num value of this Number
+//     */
+//    Number(Game * game, int number, bool given);
 
     /**
       * Marks the number as being inside Sparty's stomach.

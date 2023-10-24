@@ -13,6 +13,8 @@
 #include "XRay.h"
 #include "Declaration.h"
 #include "DeclarationNumber.h"
+#include "FpsDisplay.h"
+#include "DeclarationSparty.h"
 #include <sstream>
 using namespace std;
 
@@ -23,51 +25,12 @@ const wstring BackgroundImage = L"images/background.png";
  */
 Game::Game()
 {
+    // Almost everything here will be cleared in favor of loading level 1. fyi
+
     mBackground = std::make_unique<wxBitmap>(
         BackgroundImage, wxBITMAP_TYPE_PNG);
-    mSparty = make_shared<Sparty>(this);
     mXRay = make_shared<XRay>(this);
-    auto number = std::make_shared<Number>(this, 4, true);
-    number->SetLocation(288, 144);
-    mItems.push_back(number);
-    auto number2 = std::make_shared<Number>(this, 6, true);
-    number2->SetLocation(336, 240);
-    mItems.push_back(number2);
-    auto number3 = std::make_shared<Number>(this, 3, true);
-    number3->SetLocation(480, 192);
-    mItems.push_back(number3);
-    auto number4 = std::make_shared<Number>(this, 2, true);
-    number4->SetLocation(192, 336);
-    mItems.push_back(number4);
-    auto number5 = std::make_shared<Number>(this, 1, true);
-    number5->SetLocation(384, 240);
-    mItems.push_back(number5);
-    auto number6 = std::make_shared<Number>(this, 0, true);
-    number6->SetLocation(240, 480);
-    mItems.push_back(number6);
-    auto number7 = std::make_shared<Number>(this, 5, true);
-    number7->SetLocation(384, 336);
-    mItems.push_back(number7);
-    auto number8 = std::make_shared<Number>(this, 7, true);
-    number8->SetLocation(528, 240);
-    mItems.push_back(number8);
-    auto number9 = std::make_shared<Number>(this, 8, true);
-    number9->SetLocation(192, 480);
-    mItems.push_back(number9);
-
-    auto number10 = std::make_shared<Number>(this, 2, false);
-    number10->SetLocation(768, 144);
-    mItems.push_back(number10);
-    auto number11 = std::make_shared<Number>(this, 1, false);
-    number11->SetLocation(816, 144);
-    mItems.push_back(number11);
-    auto number12 = std::make_shared<Number>(this, 0, false);
-    number12->SetLocation(792, 268);
-    mItems.push_back(number12);
-    auto number13 = std::make_shared<Number>(this, 5, false);
-    number13->SetLocation(820, 446);
-    mItems.push_back(number13);
-    //mScoreboard = make_shared<Scoreboard>();
+    Load(L"levels/level1.xml");
 }
 
 /**
@@ -80,24 +43,18 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 {
     // Draw the background image
 
-
-    // Determine the size of the playing area in pixels
-    // Subject to change
-    int pixelWidth = 960;
-    int pixelHeight = 720;
-
     //
     // Automatic Scaling
     //
-    auto scaleX = double(width) / double(pixelWidth);
-    auto scaleY = double(height) / double(pixelHeight);
+    auto scaleX = double(width) / double(mPixelWidth);
+    auto scaleY = double(height) / double(mPixelHeight);
     mScale = std::min(scaleX, scaleY);
 
-    mXOffset = (width - pixelWidth * mScale) / 2.0;
+    mXOffset = (width - mPixelWidth * mScale) / 2.0;
     mYOffset = 0;
-    if (height > pixelHeight * mScale)
+    if (height > mPixelHeight * mScale)
     {
-        mYOffset = (double)((height - pixelHeight * mScale) / 2.0);
+        mYOffset = (double)((height - mPixelHeight * mScale) / 2.0);
     }
 
     graphics->PushState();
@@ -110,7 +67,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     //
     // INSERT YOUR DRAWING CODE HERE
 
-    graphics->DrawBitmap(*mBackground, 0, 0, pixelWidth, pixelHeight);
+    graphics->DrawBitmap(*mBackground, 0, 0, mPixelWidth, mPixelHeight);
+
+    mXRay->Draw(graphics);
 
     for (auto item: mItems)
     {
@@ -118,9 +77,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     }
 
     mScoreboard.Draw(graphics);
-    mSparty->Draw(graphics);
-    mXRay->Draw(graphics);
-    if (mScoreboard.GetDuration() < 3)
+    if(mDisplayFps)
+        mFpsDisplay.Draw(graphics);
+    if (mScoreboard.GetDuration() < 1.5)
         this->DrawMessage(graphics);
     graphics->PopState();
 
@@ -174,11 +133,11 @@ void Game::Update(double elapsed)
 {
     for (auto item : mItems)
     {
-        //item->Update(elapsed);
+        item->Update(elapsed);
     }
+    if(mDisplayFps)
+        mFpsDisplay.Update(elapsed);
     mScoreboard.Update(elapsed);
-    mSparty->Update(elapsed);
-
 }
 
 /**
@@ -189,7 +148,8 @@ void Game::OnLeftDown(wxMouseEvent &event)
 {
     double oX = (event.GetX() - mXOffset) / mScale;
     double oY = (event.GetY() - mYOffset) / mScale;
-    mSparty->SetLandingPoint(oX, oY);
+
+    mItems.back()->SetLandingPoint(oX, oY);
 }
 
 /**
@@ -201,7 +161,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
 {
     if (event.GetKeyCode() == WXK_SPACE)
     {
-        mSparty->Eat();
+        mItems.back()->Eat();
     }
 }
 
@@ -230,7 +190,6 @@ std::shared_ptr<Item> Game::HitTest(int x, int y)
 */
 void Game::Clear()
 {
-    //mSparty.reset();
     mDeclarations.clear();
     mItems.clear();
 }
@@ -280,6 +239,15 @@ void Game::Load(const wxString &filename)
     root->GetAttribute(L"tilewidth").ToDouble(&tileWid);
     root->GetAttribute(L"tileheight").ToDouble(&tileHit);
 
+    double width;
+    double height;
+
+    root->GetAttribute(L"width").ToDouble(&width);
+    root->GetAttribute(L"height").ToDouble(&height);
+
+    mPixelWidth = (int)(width * tileWid);
+    mPixelHeight = (int)(height * tileHit);
+
     //
     // Traverse the children of the root
     // node of the XML document in memory!!!!
@@ -297,28 +265,29 @@ void Game::Load(const wxString &filename)
             // then add the declarations to the map
             if (name == L"declarations") {
                 // I could definitely use a switch statement here if I knew how to use enum
-                if (superChildName == L"given") {
-                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild, true)});
-                } else if (superChildName == L"digit") {
-                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild, false)});
+                if (superChildName == L"given" || superChildName == L"digit") {
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild)});
+                } else if (superChildName == L"sparty") {
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationSparty>(superChild)});
+                } else if (superChildName == L"background") {
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<Declaration>(superChild)});
                 }
             } else if (name == L"items") {
                 // if we are in the item part of the xml
                 // then instantiate the items into the level list
-                if (superChildName == L"given" || superChildName == L"digit") {
-                    double col;
-                    superChild->GetAttribute(L"col").ToDouble(&col);
-                    double row;
-                    superChild->GetAttribute(L"row").ToDouble(&row);
-                    auto dec = mDeclarations[superChild->GetAttribute(L"id")];
-                    //Number num = Number(dec, col * tileWid, row * tileHit); NO CLUE WHY THIS LINE DOESNT WORK IM GONNA DIE
+                if (superChildName == L"given" || superChildName == L"digit" || superChildName == L"background") {
+                    auto item = mDeclarations[superChild->GetAttribute(L"id")]->Create(superChild);
+                    mItems.push_back(item);
+                } else if(superChildName == L"sparty") {
+                    auto thing = mDeclarations[superChild->GetAttribute(L"id")];
+                    auto item = thing->Create(superChild);
+                    mItems.push_back(item);
                 }
-
             }
         }
-
     }
 }
+
 void Game::DrawMessage(std::shared_ptr<wxGraphicsContext> graphics)
 {
 //

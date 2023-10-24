@@ -35,6 +35,16 @@ Item::Item(shared_ptr<Declaration> declaration, double x, double y)
     mY = y;
 }
 
+Item::Item(Declaration * declaration, wxXmlNode * node)
+{
+    mItemImage = make_unique<wxImage>(declaration->GetImage(), wxBITMAP_TYPE_ANY);
+    mItemBitmap = make_unique<wxBitmap>(*mItemImage);
+    // Gotta refactor mX and mY to be colomn and row values instead, then draw some other way? maybe.
+    node->GetAttribute(L"col", L"0").ToDouble(&mX);
+    node->GetAttribute(L"row", L"0").ToDouble(&mY);
+    mX*=48;
+    mY*=48;
+}
 
 /**
 * Draw function for the item

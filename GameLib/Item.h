@@ -38,10 +38,19 @@ private:
     std::unique_ptr<wxBitmap> mItemBitmap;
 protected:
     Item(Game* game, const std::wstring &filename);
-    Item(std::shared_ptr<Declaration>, double x, double y);
 
+    void SetX(double x) { mX = x; } ///< @param x is new mX
+    void SetY(double y) { mY = y; } ///< @param y is new mY
 
 public:
+
+    virtual void SetLandingPoint(double x, double y) {};
+
+    virtual void Eat() {};
+
+    Item(std::shared_ptr<Declaration> d, double x, double y);
+
+    Item(Declaration * d, wxXmlNode * node);
 
     /**
      * Set the item location
