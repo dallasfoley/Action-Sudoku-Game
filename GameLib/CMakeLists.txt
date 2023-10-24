@@ -25,8 +25,8 @@ set(SOURCE_FILES
         Scoreboard.h
         Declaration.cpp
         Declaration.h
-        Wildcard.cpp
-        Wildcard.h
+        SpeedPotion.cpp
+        SpeedPotion.h
         Container.cpp
         Container.h
         DeclarationNumber.cpp

@@ -21,7 +21,7 @@ const double RotationRate = 6;
 /**
  * Constructor for Sparty
  */
-Sparty::Sparty(Game *game)
+Sparty::Sparty(Game *game) : mMaxSpeed(400.00)
 {
     mGame = game;
 
