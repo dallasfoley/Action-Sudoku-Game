@@ -44,7 +44,13 @@ protected:
 
 public:
 
-    Item(std::shared_ptr<Declaration>, double x, double y);
+    virtual void SetLandingPoint(double x, double y) {};
+
+    virtual void Eat() {};
+
+    Item(std::shared_ptr<Declaration> d, double x, double y);
+
+    Item(Declaration * d, wxXmlNode * node);
 
     /**
      * Set the item location

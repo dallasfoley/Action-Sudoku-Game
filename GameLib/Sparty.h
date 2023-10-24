@@ -13,6 +13,8 @@
 #include <wx/graphics.h>
 #include <memory>
 
+class DeclarationSparty;
+
 /**
  * Class to describe the Sparty character
  */
@@ -37,23 +39,26 @@ private:
     double mRotation = 0;
 
     /// The destination X coordinate
-    double mDestinationX = GetX();
+    double mDestinationX;
 
     /// The destination Y coordinate
-    double mDestinationY = GetY();
+    double mDestinationY;
 
     /// Value to determine which image to draw first
     int front = 2;
 
     /// mouth pivot point
-    wxPoint mMouthPivot = wxPoint((int)GetX(),(int)GetY());
+    wxPoint mMouthPivot;
 
     /// mouth pivot angle
-    double mMouthAngle = 5;
+    double mMouthAngle;
 
     /// boolean to determine if Sparty is currently eating
     bool mEating = false;
 
+    double mHeadPivotX;
+    double mHeadPivotY;
+    double mHeadPivotAngle;
 
     ///current game context
     Game * mGame;
@@ -76,7 +81,9 @@ public:
      */
     void Update(double elapsed) override;
 
-    void SetLandingPoint(double x, double y);
+    void SetLandingPoint(double x, double y) override;
+
+    Sparty(wxXmlNode * node, DeclarationSparty * dec);
 
     /**
      * if the Sparty character is in motion
@@ -86,7 +93,7 @@ public:
     /**
      * Implement the Sparty character's eating action
      */
-    void Eat();
+    void Eat() override;
 
     /**
      * Implement the vomiting action

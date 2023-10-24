@@ -57,5 +57,5 @@ TEST_F(GameTest, Load) {
 
     game.Load(filename);
     // check to see if the game has the amount of declarations we expect
-    ASSERT_EQ(game.GetMapLength(), 18);
+    ASSERT_EQ(game.GetMapLength(), 19);
 }

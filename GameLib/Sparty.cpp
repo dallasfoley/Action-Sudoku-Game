@@ -11,6 +11,7 @@
 #include "cmath"
 #include "Number.h"
 #include "XRay.h"
+#include "DeclarationSparty.h"
 
 using namespace std;
 
@@ -31,6 +32,21 @@ Sparty::Sparty(Game *game) : Item(game, SpartyHead1)
     // Image and bitmap for jaw of Sparty
     mMouth = make_unique<wxImage>(SpartyJaw1, wxBITMAP_TYPE_ANY);
     mMouthBitmap = make_unique<wxBitmap>( *mMouth);
+}
+
+Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
+{
+    mMouth = make_unique<wxImage>(dec->getJawImage());
+    mMouthBitmap = make_unique<wxBitmap>(*mMouth);
+    mMouthAngle = dec->getMouthPivotAngle();
+    mMouthPivot = wxPoint((int)dec->getHeadPivotX(), (int)dec->getHeadPivotY());
+    mDestinationX = dec->getTargetX();
+    mDestinationY = dec->getTargetY();
+    mHeadPivotX = dec->getHeadPivotX();
+    mHeadPivotY = dec->getHeadPivotY();
+    mHeadPivotAngle = dec->getHeadPivotAngle();
+
+
 }
 
 /**

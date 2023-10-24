@@ -14,6 +14,7 @@
 #include "Declaration.h"
 #include "DeclarationNumber.h"
 #include "FpsDisplay.h"
+#include "DeclarationSparty.h"
 #include <sstream>
 using namespace std;
 
@@ -24,9 +25,10 @@ const wstring BackgroundImage = L"images/background.png";
  */
 Game::Game()
 {
+    // Almost everything here will be cleared in favor of loading level 1. fyi
+
     mBackground = std::make_unique<wxBitmap>(
         BackgroundImage, wxBITMAP_TYPE_PNG);
-    mSparty = make_shared<Sparty>(this);
     mXRay = make_shared<XRay>(this);
     Load(L"levels/level1.xml");
 }
@@ -67,6 +69,8 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 
     graphics->DrawBitmap(*mBackground, 0, 0, mPixelWidth, mPixelHeight);
 
+    mXRay->Draw(graphics);
+
     for (auto item: mItems)
     {
         item->Draw(graphics);
@@ -75,8 +79,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     mScoreboard.Draw(graphics);
     if(mDisplayFps)
         mFpsDisplay.Draw(graphics);
-    mSparty->Draw(graphics);
-    mXRay->Draw(graphics);
     if (mScoreboard.GetDuration() < 1.5)
         this->DrawMessage(graphics);
     graphics->PopState();
@@ -131,13 +133,11 @@ void Game::Update(double elapsed)
 {
     for (auto item : mItems)
     {
-        //item->Update(elapsed);
+        item->Update(elapsed);
     }
     if(mDisplayFps)
         mFpsDisplay.Update(elapsed);
     mScoreboard.Update(elapsed);
-    mSparty->Update(elapsed);
-
 }
 
 /**
@@ -148,7 +148,8 @@ void Game::OnLeftDown(wxMouseEvent &event)
 {
     double oX = (event.GetX() - mXOffset) / mScale;
     double oY = (event.GetY() - mYOffset) / mScale;
-    mSparty->SetLandingPoint(oX, oY);
+
+    mItems.back()->SetLandingPoint(oX, oY);
 }
 
 /**
@@ -160,7 +161,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
 {
     if (event.GetKeyCode() == WXK_SPACE)
     {
-        mSparty->Eat();
+        mItems.back()->Eat();
     }
 }
 
@@ -189,7 +190,6 @@ std::shared_ptr<Item> Game::HitTest(int x, int y)
 */
 void Game::Clear()
 {
-    //mSparty.reset();
     mDeclarations.clear();
     mItems.clear();
 }
@@ -265,22 +265,22 @@ void Game::Load(const wxString &filename)
             // then add the declarations to the map
             if (name == L"declarations") {
                 // I could definitely use a switch statement here if I knew how to use enum
-                if (superChildName == L"given") {
+                if (superChildName == L"given" || superChildName == L"digit") {
                     mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild)});
-                } else if (superChildName == L"digit") {
-                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationNumber>(superChild)});
+                } else if (superChildName == L"sparty") {
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationSparty>(superChild)});
                 }
             } else if (name == L"items") {
                 // if we are in the item part of the xml
                 // then instantiate the items into the level list
                 if (superChildName == L"given" || superChildName == L"digit") {
-                    double col;
-                    superChild->GetAttribute(L"col").ToDouble(&col);
-                    double row;
-                    superChild->GetAttribute(L"row").ToDouble(&row);
-                    auto dec = mDeclarations[superChild->GetAttribute(L"id")];
-                    auto num = make_shared<Item>(dec, col * tileWid, row * tileHit);
-                    mItems.push_back(num);
+                    auto item = mDeclarations[superChild->GetAttribute(L"id")]->Create(superChild);
+                    mItems.push_back(item);
+                } else if(superChildName == L"sparty")
+                {
+                    auto thing = mDeclarations[superChild->GetAttribute(L"id")];
+                    auto item = thing->Create(superChild);
+                    mItems.push_back(item);
                 }
             }
         }
