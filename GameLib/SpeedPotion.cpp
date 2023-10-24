@@ -5,7 +5,7 @@
 
 #include "SpeedPotion.h"
 #include "Game.h"
-#include "Sparty.h"
+//#include "Sparty.h"
 #include <iostream>
 #include "wx/bitmap.h"
 
@@ -66,17 +66,17 @@ void SpeedPotion::Update(double elapsed) {
     // For instance, movement, animation, disappearance after time, etc.
 }
 
-void SpeedPotion::AffectSparty() {
-    auto sparty = mGame->GetSparty();
-    if (sparty) {
+//void SpeedPotion::AffectSparty() {
+    //auto sparty = mGame->GetSparty();
+    //if (sparty) {
         //double newSpeed = sparty->GetSpeed() + mSpeedModifier; // Compute new speed
         //sparty->SetSpeed(newSpeed); // Set new speed
 
     //this is just in case, Probably not needed
-    } else {
-        std::cerr << "Error: Sparty object not found in game." << std::endl;
-    }
-}
+    //} else {
+        //std::cerr << "Error: Sparty object not found in game." << std::endl;
+    //}
+//}
 
 
 void SpeedPotion::GenerateSpeedModifier() {

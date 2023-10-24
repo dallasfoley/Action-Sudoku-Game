@@ -50,7 +50,6 @@ public:
     void OnLeftDown(wxMouseEvent & event);
     void OnKeyDown(wxKeyEvent & event);
     std::shared_ptr<Item> HitTest(int x, int y);
-    std::shared_ptr<Sparty> GetSparty() { return mSparty; }
     void Clear();
     void Restart();
     bool CheckSolved();
