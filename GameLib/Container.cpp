@@ -1,6 +1,7 @@
 /**
  * @file Container.cpp
  * @author Dallas Foley
+ * @author Jon Price
  */
 
 #include "pch.h"
@@ -18,7 +19,7 @@ void Container::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     double hit = mItemFrontBitmap->GetHeight();
     graphics->DrawBitmap(*mItemFrontBitmap,
                          (GetX()),
-                         (GetY()),
+                         (GetY() - hit),
                          wid,
                          hit);
 }

@@ -85,10 +85,10 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     double hit = mMouthBitmap->GetHeight();
     graphics->DrawBitmap(*mMouthBitmap,
                          (GetX()),
-                         (GetY()),
+                         (GetY() - hit),
                          wid,
                          hit);
-    graphics->PopState();
+    //graphics->PopState();
 }
 
 
@@ -169,7 +169,7 @@ void Sparty::Update(double elapsed)
 void Sparty::SetLandingPoint(double x, double y)
 {
     mDestinationX = x - 60;
-    mDestinationY = y - 70;
+    mDestinationY = y + 25;
 }
 
 // /**

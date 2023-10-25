@@ -1,5 +1,5 @@
 /**
- * @file Wildcard.cpp
+ * @file SpeedPotion.cpp
  * @author Chirag Solanki
  */
 

@@ -30,8 +30,8 @@ Game::Game()
 {
     // Almost everything here will be cleared in favor of loading level 1. fyi
 
-    mBackground = std::make_unique<wxBitmap>(
-        BackgroundImage, wxBITMAP_TYPE_PNG);
+//    mBackground = std::make_unique<wxBitmap>(
+//        BackgroundImage, wxBITMAP_TYPE_PNG);
 //    mXRay = make_shared<XRay>(this);
     Load(L"levels/level1.xml");
 }
@@ -98,7 +98,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         while (mScoreboard.GetDuration() + 3 < currentTime)
             graphics->DrawText(os.str(), 250, 235);
     }
-    graphics->PopState();
+
 
 }
 

@@ -56,7 +56,7 @@ void Item::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     double hit = mItemBitmap->GetHeight();
     graphics->DrawBitmap(*mItemBitmap,
                          (mX),
-                         (mY),
+                         (mY - hit),
                          wid,
                          hit);
 }
