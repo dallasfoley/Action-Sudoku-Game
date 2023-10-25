@@ -74,7 +74,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         mHeadPivot.x = GetX() - mHeadbuttCurrent;
         mHeadPivot.y = GetY() - mHeadbuttCurrent;
         // set an angle for the mouth to rotate around the pivot point
-        mHeadAngle = atan2(pivotDestination.y - mHeadPivot.y, pivotDestination.x - mHeadPivot.x) / 4;
+        mHeadAngle = atan2(pivotDestination.y - mHeadPivot.y, pivotDestination.x - mHeadPivot.x);
 
         graphics->Translate(mHeadPivot.x, mHeadPivot.y);
         graphics->Rotate(mHeadAngle);
@@ -196,7 +196,9 @@ void Sparty::Eat()
 //     // to be implemented
 // }
 
-
+/**
+ * Implement the Sparty character's headbutting action
+ */
 void Sparty::Headbutt()
 {
     mHeadbuttCurrent = HeadbuttTime;
