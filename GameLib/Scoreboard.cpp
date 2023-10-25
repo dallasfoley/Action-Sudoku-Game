@@ -64,3 +64,4 @@ void Scoreboard::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     }
 
 }
+

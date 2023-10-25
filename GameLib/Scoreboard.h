@@ -9,12 +9,21 @@
 #define ACTIONSUDOKU_SUDOKULIB_SCOREBOARD_H
 #include "Item.h"
 
-class Scoreboard
+class Scoreboard : public Item
 {
 private:
     ///total time
     double mDuration = 0;
 public:
+    /**
+     * Constructor
+     */
+    Scoreboard() = default;
+
+    /**
+     * Destructor
+     */
+    ~Scoreboard() = default;
 
     void Update(double elapsed);
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);

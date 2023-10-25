@@ -61,7 +61,7 @@ public:
     virtual void SetLocation(double x, double y) { mX = x; mY = y; }
 
     /// Default constructor (disabled)
-    Item() = delete;
+    Item() = default;
 
     /// Copy constructor (disabled)
     Item(const Item &) = delete;
