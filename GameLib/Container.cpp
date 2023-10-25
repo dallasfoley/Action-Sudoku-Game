@@ -7,32 +7,30 @@
 #include "Container.h"
 using namespace std;
 
-const wstring CauldronImageName = L"images/cauldron.png";
-const wstring PumpkinImageName = L"images/pumpkin.png";
-
-Container::Container(Game* game, const wstring &filename) : Item(game, filename), mGame(game)
-{
-    if (filename == CauldronImageName)
-    {
-        mIsCauldron = true;
-    }
-    else
-        mIsCauldron = false;
-}
-
 
 void Container::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
-    if (mGame->GetLevel() != 2)
-        return;
-    if (mIsCauldron)
-    {
-        SetLocation(320, 560);
-        Item::Draw(graphics);
+    Item::Draw(graphics);
+    for(auto item : mItems) {
+        item->Draw(graphics);
     }
-    else
+    double wid = mItemFrontBitmap->GetWidth();
+    double hit = mItemFrontBitmap->GetHeight();
+    graphics->DrawBitmap(*mItemFrontBitmap,
+                         (GetX()),
+                         (GetY()),
+                         wid,
+                         hit);
+}
+
+Container::Container(DeclarationContainer * dec, wxXmlNode * node, Game * mGame) : Item(dec, node)
+{
+    mItemFrontImage = make_unique<wxImage>(dec->GetImage(), wxBITMAP_TYPE_ANY);
+    mItemFrontBitmap = make_unique<wxBitmap>(*mItemFrontImage);
+    auto child = node->GetChildren();
+    for(; child; child = child->GetNext())
     {
-        SetLocation(640, 560);
-        Item::Draw(graphics);
+        auto i = mGame->XmlItem(child);
+        mItems.push_back(i);
     }
 }

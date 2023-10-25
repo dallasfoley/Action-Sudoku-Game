@@ -12,6 +12,7 @@
 
 #include <memory>
 #include "Declaration.h"
+#include "DeclarationNumber.h"
 
 
 class Game;

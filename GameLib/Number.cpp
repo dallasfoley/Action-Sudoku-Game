@@ -36,6 +36,11 @@ Number::Number(shared_ptr<DeclarationNumber> d, double x, double y) : Item(d, x,
 
 }
 
+Number::Number(DeclarationNumber * dec, wxXmlNode * node) : Item(dec, node)
+{
+    mValue = dec->GetValue();
+}
+
 void Number::EatenBySparty()
 {
     mIsInSpartyStomach = true;

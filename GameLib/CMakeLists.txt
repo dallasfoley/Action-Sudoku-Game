@@ -35,8 +35,8 @@ set(SOURCE_FILES
         DeclarationSparty.h
         DeclarationContainer.cpp
         DeclarationContainer.h
-        DeclaractionXray.cpp
-        DeclaractionXray.h
+        DeclarationXray.cpp
+        DeclarationXray.h
         FpsDisplay.cpp
         FpsDisplay.h)
 

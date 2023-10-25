@@ -27,6 +27,8 @@ public:
 
     Number(std::shared_ptr<DeclarationNumber> declaration, double col, double row);
 
+    Number(DeclarationNumber * dec, wxXmlNode * node);
+
     void XmlLoad(wxXmlNode *node) override;
 
 //    /**

@@ -44,7 +44,7 @@ public:
     double getTargetY() const {return mTargetY;}
 
     DeclarationSparty(wxXmlNode * node);
-    std::shared_ptr<Item> Create(wxXmlNode * node) override;
+    std::shared_ptr<Item> Create(wxXmlNode * node, Game * game) override;
 };
 
 

@@ -73,7 +73,7 @@ public:
      */
     ~Sparty();
 
-    void Draw(std::shared_ptr<wxGraphicsContext> graphics);
+    void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 
     /**
      * Update the Sparty character
@@ -84,11 +84,6 @@ public:
     void SetLandingPoint(double x, double y) override;
 
     Sparty(wxXmlNode * node, DeclarationSparty * dec);
-
-    /**
-     * if the Sparty character is in motion
-     */
-    bool InMotion();
 
     /**
      * Implement the Sparty character's eating action

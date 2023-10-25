@@ -121,16 +121,16 @@ void Sparty::Update(double elapsed)
             SetY(GetY() + yIncrement);
         }
 
-    }
+    } else {
 
-    // if Sparty is currently eating, show the mouth open and close around the jaw
-    if(mEating)
-    {
-        // set a destination for the mouth to rotate around relative to Sparty's location
-        wxPoint pivotDestination = wxPoint(GetX() - 30, GetY() + 30);
+        // if Sparty is currently eating, show the mouth open and close around the jaw
+        if (mEating) {
+            // set a destination for the mouth to rotate around relative to Sparty's location
+            wxPoint pivotDestination = wxPoint(GetX() - 30, GetY() + 30);
 
-        // set an angle for the mouth to rotate around the pivot point
-        mMouthAngle = atan2(pivotDestination.y - mMouthPivot.y, pivotDestination.x - mMouthPivot.x);
+            // set an angle for the mouth to rotate around the pivot point
+            mMouthAngle = atan2(pivotDestination.y - mMouthPivot.y, pivotDestination.x - mMouthPivot.x);
+        }
     }
 }
 

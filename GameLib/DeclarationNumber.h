@@ -8,6 +8,8 @@
 
 #include "Declaration.h"
 
+class Item;
+
 /**
  * Base class for number declarations
  */
@@ -17,6 +19,7 @@ private:
     int mValue; ///< the value corresponding to this digit
 public:
     DeclarationNumber(wxXmlNode * node);
+    std::shared_ptr<Item> Create(wxXmlNode * node, Game * game) override;
     bool GetGiven() { return mGiven; } ///< @returns mGiven
     int GetValue() { return mValue; } ///< @returns mValue
 };

@@ -7,6 +7,7 @@
 #include "pch.h"
 #include "Declaration.h"
 #include "Item.h"
+#include "Game.h"
 
 
 Declaration::Declaration(wxXmlNode * node)
@@ -26,7 +27,7 @@ Declaration::Declaration(wxXmlNode * node, wxString image)
     mImage = image;
 }
 
-std::shared_ptr<Item> Declaration::Create(wxXmlNode *node)
+std::shared_ptr<Item> Declaration::Create(wxXmlNode *node, Game * game)
 {
     return std::make_shared<Item>(this, node);
 }

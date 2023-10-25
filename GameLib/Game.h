@@ -45,7 +45,7 @@ public:
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
     void DrawMessage(std::shared_ptr<wxGraphicsContext> graphics);
     int GetLevel() const {return mLevel;}
-    void XmlItem(wxXmlNode * node);
+    std::shared_ptr<Item> XmlItem(wxXmlNode * node);
     void Update(double elapsed);
     void OnLeftDown(wxMouseEvent & event);
     void OnKeyDown(wxKeyEvent & event);

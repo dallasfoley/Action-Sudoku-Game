@@ -16,6 +16,9 @@
 #include "FpsDisplay.h"
 #include "DeclarationSparty.h"
 #include <sstream>
+#include "DeclarationXray.h"
+#include "DeclarationContainer.h"
+
 using namespace std;
 
 const wstring BackgroundImage = L"images/background.png";
@@ -29,7 +32,7 @@ Game::Game()
 
     mBackground = std::make_unique<wxBitmap>(
         BackgroundImage, wxBITMAP_TYPE_PNG);
-    mXRay = make_shared<XRay>(this);
+//    mXRay = make_shared<XRay>(this);
     Load(L"levels/level1.xml");
 }
 
@@ -67,9 +70,9 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     //
     // INSERT YOUR DRAWING CODE HERE
 
-    graphics->DrawBitmap(*mBackground, 0, 0, mPixelWidth, mPixelHeight);
+//    graphics->DrawBitmap(*mBackground, 0, 0, mPixelWidth, mPixelHeight);
 
-    mXRay->Draw(graphics);
+    //mXRay->Draw(graphics);
 
     for (auto item: mItems)
     {
@@ -85,45 +88,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
 
 }
 
-/**
-* Handle a node of type item.
- * @param node XML node
-*/
-void Game::XmlItem(wxXmlNode * node)
-{
-    /// A pointer for the item we are loading
-    shared_ptr<Item> item;
 
-    // We have an item. What type?
-    auto type = node->GetAttribute(L"type");
-    if (type == L"given")
-    {
-//        item = make_shared<>(this);
-    }
-    if (type == L"digit")
-    {
-//        item = make_shared<>(this);
-    }
-    if (type == L"background")
-    {
-//        item = make_shared<>(this);
-    }
-    if (type == L"sparty")
-    {
-//        item = make_shared<>(this);
-    }
-    if (type == L"xray")
-    {
-//        item = make_shared<>(this);
-    }
-
-    if (item != nullptr)
-    {
-
-        //Add(item); #needs to be implemented
-        item->XmlLoad(node);
-    }
-}
 
 /**
  * Handles updates for animation
@@ -213,6 +178,16 @@ bool Game::CheckSolved()
 }
 
 /**
+* Handle a node of type item.
+ * @param node XML node
+*/
+shared_ptr<Item> Game::XmlItem(wxXmlNode * node) {
+    // if we are in the item part of the xml
+    // then instantiate the items into the level list
+    auto item = mDeclarations[node->GetAttribute(L"id")]->Create(node, this);
+    return item;
+}
+/**
  * Load the level from a XML file.
  *
  * Opens the XML file and reads the nodes, creating items as appropriate.
@@ -271,18 +246,13 @@ void Game::Load(const wxString &filename)
                     mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationSparty>(superChild)});
                 } else if (superChildName == L"background") {
                     mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<Declaration>(superChild)});
+                } else if(superChildName == L"xray") {
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationXray>(superChild)});
+                } else if(superChildName == L"container") {
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationContainer>(superChild)});
                 }
             } else if (name == L"items") {
-                // if we are in the item part of the xml
-                // then instantiate the items into the level list
-                if (superChildName == L"given" || superChildName == L"digit" || superChildName == L"background") {
-                    auto item = mDeclarations[superChild->GetAttribute(L"id")]->Create(superChild);
-                    mItems.push_back(item);
-                } else if(superChildName == L"sparty") {
-                    auto thing = mDeclarations[superChild->GetAttribute(L"id")];
-                    auto item = thing->Create(superChild);
-                    mItems.push_back(item);
-                }
+                mItems.push_back(XmlItem(superChild));
             }
         }
     }

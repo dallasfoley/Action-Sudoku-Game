@@ -22,7 +22,7 @@ DeclarationSparty::DeclarationSparty(wxXmlNode * node) : Declaration(node,  L"im
 }
 
 
-std::shared_ptr<Item> DeclarationSparty::Create(wxXmlNode * node)
+std::shared_ptr<Item> DeclarationSparty::Create(wxXmlNode * node, Game * game)
 {
     return std::make_shared<Sparty>(node, this);
 }

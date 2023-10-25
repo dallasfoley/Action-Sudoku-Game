@@ -5,6 +5,8 @@
 
 #include "pch.h"
 #include "DeclarationNumber.h"
+#include "Number.h"
+
 /**
  * Constructor for class DeclarationNumber
  * @param node xmlNode for this declaration
@@ -14,4 +16,9 @@ DeclarationNumber::DeclarationNumber(wxXmlNode *node) :Declaration(node)
 {
     mGiven = node->GetName() == L"given";
     node->GetAttribute(L"value");
+}
+
+std::shared_ptr<Item> DeclarationNumber::Create(wxXmlNode * node, Game * game)
+{
+    return std::make_shared<Number>(this, node);
 }

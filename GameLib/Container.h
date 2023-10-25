@@ -9,6 +9,7 @@
 #define PROJECT1_GAMELIB_CONTAINER_H
 #include "Item.h"
 #include "Game.h"
+#include "DeclarationContainer.h"
 
 /**
  *
@@ -17,13 +18,17 @@
 class Container : public Item
 {
 private:
-    /// The game associated with this container
-    Game* mGame;
+    /// The underlying item image
+    std::unique_ptr<wxImage> mItemFrontImage;
 
-    /// Boolean value denote if object is a cauldron or pumpkin
-    bool mIsCauldron;
+    /// The bitmap we can display for this item
+    std::unique_ptr<wxBitmap> mItemFrontBitmap;
+
+    /// Vector of stored Items
+    std::vector<std::shared_ptr<Item>> mItems;
 public:
-    Container(Game* game, const std::wstring &filename);
+    void Release(Game * mGame); // TO BE IMPLEMENTED
+    Container(DeclarationContainer * declaration, wxXmlNode * node, Game * mGame);
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 };
 

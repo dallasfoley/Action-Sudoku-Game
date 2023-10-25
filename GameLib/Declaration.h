@@ -7,7 +7,7 @@
 #define PROJECT1_DECLARATION_H
 
 class Item;
-
+class Game;
 /**
  * Base class for declarations within XML
  */
@@ -21,10 +21,10 @@ protected:
     Declaration(wxXmlNode * node, wxString image);
 public:
     Declaration(wxXmlNode * node);
-    virtual std::shared_ptr<Item> Create(wxXmlNode * node);
+    virtual std::shared_ptr<Item> Create(wxXmlNode * node, Game * game);
     std::wstring GetID() { return mID; };
-    double GetWidth() { return mWidth; };
-    double GetHeight() { return mHeight; };
+    double GetWidth() const { return mWidth; };
+    double GetHeight() const { return mHeight; };
     std::wstring GetImage() { return mImage;}
 };
 
