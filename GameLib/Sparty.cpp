@@ -59,6 +59,7 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
  */
 void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
+    Item::Draw(graphics);
     graphics->PushState();
     if (mEating)
     {
@@ -80,7 +81,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         graphics->Rotate(mHeadAngle);
         graphics->Translate(-mHeadPivot.x, -mHeadPivot.y);
     }
-    Item::Draw(graphics);
+
     double wid = mMouthBitmap->GetWidth();
     double hit = mMouthBitmap->GetHeight();
     graphics->DrawBitmap(*mMouthBitmap,
@@ -88,7 +89,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                          (GetY() - hit),
                          wid,
                          hit);
-    //graphics->PopState();
+    graphics->PopState();
 }
 
 

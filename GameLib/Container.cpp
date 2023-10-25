@@ -26,7 +26,7 @@ void Container::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 
 Container::Container(DeclarationContainer * dec, wxXmlNode * node, Game * mGame) : Item(dec, node)
 {
-    mItemFrontImage = make_unique<wxImage>(dec->GetImage(), wxBITMAP_TYPE_ANY);
+    mItemFrontImage = make_unique<wxImage>(dec->GetFrontImage(), wxBITMAP_TYPE_ANY);
     mItemFrontBitmap = make_unique<wxBitmap>(*mItemFrontImage);
     auto child = node->GetChildren();
     for(; child; child = child->GetNext())
