@@ -84,6 +84,20 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         mFpsDisplay.Draw(graphics);
     if (mScoreboard.GetDuration() < 1.5)
         this->DrawMessage(graphics);
+    if (this->CheckSolved())
+    {
+
+        wxFont font(wxSize(20, 70),
+                    wxFONTFAMILY_SWISS,
+                    wxFONTSTYLE_NORMAL,
+                    wxFONTWEIGHT_BOLD);
+        graphics->SetFont(font, wxColour(0, 250, 0));
+        ostringstream os;
+        os << "Level " << mLevel << " Complete!";
+        double currentTime = mScoreboard.GetDuration();
+        while (mScoreboard.GetDuration() + 3 < currentTime)
+            graphics->DrawText(os.str(), 250, 235);
+    }
     graphics->PopState();
 
 }
@@ -127,6 +141,10 @@ void Game::OnKeyDown(wxKeyEvent &event)
     if (event.GetKeyCode() == WXK_SPACE)
     {
         mItems.back()->Eat();
+    }
+    if (event.GetKeyCode() == 'B' || event.GetKeyCode() == 'b')
+    {
+        mItems.back()->Headbutt();
     }
 }
 

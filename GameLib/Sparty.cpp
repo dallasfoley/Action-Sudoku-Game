@@ -22,6 +22,10 @@ const wstring SpartyJaw1 = L"images/sparty-2.png";
 
 /// Rotation rate in radians per second
 const double RotationRate = 6;
+
+/// The time for a headbutt cycle in seconds
+const double HeadbuttTime = 0.5;
+
 /**
  * Constructor for Sparty
  */
@@ -42,9 +46,9 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
     mMouthPivot = wxPoint((int)dec->getHeadPivotX(), (int)dec->getHeadPivotY());
     mDestinationX = dec->getTargetX();
     mDestinationY = dec->getTargetY();
-    mHeadPivotX = dec->getHeadPivotX();
-    mHeadPivotY = dec->getHeadPivotY();
-    mHeadPivotAngle = dec->getHeadPivotAngle();
+    mHeadPivot.x = dec->getHeadPivotX();
+    mHeadPivot.y = dec->getHeadPivotY();
+    mHeadAngle = dec->getHeadPivotAngle();
 
 
 }
@@ -55,8 +59,6 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
  */
 void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
-    Item::Draw(graphics);
-
     graphics->PushState();
     if (mEating)
     {
@@ -66,6 +68,19 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         graphics->Rotate(mMouthAngle);
         graphics->Translate(-mMouthPivot.x, -mMouthPivot.y);
     }
+    if (mHeadbuttCurrent > 0)
+    {
+        wxPoint pivotDestination = wxPoint(GetX(), GetY());
+        mHeadPivot.x = GetX() - mHeadbuttCurrent;
+        mHeadPivot.y = GetY() - mHeadbuttCurrent;
+        // set an angle for the mouth to rotate around the pivot point
+        mHeadAngle = atan2(pivotDestination.y - mHeadPivot.y, pivotDestination.x - mHeadPivot.x) / 4;
+
+        graphics->Translate(mHeadPivot.x, mHeadPivot.y);
+        graphics->Rotate(mHeadAngle);
+        graphics->Translate(-mHeadPivot.x, -mHeadPivot.y);
+    }
+    Item::Draw(graphics);
     double wid = mMouthBitmap->GetWidth();
     double hit = mMouthBitmap->GetHeight();
     graphics->DrawBitmap(*mMouthBitmap,
@@ -91,7 +106,7 @@ Sparty::~Sparty()
  */
 void Sparty::Update(double elapsed)
 {
-    mRotation += RotationRate * elapsed;
+
     if(GetX() != mDestinationX || GetY() != mDestinationY)
     {
         double currentSpeed = mMaxSpeed;
@@ -112,7 +127,8 @@ void Sparty::Update(double elapsed)
         // otherwise, increment Sparty's location as normal
         if(abs(mDestinationX - GetX()) < abs(xIncrement)) {
             SetX(mDestinationX);
-        } else {
+        }
+        else {
             SetX(GetX() + xIncrement);
         }
         if(abs(mDestinationY - GetY()) < abs(yIncrement)) {
@@ -124,12 +140,23 @@ void Sparty::Update(double elapsed)
     } else {
 
         // if Sparty is currently eating, show the mouth open and close around the jaw
-        if (mEating) {
+        if (mEating)
+        {
             // set a destination for the mouth to rotate around relative to Sparty's location
             wxPoint pivotDestination = wxPoint(GetX() - 30, GetY() + 30);
 
             // set an angle for the mouth to rotate around the pivot point
             mMouthAngle = atan2(pivotDestination.y - mMouthPivot.y, pivotDestination.x - mMouthPivot.x);
+        }
+        //if Sparty is currently eating, show the mouth open and close around the jaw
+        if(mHeadbuttCurrent > 0)
+        {
+            mHeadbuttCurrent -= elapsed;
+            // set a destination for the mouth to rotate around relative to Sparty's location
+
+            if (mHeadbuttCurrent < 0)
+                mHeadbuttCurrent = 0;
+
         }
     }
 }
@@ -172,5 +199,5 @@ void Sparty::Eat()
 
 void Sparty::Headbutt()
 {
-
+    mHeadbuttCurrent = HeadbuttTime;
 }

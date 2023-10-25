@@ -49,6 +49,8 @@ public:
 
     virtual void Eat() {};
 
+    virtual void Headbutt() {};
+
     Item(std::shared_ptr<Declaration> d, double x, double y);
 
     Item(Declaration * d, wxXmlNode * node);

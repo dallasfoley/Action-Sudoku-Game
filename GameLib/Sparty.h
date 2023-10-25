@@ -26,17 +26,14 @@ private:
     /// The time for an eating cycles in seconds
     const double mEatingTime = 0.5;
 
-    /// The time for a headbutt cycle in seconds
-    const double mHeadbuttTime = 0.5;
+    /// Current time remaining in headbutt
+    double mHeadbuttCurrent = 0;
 
     /// The Sparty mouth image
     std::unique_ptr<wxImage> mMouth;
 
     /// The Sparty mouth bitmap (I couldnt make wxGraphicBitmap work, maybe try again later)
     std::unique_ptr<wxBitmap> mMouthBitmap;
-
-    /// Rotation angle
-    double mRotation = 0;
 
     /// The destination X coordinate
     double mDestinationX;
@@ -56,9 +53,8 @@ private:
     /// boolean to determine if Sparty is currently eating
     bool mEating = false;
 
-    double mHeadPivotX;
-    double mHeadPivotY;
-    double mHeadPivotAngle;
+    wxPoint mHeadPivot = wxPoint(GetX(),GetY());
+    double mHeadAngle = 0;
 
     ///current game context
     Game * mGame;
