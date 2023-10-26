@@ -20,7 +20,6 @@ private:
     double mX = 0;
     double mY = 0;
 
-
 public:
     void XmlLoad(wxXmlNode *node) override;
     Board(){}

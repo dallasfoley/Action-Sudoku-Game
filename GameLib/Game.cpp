@@ -170,12 +170,11 @@ std::shared_ptr<Item> Game::HitTest(int x, int y)
 {
     for (auto i = mItems.rbegin(); i != mItems.rend();  i++)
     {
-        if ((*i)->HitTest(x, y))
+        if ((*i)->HitTest(x - mXOffset/mScale, y - mYOffset/mScale))
         {
             return *i;
         }
     }
-
     return nullptr;
 }
 
@@ -238,11 +237,11 @@ void Game::Load(const wxString &filename)
     // Get the XML document root node
     auto root = xmlDoc.GetRoot();
 
-    double tileWid;
-    double tileHit;
+    double mTileWidth;
+    double mTileHeight;
 
-    root->GetAttribute(L"tilewidth").ToDouble(&tileWid);
-    root->GetAttribute(L"tileheight").ToDouble(&tileHit);
+    root->GetAttribute(L"tilewidth").ToDouble(&mTileWidth);
+    root->GetAttribute(L"tileheight").ToDouble(&mTileHeight);
 
     double width;
     double height;
@@ -250,8 +249,8 @@ void Game::Load(const wxString &filename)
     root->GetAttribute(L"width").ToDouble(&width);
     root->GetAttribute(L"height").ToDouble(&height);
 
-    mPixelWidth = (int)(width * tileWid);
-    mPixelHeight = (int)(height * tileHit);
+    mPixelWidth = (int)(width * mTileWidth);
+    mPixelHeight = (int)(height * mTileHeight);
 
     //
     // Traverse the children of the root
