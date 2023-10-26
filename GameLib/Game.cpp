@@ -314,7 +314,7 @@ void Game::DrawMessage(std::shared_ptr<wxGraphicsContext> graphics)
                 wxFONTFAMILY_SWISS,
                 wxFONTSTYLE_NORMAL,
                 wxFONTWEIGHT_BOLD);
-    graphics->SetFont(font1, wxColour(200, 200, 200));
+    graphics->SetFont(font1, wxColour(0, 0, 0));
     ostringstream os1;
     os1 << "space: Eat \n 0-8: Regurgitate \n B: Headbutt";
     graphics->DrawText(os1.str(), 250, 350);
