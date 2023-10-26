@@ -16,28 +16,6 @@
 using namespace std;
 
 
-// Default Sparty images
-const wstring SpartyHead1 = L"images/sparty-1.png";
-const wstring SpartyJaw1 = L"images/sparty-2.png";
-
-/// Rotation rate in radians per second
-const double RotationRate = 6;
-
-/// The time for a headbutt cycle in seconds
-const double HeadbuttTime = 0.5;
-
-/**
- * Constructor for Sparty
- */
-Sparty::Sparty(Game *game) : Item(game, SpartyHead1)
-{
-    mGame = game;
-
-    // Image and bitmap for jaw of Sparty
-    mMouth = make_unique<wxImage>(SpartyJaw1, wxBITMAP_TYPE_ANY);
-    mMouthBitmap = make_unique<wxBitmap>( *mMouth);
-}
-
 Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
 {
     mMouth = make_unique<wxImage>(dec->getJawImage());
@@ -49,7 +27,6 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
     mHeadPivot.x = dec->getHeadPivotX();
     mHeadPivot.y = dec->getHeadPivotY();
     mHeadAngle = dec->getHeadPivotAngle();
-
 }
 
 /**
@@ -61,42 +38,19 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 
     graphics->PushState();
 
-    if (mHeadbuttCurrent > 0)
-    {
-        auto headbuttTime2 = HeadbuttTime / 2;
-        mHeadPivot.x = 30;
-        mHeadPivot.y = 86;
-        double headAngle{};
-        if (mHeadbuttCurrent < headbuttTime2)
-        {
-            headAngle = .5 / (0.8 * headbuttTime2);
-        }
-        else
-        {
-            headAngle = (.5 - mHeadbuttCurrent) / (0.8 * headbuttTime2);
-        }
-
-        int headX = GetX() - GetWidth() / 2;
-        int headY = GetY() - GetHeight();
-        graphics->PushState();
-        //graphics->Translate(headX, headY);
-        //Item::Draw(graphics);
-        //graphics->Translate(-headX, -headY);
-        graphics->Translate(mHeadPivot.x, mHeadPivot.y);
-        graphics->Rotate(mHeadAngle);
-        graphics->Translate(-mHeadPivot.x, -mHeadPivot.y);
-    }
+    graphics->Translate(mHeadPivot.x + GetX(), mHeadPivot.y + GetY());
+    graphics->Rotate(mHeadAngleCurrent);
+    graphics->Translate(-mHeadPivot.x - GetX(), -mHeadPivot.y - GetY());
 
     Item::Draw(graphics);
-
 
     if (mEating)
     {
         // Put correct code here
         mEating = false;
-        graphics->Translate(mMouthPivot.x, mMouthPivot.y);
+        graphics->Translate(mMouthPivot.x + GetX(), mMouthPivot.y  + GetY());
         graphics->Rotate(mMouthAngle);
-        graphics->Translate(-mMouthPivot.x, -mMouthPivot.y);
+        graphics->Translate(-mMouthPivot.x - GetX(), -mMouthPivot.y - GetY());
     }
 
     double wid = mMouthBitmap->GetWidth();
@@ -106,6 +60,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                          (GetY() - hit),
                          wid,
                          hit);
+
     graphics->PopState();
 }
 
@@ -155,8 +110,8 @@ void Sparty::Update(double elapsed)
             SetY(GetY() + yIncrement);
         }
 
-    } else {
-
+    }
+    {
         // if Sparty is currently eating, show the mouth open and close around the jaw
         if (mEating)
         {
@@ -167,14 +122,22 @@ void Sparty::Update(double elapsed)
             mMouthAngle = atan2(pivotDestination.y - mMouthPivot.y, pivotDestination.x - mMouthPivot.x);
         }
         //if Sparty is currently eating, show the mouth open and close around the jaw
-        if(mHeadbuttCurrent > 0)
+        if(mHeadbutting)
         {
-            mHeadbuttCurrent -= elapsed;
-            // set a destination for the mouth to rotate around relative to Sparty's location
+            double increment = mHeadAngle/mHeadButtTime;
 
-            if (mHeadbuttCurrent < 0)
-                mHeadbuttCurrent = 0;
+            mHeadAngleCurrent += increment*elapsed/mHeadButtTime;
 
+            if(mHeadAngleCurrent > mHeadAngle)
+                mHeadAngleCurrent = mHeadAngle;
+
+            mHeadbutting = mHeadAngle != mHeadAngleCurrent;
+        } else if (mHeadAngleCurrent != 0) {
+            double increment = -mHeadAngle/mHeadButtTime;
+            mHeadAngleCurrent += increment*elapsed/mHeadButtTime;
+
+            if(mHeadAngleCurrent < 0)
+                mHeadAngleCurrent = 0;
         }
     }
 }
@@ -219,5 +182,5 @@ void Sparty::Eat()
  */
 void Sparty::Headbutt()
 {
-    mHeadbuttCurrent = HeadbuttTime;
+    mHeadbutting = true;
 }
