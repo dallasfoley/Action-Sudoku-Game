@@ -61,8 +61,11 @@ void XRay::Update(double elapsed)
  */
 bool XRay::AddItem(std::shared_ptr<Item> item)
 {
-    mNumbers.push_back(item);
-    return true;
+    if (GetNumItems() < 7) {
+        mNumbers.push_back(item);
+        return true;
+    }
+    return false;
 }
 
 /**
