@@ -5,6 +5,7 @@
  */
 
 #include "pch.h"
+#include "Game.h"
 #include "Item.h"
 #include "Declaration.h"
 

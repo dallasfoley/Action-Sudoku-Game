@@ -50,7 +50,6 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
     mHeadPivot.y = dec->getHeadPivotY();
     mHeadAngle = dec->getHeadPivotAngle();
 
-
 }
 
 /**
@@ -59,15 +58,9 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
  */
 void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
+
     graphics->PushState();
-    if (mEating)
-    {
-        // Put correct code here
-        mEating = false;
-        graphics->Translate(mMouthPivot.x, mMouthPivot.y);
-        graphics->Rotate(mMouthAngle);
-        graphics->Translate(-mMouthPivot.x, -mMouthPivot.y);
-    }
+
     if (mHeadbuttCurrent > 0)
     {
         auto headbuttTime2 = HeadbuttTime / 2;
@@ -90,13 +83,22 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         //Item::Draw(graphics);
         //graphics->Translate(-headX, -headY);
         graphics->Translate(mHeadPivot.x, mHeadPivot.y);
-        graphics->Rotate(headAngle);
+        graphics->Rotate(mHeadAngle);
         graphics->Translate(-mHeadPivot.x, -mHeadPivot.y);
     }
-    int headX = GetX() - GetWidth() / 2;
-    int headY = GetY() - GetHeight();
-    graphics->Translate(headX, headY);
+
     Item::Draw(graphics);
+
+
+    if (mEating)
+    {
+        // Put correct code here
+        mEating = false;
+        graphics->Translate(mMouthPivot.x, mMouthPivot.y);
+        graphics->Rotate(mMouthAngle);
+        graphics->Translate(-mMouthPivot.x, -mMouthPivot.y);
+    }
+
     double wid = mMouthBitmap->GetWidth();
     double hit = mMouthBitmap->GetHeight();
     graphics->DrawBitmap(*mMouthBitmap,
