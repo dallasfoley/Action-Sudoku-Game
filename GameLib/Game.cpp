@@ -64,11 +64,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     // Draw in virtual pixels on the graphics context
     //
     // INSERT YOUR DRAWING CODE HERE
-
-//    graphics->DrawBitmap(*mBackground, 0, 0, mPixelWidth, mPixelHeight);
-
-    //mXRay->Draw(graphics);
-
     for (auto item: mItems)
     {
         item->Draw(graphics);

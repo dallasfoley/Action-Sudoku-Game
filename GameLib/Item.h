@@ -51,6 +51,8 @@ public:
 
     virtual void Headbutt() {};
 
+    virtual int GetValue() { return 10;}
+
     Item(std::shared_ptr<Declaration> d, double x, double y);
 
     Item(Declaration * d, wxXmlNode * node);

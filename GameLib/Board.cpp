@@ -17,6 +17,8 @@ void Board::XmlLoad(wxXmlNode * node)
     node->GetAttribute(L"col").ToDouble(&mX);
     node->GetAttribute(L"row").ToDouble(&mY);
 
+
+
 }
 
 /**

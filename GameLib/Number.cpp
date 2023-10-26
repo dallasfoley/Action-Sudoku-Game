@@ -10,29 +10,6 @@
 
 using namespace std;
 
-
-///**
-// * Constructor
-// * @param game current game for the number to be loaded into
-// * @param num value of this Number
-// * @param given whether or not this Number is a given
-// */
-//Number::Number(Game * game, int num, bool given)  : Item(game, given? BlueImages[num] : RedImages[num])
-//{
-//    mValue = num;
-//    mIsGiven = given;
-//    mIsInContainer = false;
-//
-//}
-
-/**
- * Constructor for number loading
- */
-Number::Number(shared_ptr<DeclarationNumber> d, double x, double y) : Item(d, x, y)
-{
-
-}
-
 Number::Number(DeclarationNumber * dec, wxXmlNode * node) : Item(dec, node)
 {
     mValue = dec->GetValue();

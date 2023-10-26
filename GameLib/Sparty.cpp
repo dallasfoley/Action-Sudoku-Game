@@ -22,8 +22,9 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
     mMouthBitmap = make_unique<wxBitmap>(*mMouth);
     mMouthAngle = dec->getMouthPivotAngle();
     mMouthPivot = wxPoint((int)dec->getHeadPivotX(), (int)dec->getHeadPivotY());
-    mDestinationX = dec->getTargetX();
-    mDestinationY = dec->getTargetY();
+
+    Sparty::SetLandingPoint(GetX(), GetY());
+
     mHeadPivot.x = dec->getHeadPivotX();
     mHeadPivot.y = dec->getHeadPivotY();
     mHeadAngle = dec->getHeadPivotAngle();

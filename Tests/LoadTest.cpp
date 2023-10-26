@@ -49,9 +49,22 @@ TEST_F(GameTest, Load) {
     //Make sure that the node is declarations
     ASSERT_EQ(child->GetName(), "declarations");
 
+
     // the first declaration has id "i362", assure that that is what we are getting.
     auto firstSuperChild = child->GetChildren();
     ASSERT_EQ(firstSuperChild->GetAttribute(L"id"), L"i362" );
+    for(;child; child = child->GetNext()) {
+            cout << child->GetName();
+            if(child->GetName() == L"game") {
+                cout << "HERE" << endl;
+                auto something = child->GetNodeContent();
+                cout << something << endl;
+                auto asd = something.ToStdString();
+                for(auto c : something) {
+                    cout << int(c) - 48 << endl;
+                }
+            }
+    }
 
     Game game;
 

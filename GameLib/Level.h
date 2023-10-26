@@ -72,7 +72,6 @@ public:
      */
     void moveDigitsToCorrectLocations();
 
-
 };
 
 # endif //PROJECT1_LEVEL_H

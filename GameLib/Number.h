@@ -27,17 +27,12 @@ private:
 
 public:
 
-    Number(std::shared_ptr<DeclarationNumber> declaration, double col, double row);
-
     Number(DeclarationNumber * dec, wxXmlNode * node);
 
     void XmlLoad(wxXmlNode *node) override;
 
-//    /**
-//      * Constructor
-//      * @param num value of this Number
-//     */
-//    Number(Game * game, int number, bool given);
+    int GetValue() override { return mValue; }
+
 
     /**
       * Marks the number as being inside Sparty's stomach.
