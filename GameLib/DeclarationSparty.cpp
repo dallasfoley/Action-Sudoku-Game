@@ -8,6 +8,10 @@
 #include "Sparty.h"
 #include "DeclarationSparty.h"
 
+/**
+ * Handle base sparty declarations
+ * @param node wxXmlNode
+ */
 DeclarationSparty::DeclarationSparty(wxXmlNode * node) : Declaration(node,  L"images/" + node->GetAttribute(L"image1", L"sparty-1.png"))
 {
     node->GetAttribute(L"head-pivot-angle", L"0").ToDouble(&mHeadPivotAngle);
@@ -21,7 +25,11 @@ DeclarationSparty::DeclarationSparty(wxXmlNode * node) : Declaration(node,  L"im
     mJawImage = L"images/" + node->GetAttribute(L"image2", L"sparty-2.png");
 }
 
-
+/**
+ * Creates shared pointer for declaration
+ * @param node wxXmlNode
+ * @param game game construct
+ */
 std::shared_ptr<Item> DeclarationSparty::Create(wxXmlNode * node, Game * game)
 {
     return std::make_shared<Sparty>(node, this);

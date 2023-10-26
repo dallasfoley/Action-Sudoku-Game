@@ -2,13 +2,15 @@
  * @file Scoreboard.h
  * @author dalla
  *
- *
  */
 
 #ifndef ACTIONSUDOKU_SUDOKULIB_SCOREBOARD_H
 #define ACTIONSUDOKU_SUDOKULIB_SCOREBOARD_H
 #include "Item.h"
 
+/**
+ * Base class for scoreboard in the Game
+ */
 class Scoreboard : public Item
 {
 private:

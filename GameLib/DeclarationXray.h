@@ -1,5 +1,5 @@
 /**
- * @file DeclaractionXray.h
+ * @file DeclarationXray.h
  * @author Joseph Renas
  *
  *

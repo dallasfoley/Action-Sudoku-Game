@@ -14,7 +14,9 @@
 #include "DeclarationNumber.h"
 #include <utility>
 
-
+/**
+ * Base class for numbers in the Game
+ */
 class Number : public Item
 {
 private:

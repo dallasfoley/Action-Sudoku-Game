@@ -13,29 +13,17 @@
 /**
  * Base class for board in the Game
  */
-class Board
+class Board : public Item
 {
 private:
-    /// vector of items on the board
-    std::vector<Item> mItems;
-
-    /// image of the board
-    std::unique_ptr<wxImage> mBoardImage;
-
-    /// bitmap of the board
-    std::unique_ptr<wxGraphicsBitmap> mBoardBitmap;
+    int mSolution;
+    double mX = 0;
+    double mY = 0;
 
 
 public:
-    /**
-     * Constructor
-     */
-    Board();
-
-    /**
-     * Destructor
-     */
-    ~Board();
+    void XmlLoad(wxXmlNode *node) override;
+    Board(){}
 
     /**
      * Draw the board

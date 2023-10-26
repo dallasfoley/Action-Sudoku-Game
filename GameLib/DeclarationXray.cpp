@@ -1,5 +1,5 @@
 /**
- * @file DeclaractionXray.cpp
+ * @file DeclarationXray.cpp
  * @author Joseph Renas
  */
 

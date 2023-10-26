@@ -12,6 +12,9 @@
 #include "Number.h"
 #include <memory>
 
+/**
+ * Base class for Xray in the Game
+ */
 class XRay {
 private:
 

@@ -8,21 +8,15 @@
 
 using namespace std;
 
-const wstring BoardImage = L"images/sudoku.png";
 /**
- * Constructor
+ * Load the number from xml file
+ * @param node
  */
-Board::Board()
+void Board::XmlLoad(wxXmlNode * node)
 {
-    // to be implemented
-}
+    node->GetAttribute(L"col").ToDouble(&mX);
+    node->GetAttribute(L"row").ToDouble(&mY);
 
-/**
- * Destructor
- */
-Board::~Board()
-{
-    // to be implemented
 }
 
 /**

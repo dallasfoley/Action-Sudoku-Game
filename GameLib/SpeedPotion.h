@@ -15,6 +15,9 @@
 
 class Game;
 
+/**
+ * Base class for speed potion in lvl 3 of the Game
+ */
 class SpeedPotion : public Item {
 private:
 

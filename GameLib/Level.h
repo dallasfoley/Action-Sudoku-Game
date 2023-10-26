@@ -20,7 +20,9 @@
 #include <utility> // This specific one is for std::pair
 
 
-
+/**
+ * Base class for levels in the Game
+ */
 class Level
 {
 private:

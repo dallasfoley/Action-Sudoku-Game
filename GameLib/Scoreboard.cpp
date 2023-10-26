@@ -11,9 +11,20 @@ using namespace std;
 const int FrameDuration = 30;
 /// Size of the scoreboard text in virtual pixels
 const int ScoreboardTextSize = 64;
-/// Top left corner of the scoreboard in virtual pixels
+/**
+ * Top left corner of the scoreboard in virtual pixels.
+ * @return int.
+ */
 const wxPoint ScoreboardTopLeft(10, 10);
+/**
+ * Top leftX corner of the scoreboard in virtual pixels.
+ * @return int.
+ */
 const int ScoreboardTopLeftX(10);
+/**
+ * Top leftY corner of the scoreboard in virtual pixels.
+ * @return int.
+ */
 const int ScoreboardTopLeftY(10);
 
 

@@ -18,6 +18,7 @@ private:
 public:
     void Initialize(wxFrame* parent);
     void OnFpsDisplay(wxCommandEvent& event);
+    void OnLoadSolve(wxCommandEvent& event);
     void OnLoadLvl1(wxCommandEvent& event);
     void OnLoadLvl2(wxCommandEvent& event);
     void OnLoadLvl3(wxCommandEvent& event);
