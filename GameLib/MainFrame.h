@@ -17,7 +17,7 @@ class GameView;
 class MainFrame : public wxFrame
 {
 private:
-    std::shared_ptr<GameView> mGameView;
+    GameView* mGameView = nullptr; ///< The game view
 public:
     void Initialize();
     void OnClose(wxCloseEvent& event);

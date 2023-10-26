@@ -24,6 +24,8 @@ void MainFrame::Initialize()
     // Create the view class object as a child of MainFrame
     auto gameView = new GameView();
 
+    mGameView = gameView;
+
     gameView->Initialize(this);
 
     // Add it to the sizer
@@ -68,6 +70,7 @@ void MainFrame::Initialize()
  */
 void MainFrame::OnClose(wxCloseEvent& event)
 {
+    // Stop the animation
     mGameView->Stop();
     Destroy();
 }
