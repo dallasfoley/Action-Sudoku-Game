@@ -82,9 +82,9 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         //graphics->Translate(headX, headY);
         //Item::Draw(graphics);
         //graphics->Translate(-headX, -headY);
-        graphics->Translate(mHeadPivot.x, mHeadPivot.y);
+        graphics->Translate(mHeadPivot.x + GetX(), mHeadPivot.y + GetY());
         graphics->Rotate(mHeadAngle);
-        graphics->Translate(-mHeadPivot.x, -mHeadPivot.y);
+        graphics->Translate(-mHeadPivot.x - GetX(), -mHeadPivot.y - GetY());
     }
 
     Item::Draw(graphics);
@@ -154,8 +154,8 @@ void Sparty::Update(double elapsed)
         } else {
             SetY(GetY() + yIncrement);
         }
-
-    } else {
+    }
+    else {
 
         // if Sparty is currently eating, show the mouth open and close around the jaw
         if (mEating)
