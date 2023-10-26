@@ -94,7 +94,7 @@ public:
     /**
      * Implement the headbutt action
      */
-    void Headbutt();
+    void Headbutt() override;
 
 };
 

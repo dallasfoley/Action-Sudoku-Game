@@ -57,7 +57,7 @@ void Scoreboard::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                 wxFONTFAMILY_SWISS,
                 wxFONTSTYLE_NORMAL,
                 wxFONTWEIGHT_BOLD);
-    graphics->SetFont(font, wxColour(200, 0, 0));
+    graphics->SetFont(font, wxColour(255, 255, 255));
     if (mDuration == 0)
         graphics->DrawText(L"0:00" , ScoreboardTopLeftX, ScoreboardTopLeftY);
     else
