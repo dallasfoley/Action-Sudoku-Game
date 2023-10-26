@@ -50,7 +50,6 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
     mHeadPivot.y = dec->getHeadPivotY();
     mHeadAngle = dec->getHeadPivotAngle();
 
-
 }
 
 /**

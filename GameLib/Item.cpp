@@ -42,6 +42,7 @@ Item::Item(Declaration * declaration, wxXmlNode * node)
     // Gotta refactor mX and mY to be colomn and row values instead, then draw some other way? maybe.
     node->GetAttribute(L"col", L"0").ToDouble(&mX);
     node->GetAttribute(L"row", L"0").ToDouble(&mY);
+    mY++;
     mX*=48;
     mY*=48;
 }
