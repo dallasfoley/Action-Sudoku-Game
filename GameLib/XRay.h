@@ -16,7 +16,7 @@ class XRay {
 private:
 
     /// Vector of items in the XRay
-    std::vector<std::shared_ptr<Item>> mItems;
+    std::vector<std::shared_ptr<Item>> mNumbers;
 
     /// Image for the XRay
     std::unique_ptr<wxImage> mImage;
@@ -46,6 +46,9 @@ public:
     void Update(double elapsed);
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
+    int GetNumItems();
+    void DisplayNumbers();
+    bool RemoveItem(std::shared_ptr<Item> item);
 };
 
 

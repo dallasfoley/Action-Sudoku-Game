@@ -136,11 +136,32 @@ void Game::OnLeftDown(wxMouseEvent &event)
  * When space is pressed, Sparty eats a number
  * @param event key press event
  */
-void Game::OnKeyDown(wxKeyEvent &event)
+bool Game::OnKeyDown(wxKeyEvent &event)
 {
     if (event.GetKeyCode() == WXK_SPACE)
     {
         mItems.back()->Eat();
+        for(auto item : mItems)
+        {
+            if(item == mItems.back())
+            {
+                continue;
+            }
+
+            if(item->HitTest((int)mItems.back()->GetX() + 50, (int)mItems.back()->GetY()))
+            {
+                auto loc = find(mItems.begin(), mItems.end(), item);
+                if(loc != mItems.end())
+                {
+                    mItems.erase(loc);
+                }
+                mXRay->AddItem(item);
+                int x = 10;
+                return true;
+            }
+        }
+
+        return false;
     }
     if (event.GetKeyCode() == 'B' || event.GetKeyCode() == 'b')
     {
@@ -205,6 +226,7 @@ shared_ptr<Item> Game::XmlItem(wxXmlNode * node) {
     auto item = mDeclarations[node->GetAttribute(L"id")]->Create(node, this);
     return item;
 }
+
 /**
  * Load the level from a XML file.
  *

@@ -48,7 +48,7 @@ public:
     std::shared_ptr<Item> XmlItem(wxXmlNode * node);
     void Update(double elapsed);
     void OnLeftDown(wxMouseEvent & event);
-    void OnKeyDown(wxKeyEvent & event);
+    bool OnKeyDown(wxKeyEvent & event);
     std::shared_ptr<Item> HitTest(int x, int y);
     void Clear();
     void Restart();
