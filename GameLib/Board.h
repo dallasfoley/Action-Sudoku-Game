@@ -16,12 +16,13 @@
 class Board : public Item
 {
 private:
-    int mSolution;
+    std::vector<int> mSolution;
     double mX = 0;
     double mY = 0;
 
 public:
     void XmlLoad(wxXmlNode *node) override;
+    bool CheckSolution(Game * game);
     Board(){}
 
     /**

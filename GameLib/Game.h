@@ -25,6 +25,8 @@ private:
     double mScale; ///< current scaling of the window
     double mXOffset;
     double mYOffset;
+    double mTileWidth;
+    double mTileHit;
     int mPixelHeight;
     int mPixelWidth;
     bool mDisplayFps = false;
@@ -40,7 +42,6 @@ private:
 
 public:
     void SetDisplayFps() { mDisplayFps = !mDisplayFps; } ///< @param b true when display is going to display
-
     Game();
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
     void DrawMessage(std::shared_ptr<wxGraphicsContext> graphics);
@@ -55,6 +56,8 @@ public:
     bool CheckSolved();
     void Load(const wxString &filename);
     int GetMapLength() { return mDeclarations.size(); } ///< returns length of declaration file, used right now for a test
+    double GetTileWidth() const {return mTileWidth;}
+    double GetTileHit() const {return mTileHit;}
 };
 
 

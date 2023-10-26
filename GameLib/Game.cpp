@@ -77,6 +77,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         this->DrawMessage(graphics);
     if (this->CheckSolved())
     {
+        graphics->SetPen(wxNullGraphicsPen);
         wxFont font(wxSize(20, 70),
                     wxFONTFAMILY_SWISS,
                     wxFONTSTYLE_NORMAL,
@@ -149,6 +150,7 @@ bool Game::OnKeyDown(wxKeyEvent &event)
                 return true;
             }
         }
+
         return false;
     }
     if (event.GetKeyCode() == 'B' || event.GetKeyCode() == 'b')
@@ -202,7 +204,7 @@ void Game::Restart()
  */
 bool Game::CheckSolved()
 {
-    return false;
+    return mBoard->CheckSolution(this);
 }
 
 /**
@@ -237,11 +239,8 @@ void Game::Load(const wxString &filename)
     // Get the XML document root node
     auto root = xmlDoc.GetRoot();
 
-    double mTileWidth;
-    double mTileHeight;
-
     root->GetAttribute(L"tilewidth").ToDouble(&mTileWidth);
-    root->GetAttribute(L"tileheight").ToDouble(&mTileHeight);
+    root->GetAttribute(L"tileheight").ToDouble(&mTileHit);
 
     double width;
     double height;
@@ -250,7 +249,7 @@ void Game::Load(const wxString &filename)
     root->GetAttribute(L"height").ToDouble(&height);
 
     mPixelWidth = (int)(width * mTileWidth);
-    mPixelHeight = (int)(height * mTileHeight);
+    mPixelHeight = (int)(height * mTileHit);
 
     //
     // Traverse the children of the root
