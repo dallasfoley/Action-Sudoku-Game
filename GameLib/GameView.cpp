@@ -123,7 +123,7 @@ void GameView::Stop() { mTimer.Stop(); }
  */
 void GameView::OnLoadSolve(wxCommandEvent& event)
 {
-    mGame.Load(L"levels/level1.xml");
+    mGame.CheckSolved();
 }
 
 /**
