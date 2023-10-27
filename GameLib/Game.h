@@ -38,6 +38,8 @@ private:
 
     FpsDisplay mFpsDisplay;
 
+    bool mSolved = false;
+
     std::unordered_map<wxString, std::shared_ptr<Declaration>> mDeclarations;
 
 public:
@@ -50,7 +52,7 @@ public:
     void Update(double elapsed);
     void OnLeftDown(wxMouseEvent & event);
     bool OnKeyDown(wxKeyEvent & event);
-    std::shared_ptr<Item> HitTest(int x, int y);
+    std::shared_ptr<Item> HitTest(double x, double y);
     void Clear();
     void Restart();
     bool CheckSolved();

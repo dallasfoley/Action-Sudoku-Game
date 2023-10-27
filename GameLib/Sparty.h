@@ -104,6 +104,11 @@ public:
      */
     void Headbutt() override;
 
+    /**
+     * Make hittest not work on sparty
+     */
+     bool HitTest(double x, double y) override { return false; }
+
 };
 
 #endif //PROJECT1_GAMELIB_SPARTY_H

@@ -15,7 +15,7 @@
 DeclarationNumber::DeclarationNumber(wxXmlNode *node) :Declaration(node)
 {
     mGiven = node->GetName() == L"given";
-    node->GetAttribute(L"value");
+    node->GetAttribute(L"value").ToInt(&mValue);
 }
 
 std::shared_ptr<Item> DeclarationNumber::Create(wxXmlNode * node, Game * game)

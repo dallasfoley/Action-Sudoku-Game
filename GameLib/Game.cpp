@@ -75,7 +75,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         mFpsDisplay.Draw(graphics);
     if (mScoreboard.GetDuration() < 1.5)
         this->DrawMessage(graphics);
-    if (this->CheckSolved())
+    if (mSolved)
     {
         graphics->SetPen(wxNullGraphicsPen);
         wxFont font(wxSize(20, 70),
@@ -106,6 +106,7 @@ void Game::Update(double elapsed)
     if(mDisplayFps)
         mFpsDisplay.Update(elapsed);
     mScoreboard.Update(elapsed);
+    mSolved = CheckSolved();
 }
 
 /**
@@ -116,6 +117,8 @@ void Game::OnLeftDown(wxMouseEvent &event)
 {
     double oX = (event.GetX() - mXOffset) / mScale;
     double oY = (event.GetY() - mYOffset) / mScale;
+
+    auto i = HitTest(event.GetX(), event.GetY());
 
     mItems.back()->SetLandingPoint(oX, oY);
 }
@@ -168,13 +171,15 @@ bool Game::OnKeyDown(wxKeyEvent &event)
 * @param y Y location in pixels
 * @returns Pointer to item we clicked on or nullptr if none.
 */
-std::shared_ptr<Item> Game::HitTest(int x, int y)
+std::shared_ptr<Item> Game::HitTest(double x, double y)
 {
     for (auto i = mItems.rbegin(); i != mItems.rend();  i++)
     {
-        if ((*i)->HitTest(x - mXOffset/mScale, y - mYOffset/mScale))
+        double test = x - mXOffset/mScale;
+        if ((*i)->HitTest(x, y))
         {
-            return *i;
+            auto r = *i;
+            return r;
         }
     }
     return nullptr;

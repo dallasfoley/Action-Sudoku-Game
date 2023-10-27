@@ -88,7 +88,7 @@ public:
 
     virtual void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
-    virtual bool HitTest(int x, int y);
+    virtual bool HitTest(double x, double y);
 
 //    virtual wxXmlNode *XmlSave(wxXmlNode *node);
 
