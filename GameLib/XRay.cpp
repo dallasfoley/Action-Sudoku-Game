@@ -6,6 +6,7 @@
 
 #include "pch.h"
 #include "XRay.h"
+#include "Item.h"
 
 using namespace std;
 
@@ -13,13 +14,20 @@ const wstring xRayImage = L"images/xray.png";
 
 /**
  * Constructor for XRay
- * @param game
+ * @param declaration The declaration for the XRay
+ * @param node The node for the XRay
+ * @param mGame The game the XRay is in
  */
-XRay::XRay(Game *game)
+XRay::XRay(DeclarationXray *declaration, wxXmlNode *node, Game *mGame) : Item(declaration, node)
 {
-    mGame=game;
-    mImage = make_unique<wxImage>(xRayImage, wxBITMAP_TYPE_ANY);
+    mImage = make_unique<wxImage>(declaration->GetImage(), wxBITMAP_TYPE_ANY);
     mBitmap = make_unique<wxBitmap>(*mImage);
+    auto child = node->GetChildren();
+    for (; child; child = child->GetNext())
+    {
+        auto i = mGame->XmlItem(child);
+        mNumbers.push_back(i);
+    }
 }
 
 /**
@@ -35,6 +43,7 @@ XRay::~XRay()
  */
 void XRay::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
+    Item::Draw(graphics);
     double wid = mBitmap->GetWidth();
     double hit = mBitmap->GetHeight();
     graphics->DrawBitmap(*mBitmap,
@@ -42,6 +51,10 @@ void XRay::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                          (mY),
                          wid,
                          hit);
+    for (auto number : mNumbers)
+    {
+        number->Draw(graphics);
+    }
 }
 
 /**
@@ -52,6 +65,7 @@ void XRay::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 void XRay::Update(double elapsed)
 {
     // to be implemented
+
 }
 
 /**
@@ -90,19 +104,19 @@ bool XRay::RemoveItem(std::shared_ptr<Item> item)
  * Displays the numbers in the XRay on the screen in a grid pattern
  */
 void XRay::DisplayNumbers(){
-    double referenceX = mX - 10;
-    double referenceY = mY - 20;
+    double referenceX = mX + 10;
+    double referenceY = mY + 20;
 
-    for (int i = 0; i < mNumbers.size() - 1; i++)
+    for (int i = 0; i < mNumbers.size(); i++)
     {
         if (i % 3 == 0)
         {
-            referenceX = mX - 10;
-            referenceY += 20;
+            referenceX = mX + 10;
+            referenceY += 35;
         }
         // Place items in a grid pattern
         mNumbers[i]->SetLocation(referenceX, referenceY);
-        referenceX += 20;
+        referenceX += 35;
     }
 }
 
@@ -112,4 +126,13 @@ void XRay::DisplayNumbers(){
  */
 int XRay::GetNumItems(){
     return (int)mNumbers.size();
+}
+
+/**
+ * Clears the XRay
+ *
+ */
+void XRay::Clear()
+{
+    mNumbers.clear();
 }

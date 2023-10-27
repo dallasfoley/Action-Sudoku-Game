@@ -28,7 +28,6 @@ using namespace std;
 Game::Game()
 {
     mBoard = make_shared<Board>();
-    mXRay = std::make_shared<XRay>(this);
     Load(L"levels/level1.xml");
 }
 
@@ -75,22 +74,50 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         mFpsDisplay.Draw(graphics);
     if (mScoreboard.GetDuration() < 1.5)
         this->DrawMessage(graphics);
-    if (mSolved)
+    if(mIsFilled)
     {
-        graphics->SetPen(wxNullGraphicsPen);
-        wxFont font(wxSize(20, 70),
-                    wxFONTFAMILY_SWISS,
-                    wxFONTSTYLE_NORMAL,
-                    wxFONTWEIGHT_BOLD);
-        graphics->SetFont(font, wxColour(0, 250, 0));
-        ostringstream os;
-        os << "Level " << mLevel << " Complete!";
-        double currentTime = mScoreboard.GetDuration();
-        while (mScoreboard.GetDuration() + 3 < currentTime)
-            graphics->DrawText(os.str(), 250, 235);
+        if(mSolved)
+        {
+            wxFont font(wxSize(20, 70),
+                        wxFONTFAMILY_SWISS,
+                        wxFONTSTYLE_NORMAL,
+                        wxFONTWEIGHT_BOLD);
+            graphics->SetFont(font, wxColour(0, 250, 0));
+            ostringstream os;
+            os << "Level " << mLevel << " Complete!";
+            double const currentTime = mScoreboard.GetDuration();
+            if(mScoreboard.GetDuration() - 3 < currentTime)
+                graphics->DrawText(os.str(), 225, 235);
+            if(mLevel == 1)
+                Load(L"levels/level2.xml");
+            if(mLevel == 2)
+                Load(L"levels/level3.xml");
+        }
+        else
+        {
+            if(mLevel == 1)
+                Load(L"levels/level1.xml");
+            if(mLevel == 2)
+                Load(L"levels/level2.xml");
+            if(mLevel == 3)
+                Load(L"levels/level3.xml");
+        }
+        if(mSolved)
+        {
+            graphics->SetPen(wxNullGraphicsPen);
+            wxFont font(wxSize(20, 70),
+                        wxFONTFAMILY_SWISS,
+                        wxFONTSTYLE_NORMAL,
+                        wxFONTWEIGHT_BOLD);
+            graphics->SetFont(font, wxColour(0, 250, 0));
+            ostringstream os;
+            os << "Level " << mLevel << " Complete!";
+            double currentTime = mScoreboard.GetDuration();
+            while(mScoreboard.GetDuration() + 3 < currentTime)
+                graphics->DrawText(os.str(), 250, 235);
+        }
+
     }
-
-
 }
 
 /**
@@ -117,8 +144,6 @@ void Game::OnLeftDown(wxMouseEvent &event)
 {
     double oX = (event.GetX() - mXOffset) / mScale;
     double oY = (event.GetY() - mYOffset) / mScale;
-
-    auto i = HitTest(event.GetX(), event.GetY());
 
     mItems.back()->SetLandingPoint(oX, oY);
 }
@@ -148,8 +173,8 @@ bool Game::OnKeyDown(wxKeyEvent &event)
                 {
                     mItems.erase(loc);
                 }
-                mXRay->AddItem(item);
-                mXRay->DisplayNumbers();
+                // mXRay->AddItem(item);
+                int x = 10;
                 return true;
             }
         }
@@ -175,11 +200,9 @@ std::shared_ptr<Item> Game::HitTest(double x, double y)
 {
     for (auto i = mItems.rbegin(); i != mItems.rend();  i++)
     {
-        double test = x - mXOffset/mScale;
-        if ((*i)->HitTest(x, y))
+        if ((*i)->HitTest(x - mXOffset/mScale, y - mYOffset/mScale))
         {
-            auto r = *i;
-            return r;
+            return *i;
         }
     }
     return nullptr;

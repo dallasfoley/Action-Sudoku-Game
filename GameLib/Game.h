@@ -29,9 +29,9 @@ private:
     double mTileHit;
     int mPixelHeight;
     int mPixelWidth;
+    bool mIsFilled = false;
     bool mDisplayFps = false;
     std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
-    std::shared_ptr<XRay> mXRay;    ///< XRay
     Scoreboard mScoreboard;    ///< Scoreboard(timer)
     std::shared_ptr<Board> mBoard;   ///< Board
     std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
@@ -46,10 +46,10 @@ public:
     void SetDisplayFps() { mDisplayFps = !mDisplayFps; } ///< @param b true when display is going to display
     Game();
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
+    void Update(double elapsed);
     void DrawMessage(std::shared_ptr<wxGraphicsContext> graphics);
     int GetLevel() const {return mLevel;}
     std::shared_ptr<Item> XmlItem(wxXmlNode * node);
-    void Update(double elapsed);
     void OnLeftDown(wxMouseEvent & event);
     bool OnKeyDown(wxKeyEvent & event);
     std::shared_ptr<Item> HitTest(double x, double y);
