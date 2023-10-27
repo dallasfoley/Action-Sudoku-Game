@@ -19,6 +19,9 @@ private:
     std::vector<int> mSolution;
     double mX = 0;
     double mY = 0;
+    int GivensCountLevel1 = 28;
+    int GivensCountLevel2 = 34;
+    int mCount;
 
 public:
     void XmlLoad(wxXmlNode *node) override;
