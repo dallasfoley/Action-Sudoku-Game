@@ -20,11 +20,12 @@ using namespace std;
 const wstring SpartyHead1 = L"images/sparty-1.png";
 const wstring SpartyJaw1 = L"images/sparty-2.png";
 
-/// Rotation rate in radians per second
-const double RotationRate = 6;
+/// The time for an eating cycles in seconds
+const double EatingTime = 0.5;
 
 /// The time for a headbutt cycle in seconds
 const double HeadbuttTime = 0.5;
+
 
 /**
  * Constructor for Sparty
@@ -97,9 +98,9 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         }
         else
         {
-            mouthAngle = (.5 - mEating) / (mMouthAngle * eating);
+            mouthAngle = (2 * EatingTime - mEating) / (mMouthAngle * eating);
         }
-        wxPoint mouthPivot = wxPoint(GetX(),GetY());
+        wxPoint mouthPivot = wxPoint((int)GetX() + 42,(int)GetY() - 9);
         graphics->PushState();
         graphics->Translate(mouthPivot.x, mouthPivot.y);
         graphics->Rotate(mouthAngle);
