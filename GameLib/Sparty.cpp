@@ -103,7 +103,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         wxPoint mouthPivot = wxPoint((int)GetX() + 42,(int)GetY() - 9);
         graphics->PushState();
         graphics->Translate(mouthPivot.x, mouthPivot.y);
-        graphics->Rotate(mouthAngle);
+        graphics->Rotate(mouthAngle / 3);
         graphics->Translate(-mouthPivot.x, -mouthPivot.y);
     }
 
