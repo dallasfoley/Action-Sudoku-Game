@@ -84,13 +84,26 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     Item::Draw(graphics);
 
 
-    if (mEating)
+    if (mEating > 0)
     {
         // Put correct code here
-        mEating = false;
-        graphics->Translate(mMouthPivot.x + GetX(), mMouthPivot.y  + GetY());
-        graphics->Rotate(mMouthAngle);
-        graphics->Translate(-mMouthPivot.x - GetX(), -mMouthPivot.y - GetY());
+        auto eating = mEatingTime / 2;
+        mMouthPivot.x = 39;
+        mMouthPivot.y = 86;
+        double mouthAngle{};
+        if (mEating < eating)
+        {
+            mouthAngle = mEating / (mMouthAngle * eating);
+        }
+        else
+        {
+            mouthAngle = (.5 - mEating) / (mMouthAngle * eating);
+        }
+        wxPoint mouthPivot = wxPoint(GetX(),GetY());
+        graphics->PushState();
+        graphics->Translate(mouthPivot.x, mouthPivot.y);
+        graphics->Rotate(mouthAngle);
+        graphics->Translate(-mouthPivot.x, -mouthPivot.y);
     }
 
     double wid = mMouthBitmap->GetWidth();
@@ -152,15 +165,15 @@ void Sparty::Update(double elapsed)
     else {
 
         // if Sparty is currently eating, show the mouth open and close around the jaw
-        if (mEating)
+        if (mEating > 0)
         {
+            mEating -= elapsed;
             // set a destination for the mouth to rotate around relative to Sparty's location
-            wxPoint pivotDestination = wxPoint(GetX() - 30, GetY() + 30);
 
-            // set an angle for the mouth to rotate around the pivot point
-            mMouthAngle = atan2(pivotDestination.y - mMouthPivot.y, pivotDestination.x - mMouthPivot.x);
+            if (mEating < 0)
+                mEating = 0;
         }
-        //if Sparty is currently eating, show the mouth open and close around the jaw
+
         if(mHeadbuttCurrent > 0)
         {
             mHeadbuttCurrent -= elapsed;

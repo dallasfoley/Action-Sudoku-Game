@@ -48,10 +48,10 @@ private:
     wxPoint mMouthPivot;
 
     /// mouth pivot angle
-    double mMouthAngle;
+    double mMouthAngle = 1;
 
-    /// boolean to determine if Sparty is currently eating
-    bool mEating = false;
+    /// double to determine if Sparty is currently eating
+    double mEating = 0;
 
     wxPoint mHeadPivot = wxPoint(GetX(),GetY());
     double mHeadAngle = 0;

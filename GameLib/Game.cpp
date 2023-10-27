@@ -28,7 +28,6 @@ using namespace std;
 Game::Game()
 {
     mBoard = make_shared<Board>();
-    mXRay = std::make_shared<XRay>(this);
     Load(L"levels/level1.xml");
 }
 
@@ -165,7 +164,8 @@ bool Game::OnKeyDown(wxKeyEvent &event)
                 continue;
             }
 
-            if(item->HitTest((int)mItems.back()->GetX() + 50, (int)mItems.back()->GetY()))
+            if(item->HitTest((int)mItems.back()->GetX() + 40, (int)mItems.back()->GetY()) &&
+               item != nullptr)
             {
                 auto loc = find(mItems.begin(), mItems.end(), item);
                 if(loc != mItems.end())
@@ -204,7 +204,6 @@ std::shared_ptr<Item> Game::HitTest(int x, int y)
             return *i;
         }
     }
-
     return nullptr;
 }
 

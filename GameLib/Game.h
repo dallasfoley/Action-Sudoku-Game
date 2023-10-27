@@ -32,7 +32,6 @@ private:
     bool mIsFilled = false;
     bool mDisplayFps = false;
     std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
-    std::shared_ptr<XRay> mXRay;    ///< XRay
     Scoreboard mScoreboard;    ///< Scoreboard(timer)
     std::shared_ptr<Board> mBoard;   ///< Board
     std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
