@@ -174,7 +174,6 @@ void Sparty::Update(double elapsed)
             if (mEating < 0)
                 mEating = 0;
         }
-
         if(mHeadbuttCurrent > 0)
         {
             mHeadbuttCurrent -= elapsed;

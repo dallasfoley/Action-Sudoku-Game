@@ -79,7 +79,7 @@ bool Item::HitTest(double x, double y)
     // Subtracting the center makes x, y relative to the image center
     // Adding half the size makes x, y relative to the image top corner
     double testX = x - GetX() + wid / 2;
-    double testY = y - GetY() + hit / 2;
+    double testY = y;
 
     // Test to see if x, y are in the image
     if (testX < 0 || testY < 0 || testX >= wid || testY >= hit)
