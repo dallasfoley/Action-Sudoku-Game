@@ -17,11 +17,15 @@ class XRay;
 
 class Board;
 
+class ItemVisitor;
+
 
 /// class which represents the Game
 class Game {
 private:
+    enum class Type {a,b,c};
     int mLevel = 1;  ///< Current level
+    int mCount = 0;
     double mScale; ///< current scaling of the window
     double mXOffset;
     double mYOffset;
@@ -35,13 +39,11 @@ private:
     Scoreboard mScoreboard;    ///< Scoreboard(timer)
     std::shared_ptr<Board> mBoard;   ///< Board
     std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
-
     FpsDisplay mFpsDisplay;
-
     std::unordered_map<wxString, std::shared_ptr<Declaration>> mDeclarations;
 
 public:
-    void SetDisplayFps() { mDisplayFps = !mDisplayFps; } ///< @param b true when display is going to display
+    void SetDisplayFps() {mDisplayFps = !mDisplayFps;} ///< @param b true when display is going to display
     Game();
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
     void Update(double elapsed);
@@ -53,11 +55,13 @@ public:
     std::shared_ptr<Item> HitTest(int x, int y);
     void Clear();
     void Restart();
+    void NextLevel();
     bool CheckSolved();
     void Load(const wxString &filename);
     int GetMapLength() { return mDeclarations.size(); } ///< returns length of declaration file, used right now for a test
     double GetTileWidth() const {return mTileWidth;}
     double GetTileHit() const {return mTileHit;}
+    void Accept(ItemVisitor* visitor);
 };
 
 

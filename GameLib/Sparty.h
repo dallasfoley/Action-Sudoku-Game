@@ -53,8 +53,8 @@ private:
     /// double to determine if Sparty is currently eating
     double mEating = 0;
 
-    wxPoint mHeadPivot = wxPoint(GetX(),GetY());
-    double mHeadAngle = 0;
+    /// head pivot angle
+    double mHeadAngle = 0.8;
 
     ///current game context
     Game * mGame;
@@ -95,6 +95,12 @@ public:
      * Implement the headbutt action
      */
     void Headbutt() override;
+
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(ItemVisitor* visitor) override { visitor->VisitSparty(this); }
 
 };
 

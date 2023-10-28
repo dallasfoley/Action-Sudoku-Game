@@ -31,6 +31,11 @@ public:
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);
     void Reset();
     double GetDuration() const {return mDuration;}
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(ItemVisitor* visitor) override { visitor->VisitScoreboard(this); }
 
 };
 

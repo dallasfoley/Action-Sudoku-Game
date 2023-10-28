@@ -57,6 +57,12 @@ public:
     void AffectSparty();
 
     virtual void OnConsume(); // Function called when Sparty consumes the potion.
+
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(ItemVisitor* visitor) override { visitor->VisitPotion(this); }
 };
 
 #endif //PROJECT1_SPEEDPOTION_H
