@@ -54,6 +54,12 @@ public:
       * Removes the number from the container.
      */
     void ReleaseFromContainer();
+
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(ItemVisitor* visitor) override { visitor->VisitNumber(this); }
 };
 
 # endif //PROJECT1_NUMBER_H

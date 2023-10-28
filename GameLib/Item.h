@@ -2,6 +2,7 @@
  * @file Item.h
  * @author rohch
  * @author Jon Price
+ * @author Dallas Foley
  * This file contains the declaration of the Item class
  * which represents an item in the game
  */
@@ -13,6 +14,7 @@
 #include <memory>
 #include "Declaration.h"
 #include "DeclarationNumber.h"
+#include "ItemVisitor.h"
 
 
 class Game;
@@ -118,6 +120,18 @@ public:
      * @return Bitmap height in pixels
      */
     int GetHeight() const { return mItemImage->GetHeight(); }
+
+    /**
+     * Accept a visitor
+      * @param visitor The visitor we accept
+      */
+    virtual void Accept(ItemVisitor* visitor) {};
+
+    /**
+     * Release numbers
+     * @param game pointer to Game
+     */
+     virtual void Release() {};
 
 };
 

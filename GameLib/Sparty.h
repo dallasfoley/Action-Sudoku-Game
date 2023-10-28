@@ -97,9 +97,16 @@ public:
     void Headbutt() override;
 
     /**
-     * Make hittest not work on sparty
+     * Accept a visitor
+     * @param visitor The visitor we accept
      */
-     bool HitTest(double x, double y) override { return false; }
+    void Accept(ItemVisitor* visitor) override { visitor->VisitSparty(this); }
+
+
+    /**
+ * Make hittest not work on sparty
+ */
+    bool HitTest(double x, double y) override { return false; }
 
 };
 

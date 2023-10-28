@@ -12,7 +12,8 @@ using namespace std;
 void Container::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     Item::Draw(graphics);
-    for(auto item : mItems) {
+    for(auto item : mItems)
+    {
         item->Draw(graphics);
     }
     double wid = mItemFrontBitmap->GetWidth();
@@ -34,4 +35,9 @@ Container::Container(DeclarationContainer * dec, wxXmlNode * node, Game * mGame)
         auto i = mGame->XmlItem(child);
         mItems.push_back(i);
     }
+}
+
+void Container::Release()
+{
+    SetLocation(0,0);
 }

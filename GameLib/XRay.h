@@ -57,6 +57,11 @@ public:
     void DisplayNumbers();
     bool RemoveItem(std::shared_ptr<Item> item);
     void Clear();
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(ItemVisitor* visitor) override { visitor->VisitXRay(this); }
 };
 
 

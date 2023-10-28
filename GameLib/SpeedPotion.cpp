@@ -6,7 +6,7 @@
 #include "pch.h"
 #include "SpeedPotion.h"
 #include "Game.h"
-//#include "Sparty.h"
+#include "Sparty.h"
 #include <iostream>
 #include "wx/bitmap.h"
 
@@ -32,13 +32,13 @@ const wstring speedPotionImage = L"images/speedpotion.png";
  * @param game
  */
 // for this to work we must enable default constructor in Item.h
-/*SpeedPotion::SpeedPotion(Game *game)
+SpeedPotion::SpeedPotion(Game *game)
 {
     mGame=game;
     mImage = make_unique<wxImage>(speedPotionImage, wxBITMAP_TYPE_ANY);
     mBitmap = make_unique<wxBitmap>(*mImage);
 }
-*/
+
 
 /**
  * Destructor for SpeedPotion
@@ -67,17 +67,15 @@ void SpeedPotion::Update(double elapsed) {
     // For instance, movement, animation, disappearance after time, etc.
 }
 
-//void SpeedPotion::AffectSparty() {
-    //auto sparty = mGame->GetSparty();
-    //if (sparty) {
-        //double newSpeed = sparty->GetSpeed() + mSpeedModifier; // Compute new speed
-        //sparty->SetSpeed(newSpeed); // Set new speed
-
-    //this is just in case, Probably not needed
-    //} else {
-        //std::cerr << "Error: Sparty object not found in game." << std::endl;
-    //}
-//}
+/*void SpeedPotion::AffectSparty() {
+    auto sparty = mGame->GetSparty();
+    if (sparty) {
+        double newSpeed = sparty->GetSpeed() + mSpeedModifier; // Compute new speed
+        sparty->SetSpeed(newSpeed); // Set new speed
+    } else {
+        std::cerr << "Error: Sparty object not found in game." << std::endl;
+    }
+}*/
 
 
 void SpeedPotion::GenerateSpeedModifier() {

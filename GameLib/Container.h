@@ -27,9 +27,18 @@ private:
     /// Vector of stored Items
     std::vector<std::shared_ptr<Item>> mItems;
 public:
-    void Release(Game * mGame); // TO BE IMPLEMENTED
+    /**
+     * Release numbers
+     * @param game pointer to Game
+     */
+    void Release() override; // TO BE IMPLEMENTED
     Container(DeclarationContainer * declaration, wxXmlNode * node, Game * mGame);
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
+    /**
+     * Accept a visitor
+     * @param visitor The visitor we accept
+     */
+    void Accept(ItemVisitor* visitor) override { visitor->VisitContainer(this); }
 };
 
 #endif //PROJECT1_GAMELIB_CONTAINER_H

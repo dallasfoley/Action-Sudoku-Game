@@ -47,8 +47,8 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
     mMouthPivot = wxPoint((int)dec->getHeadPivotX(), (int)dec->getHeadPivotY());
     mDestinationX = dec->getTargetX();
     mDestinationY = dec->getTargetY();
-    mHeadPivot.x = dec->getHeadPivotX();
-    mHeadPivot.y = dec->getHeadPivotY();
+    //mHeadPivot.x = dec->getHeadPivotX();
+    //mHeadPivot.y = dec->getHeadPivotY();
     mHeadAngle = dec->getHeadPivotAngle();
 }
 
@@ -64,8 +64,6 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     if (mHeadbuttCurrent > 0)
     {
         auto headbuttTime2 = HeadbuttTime / 2;
-        mHeadPivot.x = 30;
-        mHeadPivot.y = 86;
         double headAngle{};
         if (mHeadbuttCurrent < headbuttTime2)
         {
@@ -73,7 +71,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         }
         else
         {
-            headAngle = (.5 - mHeadbuttCurrent) / (mHeadAngle * headbuttTime2);
+            headAngle = (HeadbuttTime - mHeadbuttCurrent) / (mHeadAngle * headbuttTime2);
         }
         wxPoint headPivot = wxPoint(GetX(),GetY());
         graphics->PushState();
@@ -87,7 +85,6 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 
     if (mEating > 0)
     {
-        // Put correct code here
         auto eating = mEatingTime / 2;
         mMouthPivot.x = 39;
         mMouthPivot.y = 86;

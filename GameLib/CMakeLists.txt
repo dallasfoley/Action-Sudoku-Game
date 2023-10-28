@@ -38,7 +38,13 @@ set(SOURCE_FILES
         DeclarationXray.cpp
         DeclarationXray.h
         FpsDisplay.cpp
-        FpsDisplay.h)
+        FpsDisplay.h
+        CheckIsContainerVisitor.cpp
+        CheckIsContainerVisitor.h
+        ItemVisitor.cpp
+        ItemVisitor.h
+        CheckIsNumberVisitor.cpp
+        CheckIsNumberVisitor.h)
 
 
 set(wxBUILD_PRECOMP OFF)
