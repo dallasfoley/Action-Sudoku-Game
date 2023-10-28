@@ -19,6 +19,7 @@
 #include "DeclarationXray.h"
 #include "DeclarationContainer.h"
 #include "CheckIsContainerVisitor.h"
+#include "CheckIsNumberVisitor.h"
 
 
 using namespace std;
@@ -154,8 +155,11 @@ bool Game::OnKeyDown(wxKeyEvent &event)
             if(item->HitTest((int)mItems.back()->GetX() + 40, (int)mItems.back()->GetY()) &&
                item != nullptr)
             {
+
+                CheckIsNumberVisitor visitor;
+                item->Accept(&visitor);
                 auto loc = find(mItems.begin(), mItems.end(), item);
-                if(loc != mItems.end())
+                if(visitor.IsNumber())
                 {
                     mItems.erase(loc);
                 }
