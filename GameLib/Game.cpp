@@ -143,6 +143,7 @@ void Game::OnLeftDown(wxMouseEvent &event)
  */
 bool Game::OnKeyDown(wxKeyEvent &event)
 {
+    vector<int> digits = {0,1,2,3,4,5,6,7,8,9};
     if (event.GetKeyCode() == WXK_SPACE)
     {
         mItems.back()->Eat();
@@ -189,6 +190,8 @@ bool Game::OnKeyDown(wxKeyEvent &event)
         return true;
 
     }
+
+
     return false;
 }
 

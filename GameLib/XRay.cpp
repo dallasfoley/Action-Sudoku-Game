@@ -51,9 +51,12 @@ void XRay::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                          (mY),
                          wid,
                          hit);
+    int count = 0;
     for (auto number : mNumbers)
     {
+        number->SetLocation(GetX() + 16 * count, GetY() - 16 * count);
         number->Draw(graphics);
+        count++;
     }
 }
 
