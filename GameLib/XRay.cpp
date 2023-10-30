@@ -20,7 +20,7 @@ const wstring xRayImage = L"images/xray.png";
  */
 XRay::XRay(DeclarationXray *declaration, wxXmlNode *node, Game *mGame) : Item(declaration, node)
 {
-    mImage = make_unique<wxImage>(declaration->GetImage(), wxBITMAP_TYPE_ANY);
+    mImage = make_unique<wxImage>(xRayImage, wxBITMAP_TYPE_ANY);
     mBitmap = make_unique<wxBitmap>(*mImage);
     auto child = node->GetChildren();
     for (; child; child = child->GetNext())
@@ -73,13 +73,15 @@ void XRay::Update(double elapsed)
  * @param item The item to add
  * @return true if the item is added
  */
-bool XRay::AddItem(std::shared_ptr<Item> item)
+void XRay::AddItem(std::shared_ptr<Item> item)
 {
-    if (GetNumItems() < 7) {
+    if (GetNumItems() < 7)
+    {
         mNumbers.push_back(item);
-        return true;
+        DisplayNumbers();
+        //return true;
     }
-    return false;
+    //return false;
 }
 
 /**

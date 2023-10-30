@@ -20,6 +20,7 @@
 #include "DeclarationContainer.h"
 #include "CheckIsContainerVisitor.h"
 #include "CheckIsNumberVisitor.h"
+#include "CheckIsXRayVisitor.h"
 
 
 using namespace std;
@@ -32,10 +33,6 @@ Game::Game()
 {
     mBoard = make_shared<Board>();
     Load(L"levels/level1.xml");
-    if (mLevel == 1)
-        mCount = 28;
-    if (mLevel == 2)
-        mCount = 34;
 }
 
 /**
@@ -79,31 +76,33 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     mScoreboard.Draw(graphics);
     if(mDisplayFps)
         mFpsDisplay.Draw(graphics);
-    if(mScoreboard.GetDuration() < 1.5)
+//    if(mScoreboard.GetDuration() < 1.5)
+//        this->DrawMessage(graphics);
+    if (mType == Type::Start)
+    {
         this->DrawMessage(graphics);
-    if (mCount == 81)
+    }
+    else if (mType == Type::Correct)
     {
         wxFont font(wxSize(20, 70),
                     wxFONTFAMILY_SWISS,
                     wxFONTSTYLE_NORMAL,
                     wxFONTWEIGHT_BOLD);
         graphics->SetFont(font, wxColour(0, 250, 0));
-        if(this->CheckSolved())
-        {
-            ostringstream os;
-            os << "Level " << mLevel << " Complete!";
-            double const currentTime = mScoreboard.GetDuration();
-            if(mScoreboard.GetDuration() - 3 < currentTime)
-                graphics->DrawText(os.str(), 225, 235);
-            NextLevel();
-        }
-        else
-        {
-            double const currentTime = mScoreboard.GetDuration();
-            if(mScoreboard.GetDuration() - 3 < currentTime)
-                graphics->DrawText(L"Incorrect Solution Bozo!", 80, 235);
-            Restart();
-        }
+        ostringstream os;
+        os << "Level " << mLevel << " Complete!";
+        graphics->DrawText(os.str(), 225, 235);
+    }
+
+    else if (mType == Type::Incorrect)
+    {
+        wxFont font(wxSize(20, 70),
+                    wxFONTFAMILY_SWISS,
+                    wxFONTSTYLE_NORMAL,
+                    wxFONTWEIGHT_BOLD);
+        graphics->SetFont(font, wxColour(0, 250, 0));
+
+            graphics->DrawText(L"Incorrect Solution Bozo!", 80, 235);
     }
 }
 
@@ -113,14 +112,44 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
  */
 void Game::Update(double elapsed)
 {
-
+    mGameTimer += elapsed;
     for (auto item : mItems)
     {
         item->Update(elapsed);
     }
     if(mDisplayFps)
         mFpsDisplay.Update(elapsed);
-    mScoreboard.Update(elapsed);
+    if (mType == Type::Start)
+    {
+        if (mGameTimer > 3)
+        {
+            mType = Type::Playing;
+        }
+    }
+    else if (mType == Type::Playing)
+    {
+        mScoreboard.Update(elapsed);
+        if (mCount == 81 && !(this->CheckSolved()))
+        {
+            mType = Type::Incorrect;
+        }
+        if (mCount == 81 && (this->CheckSolved()))
+        {
+            mType = Type::Correct;
+        }
+    }
+    else if (mType == Type::Correct)
+    {
+        if (mGameTimer - mScoreboard.GetDuration() > 6)
+            NextLevel();
+    }
+    else if (mType == Type::Incorrect)
+    {
+        if (mGameTimer - mScoreboard.GetDuration() > 6)
+            Restart();
+    }
+
+
 }
 
 /**
@@ -157,14 +186,24 @@ bool Game::OnKeyDown(wxKeyEvent &event)
             {
 
                 CheckIsNumberVisitor visitor;
+                CheckIsXRayVisitor visitor2;
                 item->Accept(&visitor);
                 auto loc = find(mItems.begin(), mItems.end(), item);
                 if(visitor.IsNumber())
                 {
+                    for(auto item2 : mItems)
+                    {
+                        //item2->AddItem(item);
+                        item2->Accept(&visitor2);
+                        if(visitor2.IsXRay())
+                        {
+                            item2->AddItem(item);
+                        }
+                    }
+
                     mItems.erase(loc);
+                   // mItems[1]->AddItem(item);
                 }
-                // mXRay->AddItem(item);
-                int x = 10;
                 return true;
             }
         }
@@ -218,6 +257,7 @@ void Game::Clear()
     mDeclarations.clear();
     mItems.clear();
     mScoreboard.Reset();
+    mGameTimer = 0;
 }
 
 /**
@@ -225,6 +265,7 @@ void Game::Clear()
 */
 void Game::Restart()
 {
+    mType = Type::Start;
     this->Clear();
     if(mLevel == 1)
         Load(L"levels/level1.xml");
@@ -236,14 +277,16 @@ void Game::Restart()
 
 void Game::NextLevel()
 {
+    mType = Type::Start;
     this->Clear();
     if(mLevel == 1)
     {
         Load(L"levels/level2.xml");
     }
-    if(mLevel == 2)
+    if(mLevel == 2 || mLevel == 3)
         Load(L"levels/level3.xml");
-    mLevel += 1;
+    if (mLevel != 3)
+        mLevel += 1;
 }
 
 /**
