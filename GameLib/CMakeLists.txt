@@ -44,9 +44,7 @@ set(SOURCE_FILES
         ItemVisitor.cpp
         ItemVisitor.h
         CheckIsNumberVisitor.cpp
-        CheckIsNumberVisitor.h
-        CheckIsXRayVisitor.cpp
-        CheckIsXRayVisitor.h)
+        CheckIsNumberVisitor.h)
 
 
 set(wxBUILD_PRECOMP OFF)

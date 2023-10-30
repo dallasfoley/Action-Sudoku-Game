@@ -6,7 +6,6 @@
 #include "pch.h"
 #include "DeclarationXray.h"
 #include "Item.h"
-#include "XRay.h"
 
 /**
  * Constructor for class DeclarationXray
@@ -22,5 +21,5 @@ DeclarationXray::DeclarationXray(wxXmlNode *node) :Declaration(node)
 */
 std::shared_ptr<Item> DeclarationXray::Create(wxXmlNode *node, Game *game)
 {
-    return std::make_shared<XRay>(this, node, game);
+    return std::make_shared<Item>(this, node);
 }
