@@ -133,6 +133,8 @@ public:
      */
      virtual void Release() {};
 
+    virtual void AddItem(std::shared_ptr<Item> item) {};
+
 };
 
 #endif //PROJECT1_GAMELIB_ITEM_H

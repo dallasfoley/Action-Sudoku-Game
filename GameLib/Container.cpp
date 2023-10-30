@@ -39,5 +39,8 @@ Container::Container(DeclarationContainer * dec, wxXmlNode * node, Game * mGame)
 
 void Container::Release()
 {
-    SetLocation(0,0);
+    for (auto item: mItems)
+    {
+        SetLocation(0,0);
+    }
 }
