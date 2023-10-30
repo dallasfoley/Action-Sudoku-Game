@@ -48,9 +48,9 @@ public:
      * @param item to add to vector
      * @returns true if the item is added
      */
-    bool AddItem(std::shared_ptr<Item> item);
+    void AddItem(std::shared_ptr<Item> item) override;
 
-    void Update(double elapsed);
+    void Update(double elapsed) override;
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 
     int GetNumItems();
