@@ -23,8 +23,7 @@ class ItemVisitor;
 /// class which represents the Game
 class Game {
 private:
-    enum class Type {Start, Playing, Incorrect, Correct};
-    Type mType = Type::Start;
+    enum class Type {a,b,c};
     int mLevel = 1;  ///< Current level
     int mCount = 0;
     double mScale; ///< current scaling of the window
@@ -46,7 +45,6 @@ private:
     bool mSolved = false;
 
     std::unordered_map<wxString, std::shared_ptr<Declaration>> mDeclarations;
-    double mGameTimer;
 
 public:
     void SetDisplayFps() {mDisplayFps = !mDisplayFps;} ///< @param b true when display is going to display
