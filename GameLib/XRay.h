@@ -50,11 +50,9 @@ public:
      */
     void AddItem(std::shared_ptr<Item> item) override;
 
-    void Update(double elapsed) override;
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 
-    int GetNumItems();
-    void DisplayNumbers();
+    int GetNumItems() override;
     void Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) override;
     bool RemoveItem(std::shared_ptr<Item> item);
     void Clear();

@@ -112,7 +112,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
  */
 void Game::Update(double elapsed)
 {
-
+    mGameTimer += elapsed;
     for (auto item : mItems)
     {
         item->Update(elapsed);
@@ -137,7 +137,6 @@ void Game::Update(double elapsed)
         {
             mType = Type::Correct;
         }
-        // this->CheckSolved();
     }
     else if (mType == Type::Correct)
     {
@@ -150,7 +149,7 @@ void Game::Update(double elapsed)
             Restart();
     }
 
-    mGameTimer += elapsed;
+
 }
 
 /**
@@ -170,38 +169,43 @@ void Game::OnLeftDown(wxMouseEvent &event)
  * When space is pressed, Sparty eats a number
  * @param event key press event
  */
-void Game::OnKeyDown(wxKeyEvent &event)
+bool Game::OnKeyDown(wxKeyEvent &event)
 {
-    vector<int> digits = {0,1,2,3,4,5,6,7,8,9};
     if (event.GetKeyCode() == WXK_SPACE)
     {
         mItems.back()->Eat();
-
-        auto item = HitTest(mItems.back()->GetX() + mItems.back()->GetWidth(), mItems.back()->GetY() - GetTileHit());
-
-        if(item == nullptr)
-            return;
-
-        CheckIsNumberVisitor visitor;
-        CheckIsXRayVisitor visitor2;
-        item->Accept(&visitor);
-        auto loc = find(mItems.begin(), mItems.end(), item);
-        if(visitor.IsNumber())
+        if (mItems.back()->GetCount() < 7)
         {
-            for(auto item2 : mItems)
+            for(auto item : mItems)
             {
-                //item2->AddItem(item);
-                item2->Accept(&visitor2);
-                if(visitor2.IsXRay())
+                if(item == mItems.back())
                 {
-                    item2->AddItem(item);
+                    continue;
+                }
+                if(item->HitTest((int)mItems.back()->GetX() + 40, (int)mItems.back()->GetY()) &&
+                    item != nullptr)
+                {
+                    CheckIsNumberVisitor visitor;
+                    CheckIsXRayVisitor visitor2;
+                    item->Accept(&visitor);
+                    auto loc = find(mItems.begin(), mItems.end(), item);
+                    if(visitor.IsNumber())
+                    {
+                        for(auto item2 : mItems)
+                        {
+                            item2->Accept(&visitor2);
+                            if(visitor2.IsXRay())
+                            {
+                                item2->AddItem(item);
+                            }
+                        }
+                        mItems.erase(loc);
+                        mItems.back()->IncrementCount();
+                        return true;
+                    }
                 }
             }
-
-            mItems.erase(loc);
-           // mItems[1]->AddItem(item);
         }
-        return;
     }
     if (event.GetKeyCode() == 'B' || event.GetKeyCode() == 'b')
     {
@@ -216,22 +220,22 @@ void Game::OnKeyDown(wxKeyEvent &event)
                 if(visitor.IsContainer())
                 {
                     item->Release();
+                    return true;
                 }
             }
         }
-        return;
-    } else {
-        CheckIsXRayVisitor visitor2;
-        for(auto item2 : mItems)
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        if (event.GetKeyCode() == i)
         {
-            //item2->AddItem(item);
-            item2->Accept(&visitor2);
-            if(visitor2.IsXRay())
-            {
-                item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard);
-            }
+            mItems.back()->Eat();
+
+
         }
     }
+    return false;
 }
 
 /**
@@ -241,7 +245,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
 * @param y Y location in pixels
 * @returns Pointer to item we clicked on or nullptr if none.
 */
-std::shared_ptr<Item> Game::HitTest(double x, double y)
+std::shared_ptr<Item> Game::HitTest(int x, int y)
 {
     for (auto i = mItems.rbegin(); i != mItems.rend();  i++)
     {
@@ -421,16 +425,4 @@ void Game::Accept(ItemVisitor* visitor)
     {
         item->Accept(visitor);
     }
-}
-
-/**
-* Add Item to mItems
- * @param item Item to be added
-*/
-void Game::AddItem(std::shared_ptr<Item> item)
-{
-    auto sparty = mItems.back();
-    mItems.pop_back();
-    mItems.push_back(item);
-    mItems.push_back(sparty);
 }

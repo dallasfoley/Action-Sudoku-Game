@@ -58,6 +58,10 @@ private:
 
     ///current game context
     Game * mGame;
+
+    /// current amount of numbers in Sparty
+    int mCount = 0;
+
 public:
     /**
      * Constructor for Sparty
@@ -106,7 +110,7 @@ public:
     /**
  * Make hittest not work on sparty
  */
-    bool HitTest(double x, double y) override { return false; }
+  //  bool HitTest(double x, double y) override { return false; }
 
 };
 

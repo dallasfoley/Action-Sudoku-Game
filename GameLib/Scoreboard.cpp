@@ -65,7 +65,7 @@ void Scoreboard::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         int mins = mDuration / 60;
         int secs = (int)mDuration % 60;
         ostringstream os;
-        os << mins << " : ";
+        os << mins << ":";
         if (secs < 10)
             os << '0' << secs;
         else

@@ -57,8 +57,8 @@ public:
     int GetLevel() const {return mLevel;}
     std::shared_ptr<Item> XmlItem(wxXmlNode * node);
     void OnLeftDown(wxMouseEvent & event);
-    void OnKeyDown(wxKeyEvent & event);
-    std::shared_ptr<Item> HitTest(double x, double y);
+    bool OnKeyDown(wxKeyEvent & event);
+    std::shared_ptr<Item> HitTest(int x, int y);
     void Clear();
     void Restart();
     void NextLevel();
