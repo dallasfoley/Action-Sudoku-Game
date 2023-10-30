@@ -137,6 +137,7 @@ void Game::Update(double elapsed)
         {
             mType = Type::Correct;
         }
+        // this->CheckSolved();
     }
     else if (mType == Type::Correct)
     {
@@ -149,7 +150,7 @@ void Game::Update(double elapsed)
             Restart();
     }
 
-
+    mGameTimer += elapsed;
 }
 
 /**
@@ -162,6 +163,8 @@ void Game::OnLeftDown(wxMouseEvent &event)
     double oY = (event.GetY() - mYOffset) / mScale;
 
     mItems.back()->SetLandingPoint(oX, oY);
+
+    HitTest(event.GetX(), event.GetY());
 }
 
 /**
@@ -169,45 +172,38 @@ void Game::OnLeftDown(wxMouseEvent &event)
  * When space is pressed, Sparty eats a number
  * @param event key press event
  */
-bool Game::OnKeyDown(wxKeyEvent &event)
+void Game::OnKeyDown(wxKeyEvent &event)
 {
     vector<int> digits = {0,1,2,3,4,5,6,7,8,9};
     if (event.GetKeyCode() == WXK_SPACE)
     {
         mItems.back()->Eat();
-        for(auto item : mItems)
+
+        auto item = HitTest(mItems.back()->GetX() + mItems.back()->GetWidth(), mItems.back()->GetY() - GetTileHit());
+
+        if(item == nullptr)
+            return;
+
+        CheckIsNumberVisitor visitor;
+        CheckIsXRayVisitor visitor2;
+        item->Accept(&visitor);
+        auto loc = find(mItems.begin(), mItems.end(), item);
+        if(visitor.IsNumber())
         {
-            if(item == mItems.back())
+            for(auto item2 : mItems)
             {
-                continue;
-            }
-
-            if(item->HitTest((int)mItems.back()->GetX() + 40, (int)mItems.back()->GetY()) &&
-               item != nullptr)
-            {
-
-                CheckIsNumberVisitor visitor;
-                CheckIsXRayVisitor visitor2;
-                item->Accept(&visitor);
-                auto loc = find(mItems.begin(), mItems.end(), item);
-                if(visitor.IsNumber())
+                //item2->AddItem(item);
+                item2->Accept(&visitor2);
+                if(visitor2.IsXRay())
                 {
-                    for(auto item2 : mItems)
-                    {
-                        //item2->AddItem(item);
-                        item2->Accept(&visitor2);
-                        if(visitor2.IsXRay())
-                        {
-                            item2->AddItem(item);
-                        }
-                    }
-
-                    mItems.erase(loc);
-                   // mItems[1]->AddItem(item);
+                    item2->AddItem(item);
                 }
-                return true;
             }
+
+            mItems.erase(loc);
+           // mItems[1]->AddItem(item);
         }
+        return;
     }
     if (event.GetKeyCode() == 'B' || event.GetKeyCode() == 'b')
     {
@@ -225,12 +221,19 @@ bool Game::OnKeyDown(wxKeyEvent &event)
                 }
             }
         }
-        return true;
-
+        return;
+    } else {
+        CheckIsXRayVisitor visitor2;
+        for(auto item2 : mItems)
+        {
+            //item2->AddItem(item);
+            item2->Accept(&visitor2);
+            if(visitor2.IsXRay())
+            {
+                item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard);
+            }
+        }
     }
-
-
-    return false;
 }
 
 /**
@@ -420,4 +423,16 @@ void Game::Accept(ItemVisitor* visitor)
     {
         item->Accept(visitor);
     }
+}
+
+/**
+* Add Item to mItems
+ * @param item Item to be added
+*/
+void Game::AddItem(std::shared_ptr<Item> item)
+{
+    auto sparty = mItems.back();
+    mItems.pop_back();
+    mItems.push_back(item);
+    mItems.push_back(sparty);
 }

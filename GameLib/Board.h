@@ -13,7 +13,7 @@
 /**
  * Base class for board in the Game
  */
-class Board : public Item
+class Board
 {
 private:
     std::vector<int> mSolution;
@@ -21,7 +21,9 @@ private:
     double mY = 0;
 
 public:
-    void XmlLoad(wxXmlNode *node) override;
+    double GetX() { return mX; }
+    double GetY() { return mY; }
+    void XmlLoad(wxXmlNode *node);
     bool CheckSolution(Game * game);
     Board(){}
 
@@ -48,11 +50,6 @@ public:
      */
     void PositionItems();
 
-    /**
-     * Accept a visitor
-     * @param visitor The visitor we accept
-     */
-    void Accept(ItemVisitor* visitor) override { visitor->VisitBoard(this); }
 };
 
 #endif //PROJECT1_GAMELIB_BOARD_H

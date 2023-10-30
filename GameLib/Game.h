@@ -57,7 +57,7 @@ public:
     int GetLevel() const {return mLevel;}
     std::shared_ptr<Item> XmlItem(wxXmlNode * node);
     void OnLeftDown(wxMouseEvent & event);
-    bool OnKeyDown(wxKeyEvent & event);
+    void OnKeyDown(wxKeyEvent & event);
     std::shared_ptr<Item> HitTest(double x, double y);
     void Clear();
     void Restart();
@@ -68,6 +68,7 @@ public:
     double GetTileWidth() const {return mTileWidth;}
     double GetTileHit() const {return mTileHit;}
     void Accept(ItemVisitor* visitor);
+    void AddItem(std::shared_ptr<Item> item);
 };
 
 

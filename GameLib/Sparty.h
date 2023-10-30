@@ -89,7 +89,7 @@ public:
     /**
      * Implement the vomiting action
      */
-    void Vomit();
+    void Regurgitate();
 
     /**
      * Implement the headbutt action

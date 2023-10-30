@@ -210,14 +210,6 @@ void Sparty::Eat()
     mEating = true;
 }
 
-// /**
-//  * Implement the vomiting action
-//  */
-// void Sparty::Vomit()
-// {
-//     // to be implemented
-// }
-
 /**
  * Implement the Sparty character's headbutting action
  */

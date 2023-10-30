@@ -14,7 +14,8 @@
  */
 DeclarationXray::DeclarationXray(wxXmlNode *node) :Declaration(node)
 {
-    node->GetAttribute(L"capacity");
+    node->GetAttribute(L"capacity").ToInt(&mCapacity);
+
 }
 
 /**

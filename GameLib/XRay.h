@@ -55,6 +55,7 @@ public:
 
     int GetNumItems();
     void DisplayNumbers();
+    void Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) override;
     bool RemoveItem(std::shared_ptr<Item> item);
     void Clear();
     /**

@@ -23,6 +23,7 @@ XRay::XRay(DeclarationXray *declaration, wxXmlNode *node, Game *mGame) : Item(de
     mImage = make_unique<wxImage>(xRayImage, wxBITMAP_TYPE_ANY);
     mBitmap = make_unique<wxBitmap>(*mImage);
     auto child = node->GetChildren();
+    mCapacity = declaration->GetCapacity();
     for (; child; child = child->GetNext())
     {
         auto i = mGame->XmlItem(child);
@@ -140,4 +141,40 @@ int XRay::GetNumItems(){
 void XRay::Clear()
 {
     mNumbers.clear();
+}
+
+/**
+* Regurgitate item back to the game
+*/
+void XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board)
+{
+    x+=game->GetTileWidth();
+    auto code = event.GetKeyCode();
+    code -= 48;
+    for(auto item : mNumbers)
+    {
+        if(item->GetValue() == code)
+        {
+            //Determine if Sparty is on the Board
+            if(!(x < board->GetX() * game->GetTileWidth() || x > (board->GetX() + 9) * game->GetTileWidth() || y < board->GetY() * game->GetTileHit() || y > (board->GetY() + 9) * game->GetTileHit())) {
+
+                // Set x and y to whole tile number
+                x/= game->GetTileWidth();
+                x = (int)x;
+                x*= game->GetTileWidth();
+
+                y/= game->GetTileWidth();
+                y = (int)y;
+                y*= game->GetTileWidth();
+
+//                auto item2 = game->HitTest(x, y);
+//                if(item2->GetValue() < 9)
+//                    return;
+            }
+            item->SetLocation(x, y);
+            game->AddItem(item);
+            RemoveItem(item);
+            return;
+        }
+    }
 }
