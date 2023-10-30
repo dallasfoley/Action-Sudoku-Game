@@ -163,8 +163,6 @@ void Game::OnLeftDown(wxMouseEvent &event)
     double oY = (event.GetY() - mYOffset) / mScale;
 
     mItems.back()->SetLandingPoint(oX, oY);
-
-    HitTest(event.GetX(), event.GetY());
 }
 
 /**
