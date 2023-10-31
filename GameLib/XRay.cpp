@@ -52,12 +52,20 @@ void XRay::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                          (mY),
                          wid,
                          hit);
-    int count = 0;
-    for (auto number : mNumbers)
+    double referenceX = GetX() + 10;
+    double referenceY = GetY() + 20;
+    for (int i = 0; i < mNumbers.size(); i++)
     {
-        number->SetLocation(GetX() + 16 * count, GetY() - 16 * count);
-        number->Draw(graphics);
-        count++;
+        if (i % 3 == 0)
+        {
+            referenceX = GetX() + 10;
+            referenceY -= 35;
+        }
+        // Place items in a grid pattern
+        mNumbers[i]->SetLocation(referenceX, referenceY);
+        mNumbers[i]->Draw(graphics);
+        referenceX += 35;
+
     }
 }
 
