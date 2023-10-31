@@ -149,7 +149,6 @@ void Game::Update(double elapsed)
         if (mGameTimer - mScoreboard.GetDuration() > 6)
             Restart();
     }
-
     mGameTimer += elapsed;
 }
 
@@ -163,8 +162,6 @@ void Game::OnLeftDown(wxMouseEvent &event)
     double oY = (event.GetY() - mYOffset) / mScale;
 
     mItems.back()->SetLandingPoint(oX, oY);
-
-    HitTest(event.GetX(), event.GetY());
 }
 
 /**
@@ -174,36 +171,33 @@ void Game::OnLeftDown(wxMouseEvent &event)
  */
 void Game::OnKeyDown(wxKeyEvent &event)
 {
-    vector<int> digits = {0,1,2,3,4,5,6,7,8,9};
     if (event.GetKeyCode() == WXK_SPACE)
     {
         mItems.back()->Eat();
-        if (mItems.back()->GetCount() < 7)
+
+        auto item = HitTest(mItems.back()->GetX() + mItems.back()->GetWidth(), mItems.back()->GetY() - GetTileHit());
+
+        if(item == nullptr)
+            return;
+
+        CheckIsNumberVisitor visitor;
+        CheckIsXRayVisitor visitor2;
+        item->Accept(&visitor);
+        auto loc = find(mItems.begin(), mItems.end(), item);
+        if(visitor.IsNumber())
         {
-            auto item = HitTest(mItems.back()->GetX() + mItems.back()->GetWidth(), mItems.back()->GetY() - GetTileHit());
-
-            if(item == nullptr)
-                return;
-
-            CheckIsNumberVisitor visitor;
-            CheckIsXRayVisitor visitor2;
-            item->Accept(&visitor);
-            auto loc = find(mItems.begin(), mItems.end(), item);
-            if(visitor.IsNumber())
+            for(auto item2 : mItems)
             {
-                for(auto item2 : mItems)
+                //item2->AddItem(item);
+                item2->Accept(&visitor2);
+                if(visitor2.IsXRay())
                 {
-                    //item2->AddItem(item);
-                    item2->Accept(&visitor2);
-                    if(visitor2.IsXRay())
-                    {
-                        item2->AddItem(item);
-                    }
+                    item2->AddItem(item);
                 }
-                mItems.back()->IncrementCount();
-                mItems.erase(loc);
-
             }
+
+            mItems.erase(loc);
+           // mItems[1]->AddItem(item);
         }
         return;
     }
@@ -211,17 +205,16 @@ void Game::OnKeyDown(wxKeyEvent &event)
     {
         mItems.back()->Headbutt();
 
-        for(auto item : mItems)
+        auto item = HitTest((int)mItems.back()->GetX() + 40, (int)mItems.back()->GetY());
+
+        // if there is no item at the location, return
+        if(item == nullptr)
+            return;
+        CheckIsContainerVisitor visitor;
+        item->Accept(&visitor);
+        if(visitor.IsContainer())
         {
-            if(item->HitTest((int)mItems.back()->GetX() + 40, (int)mItems.back()->GetY()) && item != nullptr)
-            {
-                CheckIsContainerVisitor visitor;
-                item->Accept(&visitor);
-                if(visitor.IsContainer())
-                {
-                    item->Release();
-                }
-            }
+            item->Release();
         }
         return;
     }
@@ -234,8 +227,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
             item2->Accept(&visitor2);
             if(visitor2.IsXRay())
             {
-                item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard);
-                mItems.back()->DecrementCount();
+                item2->Regurgitate(this, event, mItems.back()->GetX()  + mItems.back()->GetWidth(), mItems.back()->GetY(), mBoard);
             }
             mItems.back()->Eat();
 

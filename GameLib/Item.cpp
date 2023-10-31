@@ -77,8 +77,8 @@ bool Item::HitTest(double x, double y)
 
     // Make x and y relative to the top-left corner of the bitmap image
 
-    double testX = x - GetX() - wid / 2;
-    double testY = y - GetY() + 1.8 * hit ;
+    double testX = x - GetX();
+    double testY = y - GetY() + hit;
 
     // if we are out of the image, return false
     return !(testX < 0 || testY < 0 || testX > wid || testY > hit);

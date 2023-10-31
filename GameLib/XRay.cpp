@@ -119,7 +119,6 @@ void XRay::Clear()
 */
 void XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board)
 {
-    x+=game->GetTileWidth();
     auto code = event.GetKeyCode();
     code -= 48;
     for(auto item : mNumbers)
