@@ -114,7 +114,7 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
  */
 void Game::Update(double elapsed)
 {
-
+    CheckSolved();
     for (auto item : mItems)
     {
         item->Update(elapsed);
@@ -207,7 +207,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
     {
         mItems.back()->Headbutt();
 
-        auto item = HitTest((int)mItems.back()->GetX() + 40, (int)mItems.back()->GetY());
+        auto item = HitTest((int)mItems.back()->GetX(), (int)mItems.back()->GetY());
 
         // if there is no item at the location, return
         if(item == nullptr)

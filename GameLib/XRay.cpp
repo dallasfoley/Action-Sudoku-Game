@@ -127,7 +127,7 @@ void XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std:
         if(item->GetValue() == code)
         {
             //Determine if Sparty is on the Board
-            if(!(x < board->GetX() * game->GetTileWidth() || x > (board->GetX() + 9) * game->GetTileWidth() || y < board->GetY() * game->GetTileHit() || y > (board->GetY() + 9) * game->GetTileHit())) {
+            if(!(x < board->GetX() * game->GetTileWidth() || x > (board->GetX() + 9) * game->GetTileWidth() || y < (board->GetY() - 1)* game->GetTileHit() || y > (board->GetY() + 8) * game->GetTileHit())) {
 
                 // Set x and y to whole tile number
                 x/= game->GetTileWidth();
