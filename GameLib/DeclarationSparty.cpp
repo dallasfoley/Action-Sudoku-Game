@@ -22,6 +22,7 @@ DeclarationSparty::DeclarationSparty(wxXmlNode * node) : Declaration(node,  L"im
     node->GetAttribute(L"mouth-pivot-y", L"0").ToDouble(&mMouthPivotY);
     node->GetAttribute(L"target-x", L"0").ToDouble(&mTargetX);
     node->GetAttribute(L"target-y", L"0").ToDouble(&mTargetY);
+    mHeadImage = L"images/" + node->GetAttribute(L"image1", L"sparty-1.png");
     mJawImage = L"images/" + node->GetAttribute(L"image2", L"sparty-2.png");
 }
 

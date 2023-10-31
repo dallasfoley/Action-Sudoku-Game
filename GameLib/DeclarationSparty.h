@@ -14,6 +14,8 @@
  */
 class DeclarationSparty : public Declaration {
 private:
+    /// Sparty head image
+    std::wstring mHeadImage;
     /// Sparty jaw image
     std::wstring mJawImage;
     /// Head pivot angle
@@ -33,6 +35,11 @@ private:
     /// TargetY
     double mTargetY;
 public:
+    /**
+     * Sparty head image.
+     * @return mHeadImage.
+     */
+    const std::wstring &getHeadImage() const { return mHeadImage;}
     /**
      * Sparty jaw image.
      * @return mJawImage.

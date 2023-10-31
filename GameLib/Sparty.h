@@ -29,6 +29,12 @@ private:
     /// Current time remaining in headbutt
     double mHeadbuttCurrent = 0;
 
+    /// The Sparty head image
+    std::unique_ptr<wxImage> mHead;
+
+    /// The Sparty head bitmap
+    std::unique_ptr<wxBitmap> mHeadBitmap;
+
     /// The Sparty mouth image
     std::unique_ptr<wxImage> mMouth;
 

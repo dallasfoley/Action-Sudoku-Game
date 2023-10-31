@@ -33,6 +33,7 @@ public:
 
     int GetValue() override { return mValue; }
 
+    bool GetGiven() { return mIsGiven; }
 
     /**
       * Marks the number as being inside Sparty's stomach.
