@@ -78,8 +78,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     mScoreboard.Draw(graphics);
     if(mDisplayFps)
         mFpsDisplay.Draw(graphics);
-//    if(mScoreboard.GetDuration() < 1.5)
-//        this->DrawMessage(graphics);
     if (mType == Type::Start)
     {
         this->DrawMessage(graphics);
@@ -139,7 +137,6 @@ void Game::Update(double elapsed)
         {
             mType = Type::Correct;
         }
-        // this->CheckSolved();
     }
     else if (mType == Type::Correct)
     {
@@ -176,30 +173,34 @@ void Game::OnKeyDown(wxKeyEvent &event)
     if (event.GetKeyCode() == WXK_SPACE)
     {
         mItems.back()->Eat();
-
-        auto item = HitTest(mItems.back()->GetX() + mItems.back()->GetWidth(), mItems.back()->GetY() - GetTileHit());
+        if (mItems.back()->GetCount() < 7)
+        {
+            auto item = HitTest(mItems.back()->GetX() + mItems.back()->GetWidth(), mItems.back()->GetY() - GetTileHit());
 
         if(item == nullptr)
             return;
 
+        CheckIsPotionVisitor visitor3;
         CheckIsNumberVisitor visitor;
         CheckIsXRayVisitor visitor2;
         item->Accept(&visitor);
+        item->Accept((&visitor3));
         auto loc = find(mItems.begin(), mItems.end(), item);
-        if(visitor.IsNumber())
-        {
-            for(auto item2 : mItems)
+        if(visitor.IsNumber() || visitor3.IsPotion())
             {
-                //item2->AddItem(item);
-                item2->Accept(&visitor2);
-                if(visitor2.IsXRay())
+                for(auto item2 : mItems)
                 {
-                    item2->AddItem(item);
+                    //item2->AddItem(item);
+                    item2->Accept(&visitor2);
+                    if(visitor2.IsXRay())
+                    {
+                        item2->AddItem(item);
+                    }
                 }
-            }
+                mItems.back()->IncrementCount();
+                mItems.erase(loc);
 
-            mItems.erase(loc);
-           // mItems[1]->AddItem(item);
+            }
         }
         return;
     }
@@ -222,14 +223,16 @@ void Game::OnKeyDown(wxKeyEvent &event)
     }
     else
     {
-        CheckIsXRayVisitor visitor2;
+        CheckIsXRayVisitor visitor;
         for(auto item2 : mItems)
         {
             //item2->AddItem(item);
-            item2->Accept(&visitor2);
-            if(visitor2.IsXRay())
+            item2->Accept(&visitor);
+            if(visitor.IsXRay())
             {
-                item2->Regurgitate(this, event, mItems.back()->GetX()  + mItems.back()->GetWidth(), mItems.back()->GetY(), mBoard);
+                item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard);
+                mItems.back()->DecrementCount();
+                mCount += 1;
             }
             mItems.back()->Eat();
 
@@ -276,25 +279,31 @@ void Game::Restart()
     mType = Type::Start;
     this->Clear();
     if(mLevel == 1)
-        Load(L"levels/level1.xml");
-    if(mLevel == 2)
-        Load(L"levels/level2.xml");
-    if(mLevel == 3)
-        Load(L"levels/level3.xml");
-}
-
-void Game::NextLevel()
-{
-    mType = Type::Start;
-    this->Clear();
-    if(mLevel == 1)
     {
+        mCount = 28;
+        Load(L"levels/level1.xml");
+    }
+    if(mLevel == 2)
+    {
+        mCount = 34;
         Load(L"levels/level2.xml");
     }
-    if(mLevel == 2 || mLevel == 3)
+    if(mLevel == 3)
+    {
+        mCount = 46;
         Load(L"levels/level3.xml");
+    }
+
+}
+
+/**
+* Moves to the next level
+*/
+void Game::NextLevel()
+{
     if (mLevel != 3)
         mLevel += 1;
+    Restart();
 }
 
 /**

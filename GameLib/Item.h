@@ -131,12 +131,11 @@ public:
      * Release numbers
      * @param game pointer to Game
      */
-     virtual void Release() {};
+    virtual void Release() {};
 
-     virtual void AddItem(std::shared_ptr<Item> item) {};
+    virtual void AddItem(std::shared_ptr<Item> item) {};
 
-     virtual void Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) {};
-
+    virtual void Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) {};
 
     virtual int GetCount() {return 0;}
 
