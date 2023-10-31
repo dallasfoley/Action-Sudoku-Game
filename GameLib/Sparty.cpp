@@ -47,8 +47,8 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
     mMouthPivot = wxPoint((int)dec->getMouthPivotX(), (int)dec->getMouthPivotY());
     mDestinationX = dec->getTargetX();
     mDestinationY = dec->getTargetY();
-    //mHeadPivot.x = dec->getHeadPivotX();
-    //mHeadPivot.y = dec->getHeadPivotY();
+    mHeadPivot.x = dec->getHeadPivotX();
+    mHeadPivot.y = dec->getHeadPivotY();
     mHeadAngle = dec->getHeadPivotAngle();
 }
 
