@@ -59,7 +59,7 @@ private:
     ///current game context
     Game * mGame;
 
-    /// current amount of numbers in Sparty
+    /// count of numbers in Sparty
     int mCount = 0;
 
 public:
@@ -110,7 +110,13 @@ public:
     /**
  * Make hittest not work on sparty
  */
-  //  bool HitTest(double x, double y) override { return false; }
+    bool HitTest(double x, double y) override { return false; }
+
+    int GetCount() override {return mCount;}
+
+    void IncrementCount() override {mCount++;}
+
+    void DecrementCount() override {mCount--;}
 
 };
 

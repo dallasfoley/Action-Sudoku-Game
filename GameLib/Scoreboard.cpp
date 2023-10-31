@@ -16,17 +16,6 @@ const int ScoreboardTextSize = 64;
  * @return int.
  */
 const wxPoint ScoreboardTopLeft(10, 10);
-/**
- * Top leftX corner of the scoreboard in virtual pixels.
- * @return int.
- */
-const int ScoreboardTopLeftX(10);
-/**
- * Top leftY corner of the scoreboard in virtual pixels.
- * @return int.
- */
-const int ScoreboardTopLeftY(10);
-
 
 
 /**
@@ -59,7 +48,7 @@ void Scoreboard::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                 wxFONTWEIGHT_BOLD);
     graphics->SetFont(font, wxColour(255, 255, 255));
     if (mDuration == 0)
-        graphics->DrawText(L"0:00" , ScoreboardTopLeftX, ScoreboardTopLeftY);
+        graphics->DrawText(L"0:00" , ScoreboardTopLeft.x, ScoreboardTopLeft.y);
     else
     {
         int mins = mDuration / 60;
@@ -70,7 +59,7 @@ void Scoreboard::Draw(std::shared_ptr<wxGraphicsContext> graphics)
             os << '0' << secs;
         else
             os << secs;
-        graphics->DrawText(os.str(), ScoreboardTopLeftX, ScoreboardTopLeftY);
+        graphics->DrawText(os.str(), ScoreboardTopLeft.x, ScoreboardTopLeft.y);
 
     }
 

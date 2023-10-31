@@ -90,7 +90,7 @@ public:
 
     virtual void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
-    virtual bool HitTest(int x, int y);
+    virtual bool HitTest(double x, double y);
 
 //    virtual wxXmlNode *XmlSave(wxXmlNode *node);
 
@@ -135,12 +135,13 @@ public:
 
     virtual void AddItem(std::shared_ptr<Item> item) {};
 
-    virtual int GetNumItems() {return 0;}
+    virtual void Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) {};
 
     virtual int GetCount() {return 0;}
 
     virtual void IncrementCount() {};
 
+    virtual void DecrementCount() {};
 };
 
 #endif //PROJECT1_GAMELIB_ITEM_H

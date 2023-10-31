@@ -52,7 +52,7 @@ public:
 
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 
-    int GetNumItems() override;
+    int GetNumItems();
     void Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) override;
     bool RemoveItem(std::shared_ptr<Item> item);
     void Clear();
