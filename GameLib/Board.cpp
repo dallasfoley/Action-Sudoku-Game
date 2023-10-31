@@ -32,6 +32,11 @@ void Board::XmlLoad(wxXmlNode * node)
     }
 }
 
+/**
+ * Checks if board matches solution
+ * @param game class game
+ * @returns Bool indicating correctness
+ */
 bool Board::CheckSolution(Game * game)
 {
     for(int i = 0; i < 81; i++)
@@ -43,29 +48,4 @@ bool Board::CheckSolution(Game * game)
         }
     }
     return true;
-}
-
-/**
- * Assigns numbers to tiles
- */
-void Board::AssignNumbers()
-{
-    // to be implemented
-}
-
-/**
- * Checks if the board is solved
- */
-bool Board::IsSolved()
-{
-    // to be implemented
-    return false;
-}
-
-/**
- * Positions the items on the board
- */
-void Board::PositionItems()
-{
-    // to be implemented
 }
