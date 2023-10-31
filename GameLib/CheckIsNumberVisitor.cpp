@@ -3,6 +3,7 @@
  * @author dalla
  */
 
+#include "pch.h"
 #include "CheckIsNumberVisitor.h"
 #include "Number.h"
 

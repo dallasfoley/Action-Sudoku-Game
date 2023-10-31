@@ -16,8 +16,11 @@
 class Board
 {
 private:
+    /// Solution for sudoku
     std::vector<int> mSolution;
+    /// X location member variable
     double mX = 0;
+    /// Y location member variable
     double mY = 0;
 
 public:
@@ -34,22 +37,6 @@ public:
      * @param height the height of the window
      */
     void Draw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
-
-    /**
-     * Assigns numbers to tiles
-     */
-    void AssignNumbers();
-
-    /**
-     * Checks if the board is solved
-     */
-    bool IsSolved();
-
-    /**
-     * Positions the items on the board
-     */
-    void PositionItems();
-
 };
 
 #endif //PROJECT1_GAMELIB_BOARD_H

@@ -32,6 +32,11 @@ void Board::XmlLoad(wxXmlNode * node)
     }
 }
 
+/**
+ * Checks if board matches solution
+ * @param game class game
+ * @returns Bool indicating correctness
+ */
 bool Board::CheckSolution(Game * game)
 {
     for(int i = 0; i < 81; i++)
