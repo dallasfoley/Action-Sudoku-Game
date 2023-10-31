@@ -185,7 +185,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
     {
         mItems.back()->Eat();
 
-        auto item = HitTest(mItems.back()->GetX() + mItems.back()->GetWidth(), mItems.back()->GetY() - GetTileHit());
+        auto item = HitTest(mItems.back()->GetX(), mItems.back()->GetY());
 
         if(item == nullptr)
             return;
@@ -237,7 +237,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
             item2->Accept(&visitor2);
             if(visitor2.IsXRay())
             {
-                item2->Regurgitate(this, event, mItems.back()->GetX()  + mItems.back()->GetWidth(), mItems.back()->GetY(), mBoard);
+                item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard);
             }
             mItems.back()->Eat();
 

@@ -61,6 +61,10 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 
     graphics->PushState();
 
+    //translate the matrix to the front of Sparty
+    graphics->Translate(-60, 25);
+
+
     if (mHeadbuttCurrent > 0)
     {
         auto headbuttTime2 = HeadbuttTime / 2;
@@ -96,7 +100,6 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
             mouthAngle = (2 * EatingTime - mEating) / (mMouthAngle * eating);
         }
         wxPoint mouthPivot = wxPoint((int)GetX() + 42, (int)GetY() - 9);
-        graphics->PushState();
         graphics->Translate(mouthPivot.x, mouthPivot.y);
         graphics->Rotate(mouthAngle / 2);
         graphics->Translate(-mouthPivot.x, -mouthPivot.y);
@@ -188,8 +191,8 @@ void Sparty::Update(double elapsed)
  */
 void Sparty::SetLandingPoint(double x, double y)
 {
-    mDestinationX = x - 60;
-    mDestinationY = y + 25;
+    mDestinationX = x;
+    mDestinationY = y;
 }
 
 // /**
