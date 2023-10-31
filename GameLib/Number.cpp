@@ -13,6 +13,7 @@ using namespace std;
 Number::Number(DeclarationNumber * dec, wxXmlNode * node) : Item(dec, node)
 {
     mValue = dec->GetValue();
+    mIsGiven = dec->GetGiven();
 }
 
 void Number::EatenBySparty()

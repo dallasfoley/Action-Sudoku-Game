@@ -21,13 +21,19 @@ class DeclarationSparty;
 class Sparty : public Item {
 private:
     /// Character speed in pixels per second
-    const double mMaxSpeed = 400.00;
+    double mMaxSpeed = 400.00;
 
     /// The time for an eating cycles in seconds
     const double mEatingTime = 0.5;
 
     /// Current time remaining in headbutt
     double mHeadbuttCurrent = 0;
+
+    /// The Sparty head image
+    std::unique_ptr<wxImage> mHead;
+
+    /// The Sparty head bitmap
+    std::unique_ptr<wxBitmap> mHeadBitmap;
 
     /// The Sparty mouth image
     std::unique_ptr<wxImage> mMouth;
@@ -117,6 +123,9 @@ public:
     void IncrementCount() override {mCount++;}
 
     void DecrementCount() override {mCount--;}
+
+    void SetSpeed(double speed);
+    double GetSpeed() const;
 
 };
 

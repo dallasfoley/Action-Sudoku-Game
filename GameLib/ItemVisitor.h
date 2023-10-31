@@ -14,6 +14,7 @@ class XRay;
 class Scoreboard;
 class Sparty;
 class SpeedPotion;
+class Item;
 
 class ItemVisitor
 {

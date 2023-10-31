@@ -65,6 +65,7 @@ void XRay::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         mNumbers[i]->SetLocation(referenceX, referenceY);
         mNumbers[i]->Draw(graphics);
         referenceX += 35;
+
     }
 }
 

@@ -21,6 +21,7 @@
 #include "CheckIsContainerVisitor.h"
 #include "CheckIsNumberVisitor.h"
 #include "CheckIsXRayVisitor.h"
+#include "SpeedPotion.h"
 
 
 using namespace std;
@@ -73,6 +74,11 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         item->Draw(graphics);
     }
 
+    for(auto& potion : mSpeedPotions)
+    {
+        potion->Draw(graphics);
+    }
+
     mScoreboard.Draw(graphics);
     if(mDisplayFps)
         mFpsDisplay.Draw(graphics);
@@ -116,6 +122,10 @@ void Game::Update(double elapsed)
     for (auto item : mItems)
     {
         item->Update(elapsed);
+    }
+    for (auto& potion : mSpeedPotions)
+    {
+        potion->Update(elapsed);
     }
     if(mDisplayFps)
         mFpsDisplay.Update(elapsed);
@@ -384,6 +394,7 @@ void Game::Load(const wxString &filename)
             }
         }
     }
+    InitializePotions();
 }
 
 void Game::DrawMessage(std::shared_ptr<wxGraphicsContext> graphics)
@@ -435,4 +446,22 @@ void Game::AddItem(std::shared_ptr<Item> item)
     mItems.pop_back();
     mItems.push_back(item);
     mItems.push_back(sparty);
+}
+
+
+void Game::InitializePotions()
+{
+   // Example of creating and adding a speed potion
+   auto potion = std::make_shared<SpeedPotion>(this);
+   potion->SetLocation(100, 500);  // Set the position of the potion
+   mSpeedPotions.push_back(potion);
+}
+
+
+/**
+* Gets the Sparty instance.
+* @return Pointer to Sparty.
+*/
+Sparty* Game::GetSparty() {
+    return mSparty;
 }

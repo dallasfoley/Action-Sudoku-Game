@@ -38,7 +38,7 @@ private:
     Game * mGame;
 
     /// Number of items that can be stored in the XRay
-    int mCapacity;
+    int mCapacity = 7;
 
 public:
     XRay(DeclarationXray * declaration, wxXmlNode * node, Game * mGame);
@@ -61,6 +61,11 @@ public:
      * @param visitor The visitor we accept
      */
     void Accept(ItemVisitor* visitor) override { visitor->VisitXRay(this); }
+
+    /**
+     * @return the capacity of the xray
+     */
+    int GetCapacity() { return mCapacity; }
 };
 
 

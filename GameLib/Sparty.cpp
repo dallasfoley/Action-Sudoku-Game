@@ -44,7 +44,7 @@ Sparty::Sparty(wxXmlNode * node, DeclarationSparty * dec) : Item(dec, node)
     mMouth = make_unique<wxImage>(dec->getJawImage());
     mMouthBitmap = make_unique<wxBitmap>(*mMouth);
     mMouthAngle = dec->getMouthPivotAngle();
-    mMouthPivot = wxPoint((int)dec->getHeadPivotX(), (int)dec->getHeadPivotY());
+    mMouthPivot = wxPoint((int)dec->getMouthPivotX(), (int)dec->getMouthPivotY());
     mDestinationX = dec->getTargetX();
     mDestinationY = dec->getTargetY();
     //mHeadPivot.x = dec->getHeadPivotX();
@@ -74,7 +74,7 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
             headAngle = (HeadbuttTime - mHeadbuttCurrent) / (mHeadAngle * headbuttTime2);
         }
         wxPoint headPivot = wxPoint(GetX(),GetY());
-        graphics->PushState();
+
         graphics->Translate(headPivot.x, headPivot.y);
         graphics->Rotate(headAngle);
         graphics->Translate(-headPivot.x, -headPivot.y);
@@ -86,8 +86,6 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
     if (mEating > 0)
     {
         auto eating = mEatingTime / 2;
-        mMouthPivot.x = 39;
-        mMouthPivot.y = 86;
         double mouthAngle{};
         if (mEating < eating)
         {
@@ -97,10 +95,10 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         {
             mouthAngle = (2 * EatingTime - mEating) / (mMouthAngle * eating);
         }
-        wxPoint mouthPivot = wxPoint((int)GetX() + 42,(int)GetY() - 9);
+        wxPoint mouthPivot = wxPoint((int)GetX() + 42, (int)GetY() - 9);
         graphics->PushState();
         graphics->Translate(mouthPivot.x, mouthPivot.y);
-        graphics->Rotate(mouthAngle / 3);
+        graphics->Rotate(mouthAngle / 2);
         graphics->Translate(-mouthPivot.x, -mouthPivot.y);
     }
 
@@ -216,4 +214,14 @@ void Sparty::Eat()
 void Sparty::Headbutt()
 {
     mHeadbuttCurrent = HeadbuttTime;
+}
+
+void Sparty::SetSpeed(double speed)
+{
+    mMaxSpeed = speed;
+}
+
+double Sparty::GetSpeed() const
+{
+    return mMaxSpeed;
 }
