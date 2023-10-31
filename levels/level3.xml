@@ -113,7 +113,9 @@
 		<digit id="i146" col="1.5099" row="12.2763" />
 		<digit id="i150" col="3.837" row="12.1466" />
 		<digit id="i152" col="5.954" row="12.4584" />
+		<speedpotion id="i300" col="19" row="4.9" />
+		<speedpotion id="i300" col="18" row="4.6" />
+		<speedpotion id="i300" col="17" row="4.8" />
 		<sparty id="i165" col="1.4167" row="10.8333" />
-		<speedpotion id="i300" col="15.6" row="5.0" />
 	</items>
 </level>
