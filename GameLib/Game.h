@@ -47,8 +47,6 @@ private:
 
     std::unordered_map<wxString, std::shared_ptr<Declaration>> mDeclarations;
     double mGameTimer;
-    std::vector<std::shared_ptr<SpeedPotion>> mSpeedPotions;  ///< Speed potions in the game
-    Sparty* mSparty;
 
 
 
@@ -73,10 +71,6 @@ public:
     double GetTileHit() const {return mTileHit;}
     void Accept(ItemVisitor* visitor);
     void AddItem(std::shared_ptr<Item> item);
-    void InitializePotions();
-    Sparty* GetSparty();
-
-
 };
 
 
