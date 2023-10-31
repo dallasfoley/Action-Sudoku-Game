@@ -23,29 +23,44 @@ class ItemVisitor;
 /// class which represents the Game
 class Game {
 private:
+    /// Enumerating class
     enum class Type {Start, Playing, Incorrect, Correct};
+    /// Member variable mType
     Type mType = Type::Start;
-    int mLevel = 1;  ///< Current level
+    /// Current level member variable
+    int mLevel = 1;
+    /// Counting member variable
     int mCount = 0;
-    double mScale; ///< current scaling of the window
+    /// Window scaling member variable
+    double mScale;
+    /// X offset member variable
     double mXOffset;
+    /// Y offset member variable
     double mYOffset;
+    /// Board tile width member variable
     double mTileWidth;
+    /// Board tile height member variable
     double mTileHit;
+    /// Pixel height member variable
     int mPixelHeight;
+    /// Pixel width member variable
     int mPixelWidth;
+    /// If board is filled
     bool mIsFilled = false;
+    /// FPS display
     bool mDisplayFps = false;
-    std::unique_ptr<wxBitmap> mBackground; ///< background for the level, for now a placeholder
-    Scoreboard mScoreboard;    ///< Scoreboard(timer)
-    std::shared_ptr<Board> mBoard;   ///< Board
-    std::vector<std::shared_ptr<Item>> mItems;  ///< Items in the game
-
+    /// The scoreboard or timer
+    Scoreboard mScoreboard;
+    /// The playing board
+    std::shared_ptr<Board> mBoard;
+    /// Game items
+    std::vector<std::shared_ptr<Item>> mItems;
+    /// FPS display boolean
     FpsDisplay mFpsDisplay;
-
     bool mSolved = false;
-
+    /// Map for declarations
     std::unordered_map<wxString, std::shared_ptr<Declaration>> mDeclarations;
+    /// Tracks game time
     double mGameTimer;
 
 

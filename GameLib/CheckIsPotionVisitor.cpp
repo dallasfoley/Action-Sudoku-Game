@@ -3,6 +3,7 @@
  * @author Joseph Renas
  */
 
+#include "pch.h"
 #include "CheckIsPotionVisitor.h"
 
 /**

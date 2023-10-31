@@ -136,11 +136,12 @@ void XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std:
 
                 y/= game->GetTileWidth();
                 y = (int)y;
+                y++;
                 y*= game->GetTileWidth();
 
-//                auto item2 = game->HitTest(x, y);
-//                if(item2->GetValue() < 9)
-//                    return;
+                auto item2 = game->HitTest(x + game->GetTileWidth()/2, y -game->GetTileHit()/2);
+                if(item2->GetValue() < 9)
+                    return;
             }
             item->SetLocation(x, y);
             game->AddItem(item);

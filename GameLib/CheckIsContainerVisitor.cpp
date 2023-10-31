@@ -3,6 +3,7 @@
  * @author Dallas Foley
  */
 
+#include "pch.h"
 #include "CheckIsContainerVisitor.h"
 
 /**
