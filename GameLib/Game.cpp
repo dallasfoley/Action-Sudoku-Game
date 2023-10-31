@@ -249,7 +249,7 @@ std::shared_ptr<Item> Game::HitTest(double x, double y)
 {
     for (auto i = mItems.rbegin(); i != mItems.rend();  i++)
     {
-        if ((*i)->HitTest(x - mXOffset/mScale, y - mYOffset/mScale))
+        if ((*i)->HitTest(x,y))
         {
             return *i;
         }
