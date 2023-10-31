@@ -217,3 +217,13 @@ void Sparty::Headbutt()
 {
     mHeadbuttCurrent = HeadbuttTime;
 }
+
+void Sparty::SetSpeed(double speed)
+{
+    mMaxSpeed = speed;
+}
+
+double Sparty::GetSpeed() const
+{
+    return mMaxSpeed;
+}
