@@ -31,7 +31,7 @@ public:
      * Release numbers
      * @param game pointer to Game
      */
-    void Release() override; // TO BE IMPLEMENTED
+    void Release(Game * game) override; // TO BE IMPLEMENTED
     Container(DeclarationContainer * declaration, wxXmlNode * node, Game * mGame);
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
     /**

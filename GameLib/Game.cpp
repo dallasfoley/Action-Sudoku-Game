@@ -33,6 +33,10 @@ using namespace std;
  */
 Game::Game()
 {
+    // seed random number generator
+    random_device rd;
+    mRandom.seed(rd());
+
     mBoard = make_shared<Board>();
     Load(L"levels/level1.xml");
 }
@@ -216,7 +220,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
         item->Accept(&visitor);
         if(visitor.IsContainer())
         {
-            item->Release();
+            item->Release(this);
         }
         return;
     }

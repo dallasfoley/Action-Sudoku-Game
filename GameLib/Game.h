@@ -10,6 +10,7 @@
 #include "Scoreboard.h"
 #include "Declaration.h"
 #include "FpsDisplay.h"
+#include <Random>
 
 class Sparty;
 
@@ -63,7 +64,7 @@ private:
     /// Tracks game time
     double mGameTimer;
 
-
+    std::mt19937 mRandom;
 
 public:
     void SetDisplayFps() {mDisplayFps = !mDisplayFps;} ///< @param b true when display is going to display
@@ -86,6 +87,12 @@ public:
     double GetTileHit() const {return mTileHit;}
     void Accept(ItemVisitor* visitor);
     void AddItem(std::shared_ptr<Item> item);
+
+    /**
+     * Get teh random number generator
+     * @retunr pointer to the random number generator
+     */
+     std::mt19937 &GetRandom() {return mRandom;}
 };
 
 

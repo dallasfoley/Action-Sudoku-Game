@@ -142,7 +142,7 @@ public:
      * Release numbers
      * @param game pointer to Game
      */
-     virtual void Release() {};
+     virtual void Release(Game * game) {};
 
      virtual void AddItem(std::shared_ptr<Item> item) {};
 

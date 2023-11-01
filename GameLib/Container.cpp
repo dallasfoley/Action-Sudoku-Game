@@ -4,9 +4,12 @@
  * @author Jon Price
  */
 
+
 #include "pch.h"
 #include "Container.h"
+#include <random>
 using namespace std;
+
 
 
 void Container::Draw(std::shared_ptr<wxGraphicsContext> graphics)
@@ -37,10 +40,16 @@ Container::Container(DeclarationContainer * dec, wxXmlNode * node, Game * mGame)
     }
 }
 
-void Container::Release()
+void Container::Release(Game * game)
 {
+    std::uniform_real_distribution<> releaseDistribution(0, game->GetTileHit()*4);
     for (auto item: mItems)
     {
-        SetLocation(0,0);
+
+        double x = GetX() + releaseDistribution(game->GetRandom());
+        double y = GetY() - releaseDistribution(game->GetRandom()) - game->GetTileHit() * 2;
+        item->SetLocation(x,y);
+        game->AddItem(item);
     }
+    mItems.clear();
 }
