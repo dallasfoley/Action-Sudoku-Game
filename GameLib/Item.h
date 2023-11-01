@@ -46,38 +46,19 @@ protected:
     void SetY(double y) { mY = y; } ///< @param y is new mY
 
 public:
-    /**
-     * Set the landing location
-     * @param x X location
-     * @param y Y location
-     */
+
     virtual void SetLandingPoint(double x, double y) {};
-    /**
-     * Eat
-     */
+
     virtual void Eat() {};
-    /**
-     * Headbutt
-     */
+
     virtual void Headbutt() {};
-    /**
-     * Get value
-     * @param int 10
-     */
+
     virtual int GetValue() { return 10;}
-    /**
-     * Declaration pointer
-     * @param d
-     * @param x X location in pixels
-     * * @param y Y location in pixels
-     */
+
     Item(std::shared_ptr<Declaration> d, double x, double y);
-    /**
-     * Declaration and wxXmlNode
-     * @param d
-     * @param node
-     */
+
     Item(Declaration * d, wxXmlNode * node);
+
     /**
      * Set the item location
      * @param x X location in pixels
@@ -85,24 +66,27 @@ public:
      */
     virtual void SetLocation(double x, double y) { mX = x; mY = y; }
 
-
     /// Default constructor (disabled)
     Item() = default;
+
     /// Copy constructor (disabled)
     Item(const Item &) = delete;
-//    ~Item();
 
+//    ~Item();
 
     /**
      * The X location of the item
      * @returns X location in pixels
      */
     double GetX() const { return mX; }
+
     /**
      * The Y location of the item
      * @returns Y location in pixels
      */
     double GetY() const { return mY; }
+
+
 
     virtual void Draw(std::shared_ptr<wxGraphicsContext> graphics);
 
@@ -123,36 +107,41 @@ public:
      * @param elapsed The time since the last update
      */
     virtual void Update(double elapsed) {}
+
+
     /**
      * Get the width of the bitmap image
      * @return Bitmap width in pixels
      */
     int GetWidth() const { return mItemImage->GetWidth(); }
+
     /**
      * Get the height of the bitmap image
      * @return Bitmap height in pixels
      */
     int GetHeight() const { return mItemImage->GetHeight(); }
+
     /**
      * Accept a visitor
       * @param visitor The visitor we accept
       */
     virtual void Accept(ItemVisitor* visitor) {};
+
     /**
      * Release numbers
      * @param game pointer to Game
      */
-     virtual void Release(Game * game) {};
+    virtual void Release(Game * game) {};
 
-     virtual void AddItem(std::shared_ptr<Item> item) {};
+    virtual void AddItem(std::shared_ptr<Item> item) {};
 
-     virtual void Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) {};
+    virtual void Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) {};
 
-     virtual int GetCount() {return 0;}
+    virtual int GetCount() {return 0;}
 
-     virtual void IncrementCount() {};
+    virtual void IncrementCount() {};
 
-     virtual void DecrementCount() {};
+    virtual void DecrementCount() {};
 };
 
 #endif //PROJECT1_GAMELIB_ITEM_H

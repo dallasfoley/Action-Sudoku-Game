@@ -15,7 +15,6 @@ private:
     virtual void VisitPotion(SpeedPotion *potion) override;
     bool mIsPotion = false;
 
-
 public:
 
     bool IsPotion() { return mIsPotion; }

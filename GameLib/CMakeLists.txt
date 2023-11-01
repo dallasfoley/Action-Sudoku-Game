@@ -48,7 +48,9 @@ set(SOURCE_FILES
         CheckIsXRayVisitor.cpp
         CheckIsXRayVisitor.h
         CheckIsPotionVisitor.cpp
-        CheckIsPotionVisitor.h)
+        CheckIsPotionVisitor.h
+        DeclarationPotion.cpp
+        DeclarationPotion.h)
 
 
 set(wxBUILD_PRECOMP OFF)

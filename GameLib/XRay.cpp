@@ -7,6 +7,7 @@
 #include "pch.h"
 #include "XRay.h"
 #include "Item.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -146,6 +147,7 @@ void XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std:
             item->SetLocation(x, y);
             game->AddItem(item);
             RemoveItem(item);
+            game->IncrementGameCount();
             return;
         }
     }

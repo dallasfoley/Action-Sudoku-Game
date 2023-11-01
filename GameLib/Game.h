@@ -30,7 +30,7 @@ private:
     Type mType = Type::Start;
     /// Current level member variable
     int mLevel = 1;
-    /// Counting member variable
+    /// Count of numbers on the board
     int mCount = 0;
     /// Window scaling member variable
     double mScale;
@@ -46,8 +46,6 @@ private:
     int mPixelHeight;
     /// Pixel width member variable
     int mPixelWidth;
-    /// If board is filled
-    bool mIsFilled = false;
     /// FPS display
     bool mDisplayFps = false;
     /// The scoreboard or timer
@@ -58,7 +56,6 @@ private:
     std::vector<std::shared_ptr<Item>> mItems;
     /// FPS display boolean
     FpsDisplay mFpsDisplay;
-    bool mSolved = false;
     /// Map for declarations
     std::unordered_map<wxString, std::shared_ptr<Declaration>> mDeclarations;
     /// Tracks game time
@@ -87,6 +84,8 @@ public:
     double GetTileHit() const {return mTileHit;}
     void Accept(ItemVisitor* visitor);
     void AddItem(std::shared_ptr<Item> item);
+    void Solve();
+    void IncrementGameCount() {mCount++;}
 
     /**
      * Get teh random number generator
