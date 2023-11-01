@@ -175,22 +175,21 @@ void Game::OnKeyDown(wxKeyEvent &event)
         mItems.back()->Eat();
         if (mItems.back()->GetCount() < 7)
         {
-            auto item = HitTest(mItems.back()->GetX() + mItems.back()->GetWidth(), mItems.back()->GetY() - GetTileHit());
+            auto item = HitTest(mItems.back()->GetX(), mItems.back()->GetY());
 
-        if(item == nullptr)
-            return;
+            if(item == nullptr)
+                return;
 
-        CheckIsPotionVisitor visitor3;
-        CheckIsNumberVisitor visitor;
-        CheckIsXRayVisitor visitor2;
-        item->Accept(&visitor);
-        item->Accept((&visitor3));
-        auto loc = find(mItems.begin(), mItems.end(), item);
-        if(visitor.IsNumber() || visitor3.IsPotion())
+            CheckIsPotionVisitor visitor3;
+            CheckIsNumberVisitor visitor;
+            CheckIsXRayVisitor visitor2;
+            item->Accept(&visitor);
+            item->Accept((&visitor3));
+            auto loc = find(mItems.begin(), mItems.end(), item);
+            if(visitor.IsNumber() || visitor3.IsPotion())
             {
                 for(auto item2 : mItems)
                 {
-                    //item2->AddItem(item);
                     item2->Accept(&visitor2);
                     if(visitor2.IsXRay())
                     {
@@ -199,7 +198,6 @@ void Game::OnKeyDown(wxKeyEvent &event)
                 }
                 mItems.back()->IncrementCount();
                 mItems.erase(loc);
-
             }
         }
         return;
@@ -221,24 +219,23 @@ void Game::OnKeyDown(wxKeyEvent &event)
         }
         return;
     }
-    else
+    for (int i = 0; i < 10; i++)
     {
-        CheckIsXRayVisitor visitor;
-        for(auto item2 : mItems)
+        if (i == event.GetKeyCode() - '0')
         {
-            //item2->AddItem(item);
-            item2->Accept(&visitor);
-            if(visitor.IsXRay())
+            CheckIsXRayVisitor visitor;
+            for(auto item2 : mItems)
             {
-                item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard);
-                mItems.back()->DecrementCount();
-                mCount += 1;
+                item2->Accept(&visitor);
+                if(visitor.IsXRay())
+                {
+                    item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard);
+                    mItems.back()->DecrementCount();
+                }
+                mItems.back()->Eat();
             }
-            mItems.back()->Eat();
-
         }
     }
-
 }
 
 /**
@@ -305,6 +302,7 @@ void Game::NextLevel()
         mLevel += 1;
     Restart();
 }
+
 
 /**
  * Checks if the given solution is correct

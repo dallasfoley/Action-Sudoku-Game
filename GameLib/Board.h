@@ -24,8 +24,8 @@ private:
     double mY = 0;
 
 public:
-    double GetX() { return mX; }
-    double GetY() { return mY; }
+    double GetX() const { return mX; }
+    double GetY() const { return mY; }
     void XmlLoad(wxXmlNode *node);
     bool CheckSolution(Game * game);
     Board(){}
