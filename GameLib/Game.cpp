@@ -18,6 +18,7 @@
 #include <sstream>
 #include "DeclarationXray.h"
 #include "DeclarationContainer.h"
+#include "DeclarationPotion.h"
 #include "CheckIsContainerVisitor.h"
 #include "CheckIsNumberVisitor.h"
 #include "CheckIsXRayVisitor.h"
@@ -180,18 +181,18 @@ void Game::OnKeyDown(wxKeyEvent &event)
             if(item == nullptr)
                 return;
 
-            CheckIsPotionVisitor visitor3;
             CheckIsNumberVisitor visitor;
             CheckIsXRayVisitor visitor2;
+            CheckIsPotionVisitor visitor3;
             item->Accept(&visitor);
-            item->Accept((&visitor3));
+            item->Accept(&visitor3);
             auto loc = find(mItems.begin(), mItems.end(), item);
             if(visitor.IsNumber() || visitor3.IsPotion())
             {
                 for(auto item2 : mItems)
                 {
                     item2->Accept(&visitor2);
-                    if(visitor2.IsXRay())
+                    if(visitor2.IsXRay() && visitor.IsNumber())
                     {
                         item2->AddItem(item);
                     }
@@ -383,7 +384,7 @@ void Game::Load(const wxString &filename)
                 } else if(superChildName == L"xray") {
                     mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationXray>(superChild)});
                 } else if (superChildName == L"speedpotion") {
-                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<Declaration>(superChild)});
+                    mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationPotion>(superChild)});
                 } else if(superChildName == L"container") {
                     mDeclarations.insert({superChild->GetAttribute(L"id"), make_shared<DeclarationContainer>(superChild)});
                 }

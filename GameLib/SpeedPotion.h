@@ -2,7 +2,7 @@
  * @file SpeedPotion.h
  * @author Chirag Solanki
  *
- *
+ * Base class for speed potion in lvl 3 of the Game
  */
 
 
@@ -10,6 +10,7 @@
 #define PROJECT1_SPEEDPOTION_H
 
 #include "Item.h"
+#include "DeclarationPotion.h"
 #include <random>
 #include <memory>
 
@@ -31,10 +32,10 @@ private:
     std::unique_ptr<wxBitmap> mBitmap;
 
     /// X position of the SpeedPotion
-    double mX = 20;
+    double mX;
 
     /// Y position of the SpeedPotion
-    double mY = 560;
+    double mY;
 
     /// Game context
     Game * mGame;
@@ -47,23 +48,20 @@ private:
     void GenerateSpeedModifier();
 
 public:
-    SpeedPotion(Game* game);
+    SpeedPotion(DeclarationPotion * declaration, wxXmlNode * node, Game * game);
     ~SpeedPotion();
 
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
     void Update(double elapsed) override;
+
+    void XmlLoad(wxXmlNode *node) override;
 
     // Function to handle the interaction with Sparty
     void AffectSparty();
 
     virtual void OnConsume(); // Function called when Sparty consumes the potion.
 
-//    /**
-//     * Accept a visitor
-//     * @param visitor The visitor we accept
-//     */
-//    void Accept(ItemVisitor* visitor) override { visitor->VisitPotion(this); }
-    void Accept(ItemVisitor *visitor) override;
+    void Accept(ItemVisitor* visitor) override;
 };
 
 #endif //PROJECT1_SPEEDPOTION_H

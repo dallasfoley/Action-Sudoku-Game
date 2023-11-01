@@ -29,10 +29,12 @@ const wstring speedPotionImage = L"images/speedpotion.png";
 
 /**
  * Constructor for SpeedPotion
- * @param game
+ * @param declaration The declaration for the SpeedPotion
+ * @param node The xml node for the SpeedPotion
+ * @param game The game object
  */
 // for this to work we must enable default constructor in Item.h
-SpeedPotion::SpeedPotion(Game *game)
+SpeedPotion::SpeedPotion(DeclarationPotion * declaration, wxXmlNode * node, Game * game) : Item(declaration, node)
 {
     mGame=game;
     mImage = make_unique<wxImage>(speedPotionImage, wxBITMAP_TYPE_ANY);
@@ -53,6 +55,7 @@ SpeedPotion::~SpeedPotion()
  */
 void SpeedPotion::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
+    Item::Draw(graphics);
     double wid = mBitmap->GetWidth();
     double hit = mBitmap->GetHeight();
     graphics->DrawBitmap(*mBitmap,
@@ -88,9 +91,25 @@ void SpeedPotion::OnConsume() {
    //for now just blank
 }
 
-void SpeedPotion::Accept(ItemVisitor* visitor)
+/**
+ * Load the potion from xml file
+ * @param node
+ */
+void SpeedPotion::XmlLoad(wxXmlNode *node)
 {
-    visitor->VisitPotion(this);
+    double x;
+    node->GetAttribute(L"col").ToDouble(&x);
+    double y;
+    node->GetAttribute(L"row").ToDouble(&y);
+    SetLocation(x, y);
 }
 
+/**
+ * Accept a visitor
+ * @param visitor
+ *
+ */
+void SpeedPotion::Accept(ItemVisitor* visitor) {
+    visitor->VisitPotion(this);
+}
 
