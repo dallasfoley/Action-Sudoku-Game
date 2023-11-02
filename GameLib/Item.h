@@ -142,6 +142,12 @@ public:
     virtual void IncrementCount() {};
 
     virtual void DecrementCount() {};
+
+    virtual double GetSpeed() const {return 0;};
+
+    virtual void SetSpeed(double speed) {};
+
+    virtual void AffectSparty() {};
 };
 
 #endif //PROJECT1_GAMELIB_ITEM_H

@@ -16,6 +16,7 @@
 
 class Game;
 
+
 /**
  * Base class for speed potion in lvl 3 of the Game
  */
@@ -40,10 +41,11 @@ private:
     /// Game context
     Game * mGame;
 
-    double mSpeedModifier;  // Speed modification value
+    /// Speed modifier
+    double mSpeedModifier;
 
     // Random number generator
-    static std::mt19937 mRNG;
+    std::mt19937 mRNG;
 
     void GenerateSpeedModifier();
 
@@ -57,11 +59,12 @@ public:
     void XmlLoad(wxXmlNode *node) override;
 
     // Function to handle the interaction with Sparty
-    void AffectSparty();
+    void AffectSparty() override;
 
     virtual void OnConsume(); // Function called when Sparty consumes the potion.
 
     void Accept(ItemVisitor* visitor) override;
+
 };
 
 #endif //PROJECT1_SPEEDPOTION_H

@@ -124,8 +124,9 @@ public:
 
     void DecrementCount() override {mCount--;}
 
-    void SetSpeed(double speed);
-    double GetSpeed() const;
+    void SetSpeed(double speedModifier);
+
+    double GetSpeed() const override;
 
 };
 

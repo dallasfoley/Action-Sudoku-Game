@@ -88,6 +88,12 @@ public:
     void IncrementGameCount() {mCount++;}
 
     /**
+     * Get Sparty from the game
+     * @return shared pointer to Sparty
+     */
+    std::shared_ptr<Item> GetSparty() {return mItems.back();}
+
+    /**
      * Get teh random number generator
      * @retunr pointer to the random number generator
      */

@@ -26,6 +26,11 @@ const double EatingTime = 0.5;
 /// The time for a headbutt cycle in seconds
 const double HeadbuttTime = 0.5;
 
+/// The offset X for the mouth pivot point
+const int offsetMouthX = 42;
+
+/// The offset Y for the mouth pivot point
+const int offsetMouthY = 9;
 
 /**
  * Constructor for Sparty
@@ -93,13 +98,13 @@ void Sparty::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         double mouthAngle{};
         if (mEating < eating)
         {
-            mouthAngle = mEating / (mMouthAngle * eating);
+            mouthAngle = (mEating) / (mMouthAngle * eating);
         }
         else
         {
             mouthAngle = (2 * EatingTime - mEating) / (mMouthAngle * eating);
         }
-        wxPoint mouthPivot = wxPoint((int)GetX() + 42, (int)GetY() - 9);
+        wxPoint mouthPivot = wxPoint((int)GetX() + offsetMouthX, (int)GetY() - offsetMouthY);
         graphics->Translate(mouthPivot.x, mouthPivot.y);
         graphics->Rotate(mouthAngle / 2);
         graphics->Translate(-mouthPivot.x, -mouthPivot.y);
@@ -219,9 +224,9 @@ void Sparty::Headbutt()
     mHeadbuttCurrent = HeadbuttTime;
 }
 
-void Sparty::SetSpeed(double speed)
+void Sparty::SetSpeed(double speedModifier)
 {
-    mMaxSpeed = speed;
+    mMaxSpeed = speedModifier;
 }
 
 double Sparty::GetSpeed() const

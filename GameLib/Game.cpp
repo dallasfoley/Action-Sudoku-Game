@@ -199,6 +199,12 @@ void Game::OnKeyDown(wxKeyEvent &event)
                     if(visitor2.IsXRay() && visitor.IsNumber())
                     {
                         item2->AddItem(item);
+                        break;
+                    }
+                    else if(visitor3.IsPotion())
+                    {
+                        item->AffectSparty();
+                        break;
                     }
                 }
                 mItems.back()->IncrementCount();

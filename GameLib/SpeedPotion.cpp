@@ -13,11 +13,6 @@
 using namespace std;
 
 
-
-// Static initialization of the random number generator
-std::mt19937 SpeedPotion::mRNG = std::mt19937(std::random_device{}());
-
-
 //just experimenting with this
 /*SpeedPotion::SpeedPotion(Game* game) : Item(game, L"images/speedpotion.png"), mGame(game) {
     GenerateSpeedModifier();
@@ -39,6 +34,7 @@ SpeedPotion::SpeedPotion(DeclarationPotion * declaration, wxXmlNode * node, Game
     mGame=game;
     mImage = make_unique<wxImage>(speedPotionImage, wxBITMAP_TYPE_ANY);
     mBitmap = make_unique<wxBitmap>(*mImage);
+    mRNG = game->GetRandom();
 }
 
 
@@ -70,20 +66,21 @@ void SpeedPotion::Update(double elapsed) {
     // For instance, movement, animation, disappearance after time, etc.
 }
 
-//void SpeedPotion::AffectSparty() {
-//    auto sparty = mGame->GetSparty();
-//    if (sparty) {
-//       double newSpeed = sparty->GetSpeed() + mSpeedModifier; // Compute new speed
-//        sparty->SetSpeed(newSpeed); // Set new speed
-//    } else {
-//        std::cerr << "Error: Sparty object not found in game." << std::endl;
-//    }
-//}
+void SpeedPotion::AffectSparty() {
+    GenerateSpeedModifier(); // Generate a speed modifier
+    auto sparty = mGame->GetSparty();
+    if (sparty) {
+       double newSpeed = sparty->GetSpeed() * mSpeedModifier; // Compute new speed
+       sparty->SetSpeed(newSpeed); // Set new speed
+    } else {
+        std::cerr << "Error: Sparty object not found in game." << std::endl;
+    }
+}
 
 
 void SpeedPotion::GenerateSpeedModifier() {
-    // Randomly generate a speed modifier
-    std::uniform_real_distribution<> distr(-0.5, 1.5); // Range based on our design
+//     Randomly generate a speed modifier
+    std::uniform_real_distribution<> distr(0.5, 3.0); // Range based on our design
     mSpeedModifier = distr(mRNG);
 }
 
