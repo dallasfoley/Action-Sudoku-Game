@@ -123,7 +123,7 @@ bool XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std:
 {
     auto code = event.GetKeyCode();
     code -= 48;
-    for(auto item : mNumbers)
+    for(const auto& item : mNumbers)
     {
         if(item->GetValue() == code)
         {

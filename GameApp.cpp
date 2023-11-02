@@ -11,7 +11,6 @@
 #include <crtdbg.h>
 #endif
 
-#include "pch.h"
 #include <MainFrame.h>
 #include "GameApp.h"
 
