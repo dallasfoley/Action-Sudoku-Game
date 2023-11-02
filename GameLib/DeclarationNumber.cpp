@@ -10,7 +10,6 @@
 /**
  * Constructor for class DeclarationNumber
  * @param node xmlNode for this declaration
- * @param given whether the number is a given or a digit
  */
 DeclarationNumber::DeclarationNumber(wxXmlNode *node) :Declaration(node)
 {
@@ -21,6 +20,7 @@ DeclarationNumber::DeclarationNumber(wxXmlNode *node) :Declaration(node)
 /**
  * Create an object of type Number for the item list
  * @param node Item node for this object
+ * @param game Game object
  * @return shared ptr to Number
  */
 std::shared_ptr<Item> DeclarationNumber::Create(wxXmlNode * node, Game * game)

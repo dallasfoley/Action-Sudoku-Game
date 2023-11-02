@@ -168,7 +168,6 @@ public:
 
     /**
      * Change speed of the item
-     * @return 0 (default)
      */
     virtual void AffectSparty() {};
 

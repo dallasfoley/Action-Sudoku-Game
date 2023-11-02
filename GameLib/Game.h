@@ -119,13 +119,11 @@ public:
 
     /**
      * Increment the game count
-     * @return mCount
      */
     void IncrementGameCount() {mCount++;}
 
     /**
      * Get the correct level
-     * @return mType == Type::Correct
      */
     void CorrectLevel() {mType = Type::Correct;}
 
@@ -137,7 +135,7 @@ public:
 
     /**
      * Get teh random number generator
-     * @retunr pointer to the random number generator
+     * @return pointer to the random number generator
      */
      std::mt19937 &GetRandom() {return mRandom;}
 };

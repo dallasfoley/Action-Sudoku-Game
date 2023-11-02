@@ -49,32 +49,32 @@ public:
     virtual void VisitNumber(Number* number) {}
 
     /**
-     * Visit a Number object
-     * @param number Number object we are visiting
+     * Visit a Xray object
+     * @param xray Xray object we are visiting
      */
     virtual void VisitXRay(XRay* xray) {}
 
     /**
-     * Visit a Number object
-     * @param number Number object we are visiting
+     * Visit a board object
+     * @param board board object we are visiting
      */
     virtual void VisitBoard(Board* board) {}
 
     /**
-     * Visit a Number object
-     * @param number Number object we are visiting
+     * Visit a scoreboard object
+     * @param scoreboard Scoreboard object we are visiting
      */
     virtual void VisitScoreboard(Scoreboard* scoreboard) {}
 
     /**
-     * Visit a Number object
-     * @param number Number object we are visiting
+     * Visit a Sparty object
+     * @param sparty Sparty object we are visiting
      */
     virtual void VisitSparty(Sparty* sparty) {}
 
     /**
-     * Visit a Number object
-     * @param number Number object we are visiting
+     * Visit a potion object
+     * @param potion Potion object we are visiting
      */
     virtual void VisitPotion(SpeedPotion* potion) {}
 

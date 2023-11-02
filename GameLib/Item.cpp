@@ -24,13 +24,13 @@ Item::Item(Game * game, const std::wstring &filename) : mGame(game)
 
 /**
  * Constructor for loading context
- * @param declaration Information about the object
+ * @param d declaration information about the object
  * @param x location x
  * @param y location y
  */
-Item::Item(shared_ptr<Declaration> declaration, double x, double y)
+Item::Item(std::shared_ptr<Declaration> d, double x, double y)
 {
-    mItemImage = make_unique<wxImage>(declaration->GetImage(), wxBITMAP_TYPE_ANY);
+    mItemImage = make_unique<wxImage>(d->GetImage(), wxBITMAP_TYPE_ANY);
     mItemBitmap = make_unique<wxBitmap>(*mItemImage);
     mX = x;
     mY = y;

@@ -61,6 +61,7 @@ public:
     void Accept(ItemVisitor* visitor) override { visitor->VisitXRay(this); }
 
     /**
+     * Checks to see if the XRay has capacity
      * @return the capacity of the xray
      */
     bool HasCapacity() override { return mCapacity > mNumbers.size(); }

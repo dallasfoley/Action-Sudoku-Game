@@ -19,6 +19,7 @@ DeclarationPotion::DeclarationPotion(wxXmlNode *node) : Declaration(node)
 /**
  * Create an object of type SpeedPotion for the item list
  * @param node Item node for this object
+ * @param game Game object
  * @return shared ptr to SpeedPotion
  */
 std::shared_ptr<Item> DeclarationPotion::Create(wxXmlNode * node, Game * game)

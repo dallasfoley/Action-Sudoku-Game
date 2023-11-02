@@ -20,6 +20,7 @@ DeclarationXray::DeclarationXray(wxXmlNode *node) :Declaration(node)
 /**
  * create xray Item
  * @param node Item node for this object
+ * @param game Game object
  * @return shared ptr to Xray
  */
 std::shared_ptr<Item> DeclarationXray::Create(wxXmlNode *node, Game *game)

@@ -24,9 +24,8 @@ public:
     DeclarationContainer(wxXmlNode * node);
 
     /**
-     * Create an object of type Container for the item list
-     * @param node Item node for this object
-     * @return shaerd ptr to Container
+     * Getter for the front image
+     * @return front image
      */
     std::wstring GetFrontImage() { return mFrontImage;}
     std::shared_ptr<Item> Create(wxXmlNode * node, Game * game) override;

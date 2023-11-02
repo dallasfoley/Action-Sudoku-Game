@@ -20,7 +20,8 @@ DeclarationContainer::DeclarationContainer(wxXmlNode * node) : Declaration(node)
 /**
  * Create an object of type Container for the item list
  * @param node Item node for this object
- * @return shaerd ptr to Container
+ * @param game Game object
+ * @return shared ptr to Container
  */
 std::shared_ptr<Item> DeclarationContainer::Create(wxXmlNode * node, Game * game)
 {

@@ -24,15 +24,16 @@ private:
     double mY = 0;
 
 public:
-    /*
-     * Getter for mX
-     * @return mX
+
+    /**
+     * getter for mX
+     * @return x location
      */
     double GetX() const { return mX; }
 
-    /*
-     * Getter for mY
-     * @return mY
+    /**
+     * getter for mY
+     * @return y location
      */
     double GetY() const { return mY; }
     void XmlLoad(wxXmlNode *node);
