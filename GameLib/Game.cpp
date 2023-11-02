@@ -313,9 +313,7 @@ bool Game::CheckSolved()
 }
 
 /**
- * Checks if board matches solution
- * @param game class game
- * @returns Bool indicating correctness
+ * Solves the current level
  */
 void Game::Solve()
 {
