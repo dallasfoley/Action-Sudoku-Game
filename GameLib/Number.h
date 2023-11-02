@@ -36,13 +36,13 @@ public:
 
     /**
      * Get the value of the number
-     * @param value The value to set
+     * @return mValue
      */
     int GetValue() override { return mValue; }
 
     /**
      * Get the type of the number
-     * @param value The value to set
+     * @return mIsGiven
      */
     bool GetGiven() { return mIsGiven; }
 

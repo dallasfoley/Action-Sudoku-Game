@@ -21,14 +21,14 @@ void FpsDisplay::Update(double elapsed)
  * @param graphics context for this object
  */
 void FpsDisplay::Draw(std::shared_ptr<wxGraphicsContext> graphics) {
-    wxFont font(wxSize(10, 60),
+    wxFont font(wxSize(10, 30),
                 wxFONTFAMILY_SWISS,
                 wxFONTSTYLE_NORMAL,
                 wxFONTWEIGHT_BOLD);
-    graphics->SetFont(font, wxColour(200, 0, 0));
+    graphics->SetFont(font, wxColour(255, 255, 255));
     std::ostringstream os;
 
-    os << mFrames;
+    os << "FPS:" << mFrames;
 
-    graphics->DrawText(os.str(), 200, 20);
+    graphics->DrawText(os.str(), 775, 20);
 }

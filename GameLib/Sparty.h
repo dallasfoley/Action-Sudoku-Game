@@ -59,7 +59,10 @@ private:
     /// double to determine if Sparty is currently eating
     double mEating = 0;
 
+    /// head pivot form XML
     wxPoint mHeadPivot = wxPoint(GetX(),GetY());
+
+    ///Head angel member variable
     double mHeadAngle = 0;
 
     ///current game context
@@ -71,6 +74,7 @@ private:
 public:
     /**
      * Constructor for Sparty
+     * @param game Game object
      */
     explicit Sparty(Game *game);
 
@@ -88,7 +92,11 @@ public:
     void Update(double elapsed) override;
 
     void SetLandingPoint(double x, double y) override;
-
+    /**
+     * XML Node and declaration sparty
+     * @param node The XML node
+     * @param dec The sparty declaration
+     */
     Sparty(wxXmlNode * node, DeclarationSparty * dec);
 
     /**
@@ -114,6 +122,9 @@ public:
 
     /**
      * Make hittest not work on sparty
+     * @param x The x location
+     * @param y The y location
+     * @return false
      */
     bool HitTest(double x, double y) override { return false; }
 
@@ -125,13 +136,11 @@ public:
 
     /**
      * Increment the count of numbers in Sparty
-     * @return int The count of numbers in Sparty
      */
     void IncrementCount() override {mCount++;}
 
     /**
      * Decrement the count of numbers in Sparty
-     * @return int The count of numbers in Sparty
      */
     void DecrementCount() override {mCount--;}
 

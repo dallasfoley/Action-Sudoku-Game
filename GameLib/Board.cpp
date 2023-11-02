@@ -1,6 +1,6 @@
 /**
  * @file Board.cpp
- * @author rohch
+ * @author Joseph Renas
  */
 
 #include "pch.h"

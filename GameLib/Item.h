@@ -90,10 +90,10 @@ public:
      */
     virtual void SetLocation(double x, double y) { mX = x; mY = y; }
 
-    /// Default constructor (disabled)
+    /// Default constructor
     Item() = default;
 
-    /// Copy constructor (disabled)
+    /// Copy constructor
     Item(const Item &) = delete;
 
     /**

@@ -1,6 +1,6 @@
 /**
  * @file Board.h
- * @author rohch
+ * @author Joseph Renas
  *
  * Base class for board in the Game
  */
@@ -41,12 +41,6 @@ public:
     const std::vector<int> &getMSolution() const;
     double getMx() const;
     double getMy() const;
-
-    /**
-     * Constructor for Board
-     */
-    Board(){}
-
     bool IsOnBoard(double x, double y, Game * game) const;
 
 };
