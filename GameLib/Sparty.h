@@ -105,11 +105,6 @@ public:
     void Eat() override;
 
     /**
-     * Implement the vomiting action
-     */
-    void Regurgitate();
-
-    /**
      * Implement the headbutt action
      */
     void Headbutt() override;

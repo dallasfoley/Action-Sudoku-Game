@@ -25,14 +25,9 @@ private:
     /// Image of the xray
     std::wstring mImage;
 public:
+
     std::shared_ptr<Item> Create(wxXmlNode *node, Game *game);
     DeclarationXray(wxXmlNode * node);
-
-    /**
-     * Get the image of the xray
-     * @return mImage
-     */
-    std::wstring GetImage() { return mImage; } ///< @returns mImage
 
     /**
      * Capacity of the xray

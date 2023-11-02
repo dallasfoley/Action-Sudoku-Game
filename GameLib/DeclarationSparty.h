@@ -34,12 +34,8 @@ private:
     double mTargetX;
     /// TargetY
     double mTargetY;
+
 public:
-    /**
-     * Sparty head image.
-     * @return mHeadImage.
-     */
-    const std::wstring &getHeadImage() const { return mHeadImage;}
 
     /**
      * Sparty jaw image.
