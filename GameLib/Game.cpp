@@ -157,7 +157,7 @@ void Game::Update(double elapsed)
 }
 
 /**
- * Handles click event with respect to Sparty
+ * Handlles mouse click event for Sparty
  * @param event mouse event (click)
  */
 void Game::OnLeftDown(wxMouseEvent &event)
@@ -171,6 +171,8 @@ void Game::OnLeftDown(wxMouseEvent &event)
 /**
  * Handles key press event for Sparty
  * When space is pressed, Sparty eats a number
+ * When B is pressed, Sparty headbutts a container
+ * When 0-8 is pressed, Sparty regurgitates a number of that value
  * @param event key press event
  */
 void Game::OnKeyDown(wxKeyEvent &event)
@@ -244,12 +246,12 @@ void Game::OnKeyDown(wxKeyEvent &event)
 }
 
 /**
-* Test an x,y click location to see if it clicked
-* on some item in the game.
-* @param x X location in pixels
-* @param y Y location in pixels
-* @returns Pointer to item we clicked on or nullptr if none.
-*/
+ * Test an x,y click location to see if it clicked
+ * on some item in the game.
+ * @param x X location in pixels
+ * @param y Y location in pixels
+ * @returns Pointer to item we clicked on or nullptr if none.
+ */
 std::shared_ptr<Item> Game::HitTest(double x, double y)
 {
     for (auto i = mItems.rbegin(); i != mItems.rend();  i++)
@@ -297,8 +299,8 @@ void Game::Restart()
 }
 
 /**
-* Moves to the next level
-*/
+ * Moves to the next level
+ */
 void Game::NextLevel()
 {
     if (mLevel != 3)
@@ -317,7 +319,7 @@ bool Game::CheckSolved()
 }
 
 /**
- * Solves the current level
+ * Solves the current level by placing the numbers in the correct location
  */
 void Game::Solve()
 {
@@ -345,9 +347,10 @@ void Game::Solve()
 }
 
 /**
-* Handle a node of type item.
+ * Handle a node of type item.
  * @param node XML node
-*/
+ * @returns Pointer to item created
+ */
 shared_ptr<Item> Game::XmlItem(wxXmlNode * node) {
     // if we are in the item part of the xml
     // then instantiate the items into the level list
@@ -357,9 +360,7 @@ shared_ptr<Item> Game::XmlItem(wxXmlNode * node) {
 
 /**
  * Load the level from a XML file.
- *
  * Opens the XML file and reads the nodes, creating items as appropriate.
- *
  * @param filename The filename of the file to load the level from.
  */
 void Game::Load(const wxString &filename)
@@ -428,6 +429,10 @@ void Game::Load(const wxString &filename)
     }
 }
 
+/**
+ * Draw the message for the start of the level
+ * @param graphics
+ */
 void Game::DrawMessage(std::shared_ptr<wxGraphicsContext> graphics)
 {
 //

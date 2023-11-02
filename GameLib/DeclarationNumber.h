@@ -1,6 +1,8 @@
 /**
  * @file DeclarationNumber.h
  * @author Jon Price
+ *
+ * Base class for number declarations
  */
 
 #ifndef PROJECT1_DECLARATIONNUMBER_H
@@ -20,7 +22,17 @@ private:
 public:
     DeclarationNumber(wxXmlNode * node);
     std::shared_ptr<Item> Create(wxXmlNode * node, Game * game) override;
-    bool GetGiven() { return mGiven; } ///< @returns mGiven
+
+    /**
+     * Whether this declaration is for a given or for a digit
+     * @return mGiven
+     */
+    bool GetGiven() { return mGiven; }
+
+    /**
+     * The value corresponding to this digit
+     * @return mValue
+     */
     int GetValue() { return mValue; } ///< @returns mValue
 };
 

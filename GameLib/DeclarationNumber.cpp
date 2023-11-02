@@ -18,6 +18,11 @@ DeclarationNumber::DeclarationNumber(wxXmlNode *node) :Declaration(node)
     node->GetAttribute(L"value").ToInt(&mValue);
 }
 
+/**
+ * Create an object of type Number for the item list
+ * @param node Item node for this object
+ * @return shared ptr to Number
+ */
 std::shared_ptr<Item> DeclarationNumber::Create(wxXmlNode * node, Game * game)
 {
     if (mGiven)

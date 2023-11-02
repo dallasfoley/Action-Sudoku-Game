@@ -12,6 +12,7 @@
 
 using namespace std;
 
+/// The image for the speed potion
 const wstring speedPotionImage = L"images/speedpotion.png";
 
 /**
@@ -35,7 +36,6 @@ SpeedPotion::~SpeedPotion()
 {
 }
 
-
 /**
  * Draw the SpeedPotion
  * @param graphics The graphics context to draw on
@@ -52,7 +52,10 @@ void SpeedPotion::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                          hit);
 }
 
-
+/**
+ * Update the SpeedPotion
+ * @param elapsed The time elapsed since the last update
+ */
 void SpeedPotion::Update(double elapsed) {
     // Logic for updating the speed potion (dont know if needed)
     // For instance, movement, animation, disappearance after time, etc.
@@ -100,8 +103,7 @@ void SpeedPotion::XmlLoad(wxXmlNode *node)
 
 /**
  * Accept a visitor
- * @param visitor
- *
+ * @param visitor The visitor we accept
  */
 void SpeedPotion::Accept(ItemVisitor* visitor) {
     visitor->VisitPotion(this);

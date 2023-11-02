@@ -1,6 +1,8 @@
 /**
  * @file Declaration.h
  * @author Jon Price
+ *
+ * Base class for declarations within XML
  */
 
 #ifndef PROJECT1_DECLARATION_H
@@ -8,6 +10,7 @@
 
 class Item;
 class Game;
+
 /**
  * Base class for declarations within XML
  */
@@ -26,21 +29,25 @@ protected:
 public:
     Declaration(wxXmlNode * node);
     virtual std::shared_ptr<Item> Create(wxXmlNode * node, Game * game);
+
     /**
      * ID of the declaration.
      * @return mID.
      */
     std::wstring GetID() { return mID; };
+
     /**
      * Width of the declaration.
      * @return mWidth.
      */
     double GetWidth() const { return mWidth; };
+
     /**
      * Height of the declaration.
      * @return mHeight.
      */
     double GetHeight() const { return mHeight; };
+
     /**
      * PNG of the declaration.
      * @return mImage.

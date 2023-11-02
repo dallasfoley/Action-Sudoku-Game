@@ -11,6 +11,7 @@
 
 using namespace std;
 
+/// The image for the XRay
 const wstring xRayImage = L"images/xray.png";
 
 /**
@@ -74,7 +75,6 @@ void XRay::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 /**
  * Add an item to the XRay
  * @param item The item to add
- * @return true if the item is added
  */
 void XRay::AddItem(std::shared_ptr<Item> item)
 {
@@ -100,16 +100,7 @@ bool XRay::RemoveItem(std::shared_ptr<Item> item)
 }
 
 /**
- * Returns the number of items in the XRay
- * @return the number of items in the XRay
- */
-int XRay::GetNumItems(){
-    return (int)mNumbers.size();
-}
-
-/**
- * Clears the XRay
- *
+ * Clears the XRay of all items
  */
 void XRay::Clear()
 {
@@ -117,8 +108,14 @@ void XRay::Clear()
 }
 
 /**
-* Regurgitate item back to the game
-*/
+ * Regurgitate item back to the game
+ * @param game The game the item is in
+ * @param event The key event
+ * @param x The x position of the item
+ * @param y The y position of the item
+ * @param board The board the item is on
+ * @return true if the item is regurgitated
+ */
 bool XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board)
 {
     auto code = event.GetKeyCode();

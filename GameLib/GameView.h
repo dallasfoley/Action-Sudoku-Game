@@ -1,20 +1,32 @@
 /**
  * @file GameView.h
  * @author Jon Price
+ *
+ * View class for the game
  */
 #ifndef PROJECT1_GAMEVIEW_H
 #define PROJECT1_GAMEVIEW_H
 
 #include "Game.h"
 
-/// View class for the game
+/**
+ * View class for the game
+ */
 class GameView : public wxWindow{
 private:
     void OnPaint(wxPaintEvent& event);
-    Game mGame; ///< object that describes our game
-    wxTimer mTimer; ///< Timer allowing for animation
-    wxStopWatch mStopWatch; ///< Stopwatch used to measure elapsed time
-    long mTime = 0; ///< the last stopwatch time
+
+    /// object that describes our game
+    Game mGame;
+
+    /// Timer allowing for animation
+    wxTimer mTimer;
+
+    /// Stopwatch used to measure elapsed time
+    wxStopWatch mStopWatch;
+
+    /// the last stopwatch time
+    long mTime = 0;
 public:
     void Initialize(wxFrame* parent);
     void OnFpsDisplay(wxCommandEvent& event);

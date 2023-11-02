@@ -1,6 +1,8 @@
 /**
  * @file FpsDisplay.h
  * @author Jon Price
+ *
+ * Class to display fps
  */
 
 #ifndef PROJECT1_FPSDISPLAY_H
@@ -11,7 +13,9 @@
  */
 class FpsDisplay {
 private:
-    double mFrames; ///< FPS
+
+    /// Frames
+    double mFrames;
 public:
     void Update(double elapsed);
     void Draw(std::shared_ptr<wxGraphicsContext> graphics);

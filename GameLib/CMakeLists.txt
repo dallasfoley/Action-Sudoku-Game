@@ -16,8 +16,6 @@ set(SOURCE_FILES
         Board.h
         XRay.cpp
         XRay.h
-        Level.cpp
-        Level.h
         Number.cpp
         Number.h
         ids.h

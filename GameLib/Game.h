@@ -1,6 +1,9 @@
 /**
  * @file Game.h
  * @author Jon Price
+ *
+ * This class is responsible for loading the game, drawing the game, and updating the game
+ * It also contains the game loop and keeps track of the game state and level
  */
 
 #ifndef PROJECT1_GAME_H
@@ -21,7 +24,11 @@ class Board;
 class ItemVisitor;
 
 
-/// class which represents the Game
+/**
+ * Class to represent the game
+ * This class is responsible for loading the game, drawing the game, and updating the game
+ * It also contains the game loop and keeps track of the game state and level
+ */
 class Game {
 private:
     /// Enumerating class
@@ -61,14 +68,23 @@ private:
     /// Tracks game time
     double mGameTimer;
 
+    /// Random number generator
     std::mt19937 mRandom;
 
 public:
-    void SetDisplayFps() {mDisplayFps = !mDisplayFps;} ///< @param b true when display is going to display
+    /**
+     * Sets the fps display to true or false
+     */
+    void SetDisplayFps() {mDisplayFps = !mDisplayFps;}
     Game();
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
     void Update(double elapsed);
     void DrawMessage(std::shared_ptr<wxGraphicsContext> graphics);
+
+    /**
+     * Sets the level of the game according to the parameter
+     * @param level level to be set to
+     */
     void SetLevel(int level) {mLevel = level;}
     std::shared_ptr<Item> XmlItem(wxXmlNode * node);
     void OnLeftDown(wxMouseEvent & event);
@@ -79,13 +95,38 @@ public:
     void NextLevel();
     bool CheckSolved();
     void Load(const wxString &filename);
-    int GetMapLength() { return mDeclarations.size(); } ///< returns length of declaration file, used right now for a test
+
+    /**
+     * Get number of declarations in the map
+     * @return mDeclarations.size() size of the map
+     */
+    int GetMapLength() { return mDeclarations.size(); }
+
+    /**
+     * Gets the x value of a tile on the board
+     * @return mTileWidth width of the tile
+     */
     double GetTileWidth() const {return mTileWidth;}
+
+    /**
+     * Gets the y value of a tile on the board
+     * @return mTileHit height of the tile
+     */
     double GetTileHit() const {return mTileHit;}
     void Accept(ItemVisitor* visitor);
     void AddItem(std::shared_ptr<Item> item);
     void Solve();
+
+    /**
+     * Increment the game count
+     * @return mCount
+     */
     void IncrementGameCount() {mCount++;}
+
+    /**
+     * Get the correct level
+     * @return mType == Type::Correct
+     */
     void CorrectLevel() {mType = Type::Correct;}
 
     /**

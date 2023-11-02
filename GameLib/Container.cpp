@@ -11,7 +11,10 @@
 using namespace std;
 
 
-
+/**
+ * Draws the container
+ * @param graphics the graphics context to draw on
+ */
 void Container::Draw(std::shared_ptr<wxGraphicsContext> graphics)
 {
     Item::Draw(graphics);
@@ -28,6 +31,12 @@ void Container::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                          hit);
 }
 
+/**
+ * Creates a container from an xml node
+ * @param dec the declaration container
+ * @param node the xml node
+ * @param mGame the game to update
+ */
 Container::Container(DeclarationContainer * dec, wxXmlNode * node, Game * mGame) : Item(dec, node)
 {
     mItemFrontImage = make_unique<wxImage>(dec->GetFrontImage(), wxBITMAP_TYPE_ANY);
@@ -40,6 +49,10 @@ Container::Container(DeclarationContainer * dec, wxXmlNode * node, Game * mGame)
     }
 }
 
+/**
+ * Releases items from the container
+ * @param game the game to update
+ */
 void Container::Release(Game * game)
 {
     std::uniform_real_distribution<> releaseDistribution(0, game->GetTileHit()*4);

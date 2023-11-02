@@ -44,13 +44,18 @@ private:
     /// Speed modifier
     double mSpeedModifier;
 
-    // Random number generator
+    /// Random number generator
     std::mt19937 mRNG;
 
     void GenerateSpeedModifier();
 
 public:
+
     SpeedPotion(DeclarationPotion * declaration, wxXmlNode * node, Game * game);
+
+    /**
+     * Destructor for SpeedPotion
+     */
     ~SpeedPotion();
 
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;

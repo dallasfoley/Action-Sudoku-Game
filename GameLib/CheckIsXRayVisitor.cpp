@@ -8,6 +8,7 @@
 
 /**
  * Sets the boolean value for is xray to true
+ * @param xray the xray we are visiting
  */
 void CheckIsXRayVisitor::VisitXRay(XRay *xray)
 {

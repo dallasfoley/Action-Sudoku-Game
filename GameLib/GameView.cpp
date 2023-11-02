@@ -11,6 +11,10 @@
 /// Frame duration in milliseconds
 const int FrameDuration = 30;
 
+/**
+ * the paint event handler
+ * @param event the paint event
+ */
 void GameView::OnPaint(wxPaintEvent& event)
 {
 
@@ -49,6 +53,7 @@ void GameView::OnTimer(wxTimerEvent& event)
 {
     Refresh();
 }
+
 /**
  * Handle the mouse move event
  * @param event
@@ -63,6 +68,7 @@ void GameView::OnMouseMove(wxMouseEvent &event)
 
 /**
  * toggle the fps display
+ * @param event
  */
 void GameView::OnFpsDisplay(wxCommandEvent& event)
 {
@@ -71,9 +77,9 @@ void GameView::OnFpsDisplay(wxCommandEvent& event)
 
 
 /**
-* initialize the Game view class
+ * initialize the Game view class
  * @param parent the parent window for this class
-*/
+ */
 void GameView::Initialize(wxFrame *parent)
 {
     mTimer.SetOwner(this);
@@ -113,8 +119,8 @@ void GameView::OnLeftDown(wxMouseEvent & event) {
 }
 
 /**
-  * Stop the timer so the window can close
-  */
+ * Stop the timer so the window can close
+ */
 void GameView::Stop() { mTimer.Stop(); }
 
 /**

@@ -112,16 +112,27 @@ public:
      */
     void Accept(ItemVisitor* visitor) override { visitor->VisitSparty(this); }
 
-
     /**
- * Make hittest not work on sparty
- */
+     * Make hittest not work on sparty
+     */
     bool HitTest(double x, double y) override { return false; }
 
+    /**
+     * Get the count of numbers in Sparty
+     * @return int The count of numbers in Sparty
+     */
     int GetCount() override {return mCount;}
 
+    /**
+     * Increment the count of numbers in Sparty
+     * @return int The count of numbers in Sparty
+     */
     void IncrementCount() override {mCount++;}
 
+    /**
+     * Decrement the count of numbers in Sparty
+     * @return int The count of numbers in Sparty
+     */
     void DecrementCount() override {mCount--;}
 
     void SetSpeed(double speedModifier);

@@ -2,15 +2,18 @@
  * @file Scoreboard.cpp
  * @author dalla
  */
+
 #include "pch.h"
 #include "Scoreboard.h"
 #include <sstream>
+
 using namespace std;
 
 /// Frame duration in milliseconds
 const int FrameDuration = 30;
 /// Size of the scoreboard text in virtual pixels
 const int ScoreboardTextSize = 64;
+
 /**
  * Top left corner of the scoreboard in virtual pixels.
  * @return int.
@@ -20,7 +23,6 @@ const wxPoint ScoreboardTopLeft(10, 10);
 
 /**
  * Handle updates in time of our scoreboard
- *
  * @param elapsed Time elapsed since the class call
  */
 void Scoreboard::Update(double elapsed)
@@ -51,7 +53,7 @@ void Scoreboard::Draw(std::shared_ptr<wxGraphicsContext> graphics)
         graphics->DrawText(L"0:00" , ScoreboardTopLeft.x, ScoreboardTopLeft.y);
     else
     {
-        int mins = mDuration / 60;
+        int mins = (int)mDuration / 60;
         int secs = (int)mDuration % 60;
         ostringstream os;
         os << mins << ":";

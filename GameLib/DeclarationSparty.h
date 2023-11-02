@@ -40,6 +40,7 @@ public:
      * @return mHeadImage.
      */
     const std::wstring &getHeadImage() const { return mHeadImage;}
+
     /**
      * Sparty jaw image.
      * @return mJawImage.

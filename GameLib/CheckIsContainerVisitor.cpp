@@ -8,6 +8,7 @@
 
 /**
  * Sets the boolean value for is container to true
+ * @param container the container we are visiting
  */
 void CheckIsContainerVisitor::VisitContainer(Container *container)
 {

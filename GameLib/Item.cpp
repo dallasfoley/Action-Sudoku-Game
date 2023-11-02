@@ -36,6 +36,11 @@ Item::Item(shared_ptr<Declaration> declaration, double x, double y)
     mY = y;
 }
 
+/**
+ * Constructor for loading context of an item
+ * @param declaration
+ * @param node
+ */
 Item::Item(Declaration * declaration, wxXmlNode * node)
 {
     mItemImage = make_unique<wxImage>(declaration->GetImage(), wxBITMAP_TYPE_ANY);

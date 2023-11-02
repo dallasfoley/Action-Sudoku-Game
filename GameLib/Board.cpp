@@ -51,6 +51,7 @@ bool Board::CheckSolution(Game * game)
 }
 /**
  * mSolution getter
+ * @return solution vector
  */
 const vector<int> &Board::getMSolution() const
 {
@@ -58,13 +59,16 @@ const vector<int> &Board::getMSolution() const
 }
 /**
  * mX getter
+ * @return x location
  */
 double Board::getMx() const
 {
     return mX;
 }
+
 /**
  * mY getter
+ * @return y location
  */
 double Board::getMy() const
 {
@@ -72,6 +76,10 @@ double Board::getMy() const
 }
 
 /**
+ * returns true if the (x,y) location in virtual pixels is on the board currently
+ * @param x x location in virtual pixels
+ * @param y y location in virtual pixels
+ * @param game pointer to Game
  * @returns true if the (x,y) location in virtual pixels is on the board
  */
  bool Board::IsOnBoard(double x, double y, Game * game) const {

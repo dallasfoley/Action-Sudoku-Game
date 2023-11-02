@@ -1,6 +1,8 @@
 /**
  * @file XRay.h
  * @author Jon Price
+ *
+ * Base class for XRay in the Game
  */
 
 #ifndef PROJECT1_XRAY_H
@@ -44,18 +46,14 @@ public:
     XRay(DeclarationXray * declaration, wxXmlNode * node, Game * mGame);
     ~XRay();
 
-    /** Adds item to mItems, provided there is room in the vector
-     * @param item to add to vector
-     * @returns true if the item is added
-     */
     void AddItem(std::shared_ptr<Item> item) override;
 
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 
-    int GetNumItems();
     bool Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) override;
     bool RemoveItem(std::shared_ptr<Item> item);
     void Clear();
+
     /**
      * Accept a visitor
      * @param visitor The visitor we accept

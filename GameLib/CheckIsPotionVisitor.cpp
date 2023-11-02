@@ -8,6 +8,7 @@
 
 /**
  * Sets the boolean value for is container to true
+ * @param potion the potion we are visiting
  */
 void CheckIsPotionVisitor::VisitPotion(SpeedPotion *potion)
 {

@@ -20,13 +20,13 @@
 class Game;
 
 /**
- *
  * Base class for items in the Game
  */
 class Item
 {
 private:
 
+    /// The game this item is contained in
     Game *mGame;
 
     // Item location in the game;
@@ -42,22 +42,46 @@ private:
 protected:
     Item(Game* game, const std::wstring &filename);
 
-    void SetX(double x) { mX = x; } ///< @param x is new mX
-    void SetY(double y) { mY = y; } ///< @param y is new mY
+    /**
+     * Set the X location of the item
+     * @param x X location in pixels
+     */
+    void SetX(double x) { mX = x; }
+
+    /**
+     * Set the Y location of the item
+     * @param y Y location in pixels
+     */
+    void SetY(double y) { mY = y; }
 
 public:
 
+    /**
+     * Set the landing point for the item
+     * @param x
+     * @param y
+     */
     virtual void SetLandingPoint(double x, double y) {};
 
+    /**
+     * Consume the item
+     */
     virtual void Eat() {};
 
+    /**
+     * Headbutt the item
+     */
     virtual void Headbutt() {};
 
+    /**
+     * Get the value of the item
+     * @return 10 (default)
+     */
     virtual int GetValue() { return 10;}
 
     Item(std::shared_ptr<Declaration> d, double x, double y);
 
-    Item(Declaration * d, wxXmlNode * node);
+    Item(Declaration * declaration, wxXmlNode * node);
 
     /**
      * Set the item location
@@ -71,8 +95,6 @@ public:
 
     /// Copy constructor (disabled)
     Item(const Item &) = delete;
-
-//    ~Item();
 
     /**
      * The X location of the item
@@ -92,34 +114,11 @@ public:
 
     virtual bool HitTest(double x, double y);
 
-//    virtual wxXmlNode *XmlSave(wxXmlNode *node);
-
-    /**
-     * Get the pointer to the Game object
-     * @return Pointer to Game object
-     */
-    Game *GetGame() { return mGame;  }
-
-    virtual void XmlLoad(wxXmlNode *node) {};
-
     /**
      * Handle updates for animation
      * @param elapsed The time since the last update
      */
     virtual void Update(double elapsed) {}
-
-
-    /**
-     * Get the width of the bitmap image
-     * @return Bitmap width in pixels
-     */
-    int GetWidth() const { return mItemImage->GetWidth(); }
-
-    /**
-     * Get the height of the bitmap image
-     * @return Bitmap height in pixels
-     */
-    int GetHeight() const { return mItemImage->GetHeight(); }
 
     /**
      * Accept a visitor
@@ -133,23 +132,68 @@ public:
      */
     virtual void Release(Game * game) {};
 
+    /**
+     * Add item to the xray
+     * @param item
+     */
     virtual void AddItem(std::shared_ptr<Item> item) {};
 
+    /**
+     * Regurgitate numbers
+     * @param game
+     * @param event
+     * @param x
+     * @param y
+     * @param board
+     * @return false
+     */
     virtual bool Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) { return false; }
 
-    virtual int GetCount() {return 0;}
-
-    virtual void IncrementCount() {};
-
+    /**
+     * Decrement the count of the item
+     */
     virtual void DecrementCount() {};
 
+    /**
+     * Get the speed of the item
+     * @return 0 (default)
+     */
     virtual double GetSpeed() const {return 0;};
 
+    /**
+     * Set the speed of the item
+     * @param speed
+     */
     virtual void SetSpeed(double speed) {};
 
+    /**
+     * Change speed of the item
+     * @return 0 (default)
+     */
     virtual void AffectSparty() {};
 
+    /**
+     * Checks if the item has capacity
+     * @return false (default)
+     */
     virtual bool HasCapacity() { return false; }
+
+    /**
+     * Get the count of the item
+     * @return 0 (default)
+     */
+    virtual int GetCount() {return 0;}
+
+    /**
+     * Increment the count of the item
+     */
+    virtual void IncrementCount() {};
+
+    /**
+     * Load the item from XML
+     * @param node
+     */
+    virtual void XmlLoad(wxXmlNode *node) {};
 };
 
 #endif //PROJECT1_GAMELIB_ITEM_H

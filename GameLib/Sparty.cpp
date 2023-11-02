@@ -16,8 +16,10 @@
 using namespace std;
 
 
-// Default Sparty images
+/// Default Sparty head image
 const wstring SpartyHead1 = L"images/sparty-1.png";
+
+/// Default Sparty jaw image
 const wstring SpartyJaw1 = L"images/sparty-2.png";
 
 /// The time for an eating cycles in seconds
@@ -200,14 +202,6 @@ void Sparty::SetLandingPoint(double x, double y)
     mDestinationY = y;
 }
 
-// /**
-//  * if the Sparty character is in motion
-//  */
-// bool Sparty::InMotion()
-// {
-//     // to be implemented
-// }
-
 /**
  * Implement the Sparty character's eating action
  */
@@ -224,11 +218,19 @@ void Sparty::Headbutt()
     mHeadbuttCurrent = HeadbuttTime;
 }
 
+/**
+ * Set the Sparty character's speed
+ * @param speedModifier The speed modifier to set
+ */
 void Sparty::SetSpeed(double speedModifier)
 {
     mMaxSpeed = speedModifier;
 }
 
+/**
+ * Get the Sparty character's speed
+ * @return double The max speed of Sparty
+ */
 double Sparty::GetSpeed() const
 {
     return mMaxSpeed;

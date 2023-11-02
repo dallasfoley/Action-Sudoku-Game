@@ -2,6 +2,7 @@
   * @file Number.h
   * @author Chirag Solanki
   * @author Jon Price
+  *
   * The Number class represents an individual digit within the Sudoku game.
  */
 
@@ -20,10 +21,12 @@
 class Number : public Item
 {
 private:
-    int mValue;                                   /// The actual digit mValue ranging from 0 to 8
-    bool mIsGiven;                                /// Indicates if this number is a given
-    bool mIsInSpartyStomach = false;              /// Indicates if this number is inside sparty's stomach
-    bool mIsInContainer;                          /// Indicates if this number is inside a container
+
+    /// The actual digit mValue ranging from 0 to 8
+    int mValue;
+
+    /// Indicates if this number is a given
+    bool mIsGiven;
 
 public:
 
@@ -31,30 +34,17 @@ public:
 
     void XmlLoad(wxXmlNode *node) override;
 
+    /**
+     * Get the value of the number
+     * @param value The value to set
+     */
     int GetValue() override { return mValue; }
 
+    /**
+     * Get the type of the number
+     * @param value The value to set
+     */
     bool GetGiven() { return mIsGiven; }
-
-    /**
-      * Marks the number as being inside Sparty's stomach.
-     */
-    void EatenBySparty();
-
-
-    /**
-      * Removes the number from Sparty's stomach.
-     */
-    void RegurgitatedBySparty();
-
-    /**
-      * Marks the number as being inside a container.
-     */
-    void PlaceInContainer();
-
-    /**
-      * Removes the number from the container.
-     */
-    void ReleaseFromContainer();
 
     /**
      * Accept a visitor

@@ -2,7 +2,7 @@
  * @file Container.h
  * @author Dallas Foley
  *
- *
+ * Base class for containers in the game
  */
 
 #ifndef PROJECT1_GAMELIB_CONTAINER_H
@@ -27,13 +27,11 @@ private:
     /// Vector of stored Items
     std::vector<std::shared_ptr<Item>> mItems;
 public:
-    /**
-     * Release numbers
-     * @param game pointer to Game
-     */
-    void Release(Game * game) override; // TO BE IMPLEMENTED
+
+    void Release(Game * game) override;
     Container(DeclarationContainer * declaration, wxXmlNode * node, Game * mGame);
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
+
     /**
      * Accept a visitor
      * @param visitor The visitor we accept

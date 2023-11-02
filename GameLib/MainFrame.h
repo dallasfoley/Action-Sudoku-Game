@@ -6,13 +6,14 @@
 
 # ifndef PROJECT1_MAINFRAME_H
 # define PROJECT1_MAINFRAME_H
+
 /**
  * Class for mGameView
  */
 class GameView;
 
 /**
-  * The top-level (main) frame of the application
+ * The top-level (main) frame of the application
  */
 class MainFrame : public wxFrame
 {

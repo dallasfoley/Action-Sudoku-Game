@@ -10,36 +10,16 @@
 
 using namespace std;
 
+/**
+ * Constructor for Number class
+ * @param dec
+ * @param node
+ */
 Number::Number(DeclarationNumber * dec, wxXmlNode * node) : Item(dec, node)
 {
     mValue = dec->GetValue();
     mIsGiven = dec->GetGiven();
 }
-
-void Number::EatenBySparty()
-{
-    mIsInSpartyStomach = true;
-    // Set mPosition to undefined or a special mValue if required.
-}
-
-void Number::RegurgitatedBySparty()
-{
-    mIsInSpartyStomach = false;
-    // Update mPosition or other attributes if required.
-}
-
-void Number::PlaceInContainer()
-{
-    mIsInContainer = true;
-    // Update mPosition or other attributes if required.
-}
-
-void Number::ReleaseFromContainer()
-{
-    mIsInContainer = false;
-    // Update mPosition or other attributes if required.
-}
-
 
 /**
  * Load the number from xml file

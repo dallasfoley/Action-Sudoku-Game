@@ -39,6 +39,7 @@ Declaration::Declaration(wxXmlNode * node, wxString image)
  * Creates shared pointer for declaration
  * @param node wxXmlNode
  * @param game game construct
+ * @return shared pointer of item
  */
 std::shared_ptr<Item> Declaration::Create(wxXmlNode *node, Game * game)
 {

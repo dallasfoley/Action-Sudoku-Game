@@ -9,6 +9,7 @@
 
 /**
  * Sets the boolean value for is container to true
+ * @param number the number we are visiting
  */
 void CheckIsNumberVisitor::VisitNumber(Number *number)
 {
