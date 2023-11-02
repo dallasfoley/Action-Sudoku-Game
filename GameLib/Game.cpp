@@ -198,6 +198,11 @@ void Game::OnKeyDown(wxKeyEvent &event)
                     item2->Accept(&visitor2);
                     if(visitor2.IsXRay() && visitor.IsNumber())
                     {
+                        if(!(item->GetX() < mBoard->GetX() * GetTileWidth() || item->GetX() > (mBoard->GetX() + 9) * GetTileWidth() || item->GetY() < (mBoard->GetY() - 1)* GetTileHit() || item->GetY() > (mBoard->GetY() + 8) * GetTileHit()))
+                        {
+                            mCount--;
+
+                        }
                         mItems.back()->IncrementCount();
                         item2->AddItem(item);
                         break;
@@ -286,19 +291,17 @@ void Game::Restart()
 {
     mType = Type::Start;
     this->Clear();
+    mCount = 0;
     if(mLevel == 1)
     {
-        mCount = 28;
         Load(L"levels/level1.xml");
     }
     if(mLevel == 2)
     {
-        mCount = 34;
         Load(L"levels/level2.xml");
     }
     if(mLevel == 3)
     {
-        mCount = 46;
         Load(L"levels/level3.xml");
     }
 
@@ -352,6 +355,7 @@ void Game::Solve()
                         }
                         item->SetLocation(((double)(i%9) + mBoard->getMx()) * mTileWidth, ((double)(i/9) + mBoard->getMy()) * mTileHit);
                         item->Update(0);
+                        mCount++;
                         break;
                     }
                 }

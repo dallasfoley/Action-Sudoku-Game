@@ -124,7 +124,7 @@ void GameView::Stop() { mTimer.Stop(); }
 void GameView::OnLoadSolve(wxCommandEvent& event)
 {
     mGame.Solve();
-    mGame.CorrectLevel();
+
 }
 
 /**
@@ -135,6 +135,7 @@ void GameView::OnLoadLvl1(wxCommandEvent& event)
 {
     mGame.Restart();
     mGame.Load(L"levels/level1.xml");
+    mGame.SetLevel(1);
     Refresh();
 }
 
@@ -146,6 +147,7 @@ void GameView::OnLoadLvl2(wxCommandEvent& event)
 {
     mGame.Restart();
     mGame.Load(L"levels/level2.xml");
+    mGame.SetLevel(2);
     Refresh();
 }
 
@@ -157,6 +159,7 @@ void GameView::OnLoadLvl3(wxCommandEvent& event)
 {
     mGame.Restart();
     mGame.Load(L"levels/level3.xml");
+    mGame.SetLevel(3);
     Refresh();
 }
 

@@ -69,7 +69,7 @@ public:
     void OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
     void Update(double elapsed);
     void DrawMessage(std::shared_ptr<wxGraphicsContext> graphics);
-    int GetLevel() const {return mLevel;}
+    void SetLevel(int level) {mLevel = level;}
     std::shared_ptr<Item> XmlItem(wxXmlNode * node);
     void OnLeftDown(wxMouseEvent & event);
     void OnKeyDown(wxKeyEvent & event);
@@ -78,13 +78,13 @@ public:
     void Restart();
     void NextLevel();
     bool CheckSolved();
-    void Solve();
     void Load(const wxString &filename);
     int GetMapLength() { return mDeclarations.size(); } ///< returns length of declaration file, used right now for a test
     double GetTileWidth() const {return mTileWidth;}
     double GetTileHit() const {return mTileHit;}
     void Accept(ItemVisitor* visitor);
     void AddItem(std::shared_ptr<Item> item);
+    void Solve();
     void IncrementGameCount() {mCount++;}
     void CorrectLevel() {mType = Type::Correct;}
 

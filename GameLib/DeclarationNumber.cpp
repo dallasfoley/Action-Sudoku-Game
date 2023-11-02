@@ -20,5 +20,7 @@ DeclarationNumber::DeclarationNumber(wxXmlNode *node) :Declaration(node)
 
 std::shared_ptr<Item> DeclarationNumber::Create(wxXmlNode * node, Game * game)
 {
+    if (mGiven)
+        game->IncrementGameCount();
     return std::make_shared<Number>(this, node);
 }

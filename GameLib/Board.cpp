@@ -41,7 +41,7 @@ bool Board::CheckSolution(Game * game)
 {
     for(int i = 0; i < 81; i++)
     {
-        auto item = game->HitTest(((double)(i%9) + mX) * game->GetTileWidth() + .5*game->GetTileWidth(), ((double)(i/9) + mY - .5) * game->GetTileHit() - .5*game->GetTileHit());
+        auto item = game->HitTest(((double)(i%9) + mX) * game->GetTileWidth() + .5*game->GetTileWidth(), ((double)(i/9) + mY) * game->GetTileHit() - .5*game->GetTileHit());
         if(item == nullptr || mSolution.at(i) != item->GetValue())
         {
             return false;
