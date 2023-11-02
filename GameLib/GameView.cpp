@@ -133,15 +133,24 @@ void GameView::OnLoadSolve(wxCommandEvent& event)
 
 }
 
+/// Level 1 givens count;
+int Level1Givens = 28;
+/// Level 2 givens count;
+int Level2Givens = 34;
+/// Level 3 givens count;
+int Level3Givens = 46;
+
 /**
  * Level>Level 1 menu handler
  * @param event Menu event
  */
 void GameView::OnLoadLvl1(wxCommandEvent& event)
 {
+    mGame.SetLevel(1);
+    mGame.SetGameCount(Level1Givens);
     mGame.Restart();
     mGame.Load(L"levels/level1.xml");
-    mGame.SetLevel(1);
+
     Refresh();
 }
 
@@ -151,9 +160,10 @@ void GameView::OnLoadLvl1(wxCommandEvent& event)
  */
 void GameView::OnLoadLvl2(wxCommandEvent& event)
 {
+    mGame.SetLevel(2);
+    mGame.SetGameCount(Level2Givens);
     mGame.Restart();
     mGame.Load(L"levels/level2.xml");
-    mGame.SetLevel(2);
     Refresh();
 }
 
@@ -163,9 +173,11 @@ void GameView::OnLoadLvl2(wxCommandEvent& event)
  */
 void GameView::OnLoadLvl3(wxCommandEvent& event)
 {
+    mGame.SetLevel(3);
+    mGame.SetGameCount(Level3Givens);
     mGame.Restart();
     mGame.Load(L"levels/level3.xml");
-    mGame.SetLevel(3);
+
     Refresh();
 }
 

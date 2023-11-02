@@ -32,7 +32,7 @@ class ItemVisitor;
 class Game {
 private:
     /// Enumerating class
-    enum class Type {Start, Playing, Incorrect, Correct};
+    enum class Type {Start, Playing, Incorrect, Correct, Full};
     /// Member variable mType
     Type mType = Type::Start;
     /// Current level member variable
@@ -67,9 +67,10 @@ private:
     std::unordered_map<wxString, std::shared_ptr<Declaration>> mDeclarations;
     /// Tracks game time
     double mGameTimer;
-
     /// Random number generator
     std::mt19937 mRandom;
+    ///   Amount to change y coordinate of a message
+    double mMessageAmount = 0;
 
 public:
     /**
@@ -113,20 +114,16 @@ public:
      * @return mTileHit height of the tile
      */
     double GetTileHit() const {return mTileHit;}
-    void Accept(ItemVisitor* visitor);
     void AddItem(std::shared_ptr<Item> item);
     void Solve();
-
     /**
-     * Increment the game count
+     * Set the game count
      */
-    void IncrementGameCount() {mCount++;}
-
+    void SetGameCount(int count) {mCount = count;}
     /**
-     * Get the correct level
+     * Get the game count
      */
-    void CorrectLevel() {mType = Type::Correct;}
-
+    int GetGameCount() const {return mCount;}
     /**
      * Get Sparty from the game
      * @return shared pointer to Sparty
@@ -138,6 +135,8 @@ public:
      * @return pointer to the random number generator
      */
      std::mt19937 &GetRandom() {return mRandom;}
+
+    void DrawImFull(std::shared_ptr<wxGraphicsContext> graphics);
 };
 
 

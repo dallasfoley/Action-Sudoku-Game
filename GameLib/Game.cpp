@@ -40,6 +40,7 @@ Game::Game()
 
     mBoard = make_shared<Board>();
     Load(L"levels/level1.xml");
+    mCount = 28;
 }
 
 /**
@@ -79,7 +80,6 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
     {
         item->Draw(graphics);
     }
-
     mScoreboard.Draw(graphics);
     if(mDisplayFps)
         mFpsDisplay.Draw(graphics);
@@ -98,7 +98,10 @@ void Game::OnDraw(std::shared_ptr<wxGraphicsContext> graphics, int width, int he
         os << "Level " << mLevel << " Complete!";
         graphics->DrawText(os.str(), 225, 235);
     }
-
+    else if (mType == Type::Full)
+    {
+        this->DrawImFull(graphics);
+    }
     else if (mType == Type::Incorrect)
     {
         wxFont font(wxSize(20, 70),
@@ -153,6 +156,16 @@ void Game::Update(double elapsed)
         if (mGameTimer - mScoreboard.GetDuration() > 6)
             Restart();
     }
+    else if (mType == Type::Full)
+    {
+        mScoreboard.Update(elapsed);
+        mMessageAmount += 250 * elapsed;
+        if (mMessageAmount >= mPixelHeight + 50)
+        {
+            mMessageAmount = 0;
+            mType = Type::Playing;
+        }
+    }
     mGameTimer += elapsed;
 }
 
@@ -198,7 +211,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
                 break;
         }
         if(!(*xray)->HasCapacity()) {
-            // DALLAS ADD FULL LINE HERE
+            mType = Type::Full;
             return;
         }
         auto loc = find(mItems.begin(), mItems.end(), item);
@@ -233,13 +246,20 @@ void Game::OnKeyDown(wxKeyEvent &event)
         }
 
         // otherwise regurgitate the key hit. essentially
-    } else {
-        CheckIsXRayVisitor xRayVisitor;
-        for (auto item2: mItems) {
-            item2->Accept(&xRayVisitor);
-            if (xRayVisitor.IsXRay() && item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard)) {
-                mItems.back()->DecrementCount();
-                mItems.back()->Eat();
+    }
+    for (int i = 0; i < 10; i++)
+    {
+        if (i == event.GetKeyCode() - '0')
+        {
+            CheckIsXRayVisitor xRayVisitor;
+            for (auto item2: mItems)
+            {
+                item2->Accept(&xRayVisitor);
+                if (xRayVisitor.IsXRay() && item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard))
+                {
+                    mItems.back()->DecrementCount();
+                    mItems.back()->Eat();
+                }
             }
         }
     }
@@ -275,6 +295,14 @@ void Game::Clear()
     mGameTimer = 0;
 }
 
+/// Level 1 givens count;
+int Level1Givens0 = 28;
+/// Level 2 givens count;
+int Level2Givens0 = 34;
+/// Level 3 givens count;
+int Level3Givens0 = 46;
+
+
 /**
 * Restarts a level
 */
@@ -282,17 +310,20 @@ void Game::Restart()
 {
     mType = Type::Start;
     this->Clear();
-    mCount = 0;
+
     if(mLevel == 1)
     {
+        mCount = Level1Givens0;
         Load(L"levels/level1.xml");
     }
     if(mLevel == 2)
     {
+        mCount = Level2Givens0;
         Load(L"levels/level2.xml");
     }
     if(mLevel == 3)
     {
+        mCount = Level3Givens0;
         Load(L"levels/level3.xml");
     }
 
@@ -460,17 +491,6 @@ void Game::DrawMessage(std::shared_ptr<wxGraphicsContext> graphics)
     graphics->DrawText(os1.str(), 250, 350);
 }
 
-/**
- * Accept a visitor for the collection
- * @param visitor The visitor for the collection
- */
-void Game::Accept(ItemVisitor* visitor)
-{
-    for (auto item : mItems)
-    {
-        item->Accept(visitor);
-    }
-}
 
 /**
 * Add Item to mItems
@@ -482,4 +502,22 @@ void Game::AddItem(std::shared_ptr<Item> item)
     mItems.pop_back();
     mItems.push_back(item);
     mItems.push_back(sparty);
+}
+
+/**
+    * Draw "I'm Full" message
+    * @param graphics the graphics context to draw into
+    */
+void Game::DrawImFull(std::shared_ptr<wxGraphicsContext> graphics)
+{
+    wxBrush rectBrush(*wxWHITE);
+    graphics->SetBrush(rectBrush);
+    graphics->SetPen(wxNullGraphicsPen);
+    graphics->DrawRectangle(mPixelWidth / 3, mPixelHeight - mMessageAmount, 400, 150);
+    wxFont font(wxSize(20, 70),
+                wxFONTFAMILY_SWISS,
+                wxFONTSTYLE_NORMAL,
+                wxFONTWEIGHT_BOLD);
+    graphics->SetFont(font, wxColour(255, 0, 0));
+    graphics->DrawText(L"I'M FULL", mPixelWidth / 3 + 50, mPixelHeight - mMessageAmount + 25);
 }
