@@ -38,7 +38,7 @@ private:
     Game * mGame;
 
     /// Number of items that can be stored in the XRay
-    int mCapacity = 7;
+    int mCapacity;
 
 public:
     XRay(DeclarationXray * declaration, wxXmlNode * node, Game * mGame);
@@ -53,7 +53,7 @@ public:
     void Draw(std::shared_ptr<wxGraphicsContext> graphics) override;
 
     int GetNumItems();
-    void Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) override;
+    bool Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) override;
     bool RemoveItem(std::shared_ptr<Item> item);
     void Clear();
     /**
@@ -65,7 +65,7 @@ public:
     /**
      * @return the capacity of the xray
      */
-    int GetCapacity() { return mCapacity; }
+    bool HasCapacity() override { return mCapacity > mNumbers.size(); }
 };
 
 

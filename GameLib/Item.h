@@ -135,7 +135,7 @@ public:
 
     virtual void AddItem(std::shared_ptr<Item> item) {};
 
-    virtual void Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) {};
+    virtual bool Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board) { return false; }
 
     virtual int GetCount() {return 0;}
 
@@ -148,6 +148,8 @@ public:
     virtual void SetSpeed(double speed) {};
 
     virtual void AffectSparty() {};
+
+    virtual bool HasCapacity() { return false; }
 };
 
 #endif //PROJECT1_GAMELIB_ITEM_H

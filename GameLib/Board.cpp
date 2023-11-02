@@ -71,3 +71,9 @@ double Board::getMy() const
     return mY;
 }
 
+/**
+ * @returns true if the (x,y) location in virtual pixels is on the board
+ */
+ bool Board::IsOnBoard(double x, double y, Game * game) const {
+    return !(x < GetX() * game->GetTileWidth() || x > (GetX() + 9) * game->GetTileWidth() || y < (GetY() - 1)* game->GetTileHit() || y > (GetY() + 8) * game->GetTileHit());
+ }

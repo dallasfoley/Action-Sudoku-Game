@@ -119,7 +119,7 @@ void XRay::Clear()
 /**
 * Regurgitate item back to the game
 */
-void XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board)
+bool XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std::shared_ptr<Board> board)
 {
     auto code = event.GetKeyCode();
     code -= 48;
@@ -128,7 +128,7 @@ void XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std:
         if(item->GetValue() == code)
         {
             //Determine if Sparty is on the Board
-            if(!(x < board->GetX() * game->GetTileWidth() || x > (board->GetX() + 9) * game->GetTileWidth() || y < (board->GetY() - 1)* game->GetTileHit() || y > (board->GetY() + 8) * game->GetTileHit())) {
+            if(board->IsOnBoard(x,y, game)) {
 
                 // Set x and y to whole tile number
                 x/= game->GetTileWidth();
@@ -142,13 +142,14 @@ void XRay::Regurgitate(Game * game, wxKeyEvent & event, double x, double y, std:
 
                 auto item2 = game->HitTest(x + game->GetTileWidth()/2, y -game->GetTileHit()/2);
                 if(item2->GetValue() < 9)
-                    return;
+                    return false;
             }
             item->SetLocation(x, y);
             game->AddItem(item);
             RemoveItem(item);
             game->IncrementGameCount();
-            return;
+            return true;
         }
     }
+    return false;
 }

@@ -33,13 +33,8 @@ public:
     double getMy() const;
     Board(){}
 
-    /**
-     * Draw the board
-     * @param graphics the graphics context to draw on
-     * @param width the width of the window
-     * @param height the height of the window
-     */
-    void Draw(std::shared_ptr<wxGraphicsContext> graphics, int width, int height);
+    bool IsOnBoard(double x, double y, Game * game) const;
+
 };
 
 #endif //PROJECT1_GAMELIB_BOARD_H

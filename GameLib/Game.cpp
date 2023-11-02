@@ -178,76 +178,61 @@ void Game::OnKeyDown(wxKeyEvent &event)
     if (event.GetKeyCode() == WXK_SPACE)
     {
         mItems.back()->Eat();
-        if (mItems.back()->GetCount() < 7)
-        {
-            auto item = HitTest(mItems.back()->GetX(), mItems.back()->GetY());
 
-            if(item == nullptr)
-                return;
+        auto item = HitTest(mItems.back()->GetX(), mItems.back()->GetY());
 
-            CheckIsNumberVisitor visitor;
-            CheckIsXRayVisitor visitor2;
-            CheckIsPotionVisitor visitor3;
-            item->Accept(&visitor);
-            item->Accept(&visitor3);
-            auto loc = find(mItems.begin(), mItems.end(), item);
-            if(visitor.IsNumber() || visitor3.IsPotion())
-            {
-                for(auto item2 : mItems)
-                {
-                    item2->Accept(&visitor2);
-                    if(visitor2.IsXRay() && visitor.IsNumber())
-                    {
-                        if(!(item->GetX() < mBoard->GetX() * GetTileWidth() || item->GetX() > (mBoard->GetX() + 9) * GetTileWidth() || item->GetY() < (mBoard->GetY() - 1)* GetTileHit() || item->GetY() > (mBoard->GetY() + 8) * GetTileHit()))
-                        {
-                            mCount--;
-
-                        }
-                        mItems.back()->IncrementCount();
-                        item2->AddItem(item);
-                        break;
-                    }
-                    else if(visitor3.IsPotion())
-                    {
-                        item->AffectSparty();
-                        break;
-                    }
-                }
-                mItems.erase(loc);
-            }
+        if(item == nullptr)
+            return;
+        CheckIsNumberVisitor numberVisitor;
+        CheckIsXRayVisitor xrayVisitor;
+        CheckIsPotionVisitor potionVisitor;
+        item->Accept(&numberVisitor);
+        item->Accept(&potionVisitor);
+        auto xray = mItems.begin();
+        for(;xray != mItems.end(); xray++) {
+            (*xray)->Accept(&xrayVisitor);
+            if(xrayVisitor.IsXRay())
+                break;
         }
-        return;
-    }
-    if (event.GetKeyCode() == 'B' || event.GetKeyCode() == 'b')
-    {
-        mItems.back()->Headbutt();
+        if(!(*xray)->HasCapacity()) {
+            // DALLAS ADD FULL LINE HERE
+            return;
+        }
+        auto loc = find(mItems.begin(), mItems.end(), item);
+        if(numberVisitor.IsNumber())
+        {
+            if(mBoard->IsOnBoard(item->GetX(), item->GetY(), this))
+            {
+                mCount--;
+            }
+            (*xray)->AddItem(item);
+            mItems.erase(find(mItems.begin(), mItems.end(), item));
+        } else if(potionVisitor.IsPotion())
+        {
+            item->AffectSparty();
+            mItems.erase(find(mItems.begin(), mItems.end(), item));
+        }
+    } else if (event.GetKeyCode() == 'B' || event.GetKeyCode() == 'b') {
 
+        mItems.back()->Headbutt();
         auto item = HitTest((int)mItems.back()->GetX(), (int)mItems.back()->GetY());
 
         // if there is no item at the location, return
         if(item == nullptr)
             return;
-        CheckIsContainerVisitor visitor;
-        item->Accept(&visitor);
-        if(visitor.IsContainer())
+
+        CheckIsContainerVisitor containerVisitor;
+        item->Accept(&containerVisitor);
+        if(containerVisitor.IsContainer())
         {
             item->Release(this);
         }
-        return;
-    }
-    for (int i = 0; i < 10; i++)
-    {
-        if (i == event.GetKeyCode() - '0')
-        {
-            CheckIsXRayVisitor visitor;
-            for(auto item2 : mItems)
-            {
-                item2->Accept(&visitor);
-                if(visitor.IsXRay())
-                {
-                    item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard);
-                    mItems.back()->DecrementCount();
-                }
+    } else {
+        CheckIsXRayVisitor xRayVisitor;
+        for (auto item2: mItems) {
+            item2->Accept(&xRayVisitor);
+            if (xRayVisitor.IsXRay() && item2->Regurgitate(this, event, mItems.back()->GetX(), mItems.back()->GetY(), mBoard)) {
+                mItems.back()->DecrementCount();
                 mItems.back()->Eat();
             }
         }
@@ -345,19 +330,12 @@ void Game::Solve()
             for(auto item: mItems)
             {
                 item->Accept(&visitor);
-                if(visitor.IsNumber())
+                if(visitor.IsNumber() && item->GetValue() == mBoard->getMSolution().at(i) && !mBoard->IsOnBoard(item->GetX(), item->GetY(), this))
                 {
-                    if(item->GetValue() == mBoard->getMSolution().at(i))
-                    {
-                        if(!(item->GetX() < mBoard->GetX() * GetTileWidth() || item->GetX() > (mBoard->GetX() + 9) * GetTileWidth() || item->GetY() < (mBoard->GetY() - 1)* GetTileHit() || item->GetY() > (mBoard->GetY() + 8) * GetTileHit()))
-                        {
-                            continue;
-                        }
                         item->SetLocation(((double)(i%9) + mBoard->getMx()) * mTileWidth, ((double)(i/9) + mBoard->getMy()) * mTileHit);
                         item->Update(0);
                         mCount++;
                         break;
-                    }
                 }
             }
         }
