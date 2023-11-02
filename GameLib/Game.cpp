@@ -175,6 +175,7 @@ void Game::OnLeftDown(wxMouseEvent &event)
  */
 void Game::OnKeyDown(wxKeyEvent &event)
 {
+    // eat
     if (event.GetKeyCode() == WXK_SPACE)
     {
         mItems.back()->Eat();
@@ -212,6 +213,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
             item->AffectSparty();
             mItems.erase(find(mItems.begin(), mItems.end(), item));
         }
+        // Headbutt on B press
     } else if (event.GetKeyCode() == 'B' || event.GetKeyCode() == 'b') {
 
         mItems.back()->Headbutt();
@@ -227,6 +229,8 @@ void Game::OnKeyDown(wxKeyEvent &event)
         {
             item->Release(this);
         }
+
+        // otherwise regurgitate the key hit. essentially
     } else {
         CheckIsXRayVisitor xRayVisitor;
         for (auto item2: mItems) {
