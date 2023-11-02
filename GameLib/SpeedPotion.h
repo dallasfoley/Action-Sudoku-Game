@@ -61,8 +61,6 @@ public:
     // Function to handle the interaction with Sparty
     void AffectSparty() override;
 
-    virtual void OnConsume(); // Function called when Sparty consumes the potion.
-
     void Accept(ItemVisitor* visitor) override;
 
 };

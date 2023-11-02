@@ -12,14 +12,6 @@
 
 using namespace std;
 
-
-//just experimenting with this
-/*SpeedPotion::SpeedPotion(Game* game) : Item(game, L"images/speedpotion.png"), mGame(game) {
-    GenerateSpeedModifier();
-}*/
-
-
-
 const wstring speedPotionImage = L"images/speedpotion.png";
 
 /**
@@ -28,7 +20,6 @@ const wstring speedPotionImage = L"images/speedpotion.png";
  * @param node The xml node for the SpeedPotion
  * @param game The game object
  */
-// for this to work we must enable default constructor in Item.h
 SpeedPotion::SpeedPotion(DeclarationPotion * declaration, wxXmlNode * node, Game * game) : Item(declaration, node)
 {
     mGame=game;
@@ -43,6 +34,7 @@ SpeedPotion::SpeedPotion(DeclarationPotion * declaration, wxXmlNode * node, Game
 SpeedPotion::~SpeedPotion()
 {
 }
+
 
 /**
  * Draw the SpeedPotion
@@ -60,11 +52,16 @@ void SpeedPotion::Draw(std::shared_ptr<wxGraphicsContext> graphics)
                          hit);
 }
 
+
 void SpeedPotion::Update(double elapsed) {
     // Logic for updating the speed potion (dont know if needed)
     // For instance, movement, animation, disappearance after time, etc.
 }
 
+
+/**
+ * Handle the interaction with Sparty
+ */
 void SpeedPotion::AffectSparty() {
     GenerateSpeedModifier(); // Generate a speed modifier
     auto sparty = mGame->GetSparty();
@@ -77,16 +74,16 @@ void SpeedPotion::AffectSparty() {
 }
 
 
+/**
+ * Generate a speed modifier
+ */
 void SpeedPotion::GenerateSpeedModifier() {
-    // Randomly generate a speed modifier
+    // Randomly generates a speed modifier for Sparty
     mRNG = mGame->GetRandom();
-    std::uniform_real_distribution<> distr(0.5, 3.0); // Range based on our design
+    std::uniform_real_distribution<> distr(0.5, 3.0); // Range of speed modifier
     mSpeedModifier = distr(mRNG);
 }
 
-void SpeedPotion::OnConsume() {
-   //for now just blank
-}
 
 /**
  * Load the potion from xml file
