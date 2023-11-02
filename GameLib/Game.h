@@ -118,10 +118,12 @@ public:
     void Solve();
     /**
      * Set the game count
+     * @param count numbers on board
      */
     void SetGameCount(int count) {mCount = count;}
     /**
      * Get the game count
+     * @return mCount
      */
     int GetGameCount() const {return mCount;}
     /**
