@@ -28,6 +28,9 @@ public:
     double GetY() const { return mY; }
     void XmlLoad(wxXmlNode *node);
     bool CheckSolution(Game * game);
+    const std::vector<int> &getMSolution() const;
+    double getMx() const;
+    double getMy() const;
     Board(){}
 
     /**

@@ -78,14 +78,15 @@ public:
     void Restart();
     void NextLevel();
     bool CheckSolved();
+    void Solve();
     void Load(const wxString &filename);
     int GetMapLength() { return mDeclarations.size(); } ///< returns length of declaration file, used right now for a test
     double GetTileWidth() const {return mTileWidth;}
     double GetTileHit() const {return mTileHit;}
     void Accept(ItemVisitor* visitor);
     void AddItem(std::shared_ptr<Item> item);
-    void Solve();
     void IncrementGameCount() {mCount++;}
+    void CorrectLevel() {mType = Type::Correct;}
 
     /**
      * Get Sparty from the game

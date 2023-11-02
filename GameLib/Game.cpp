@@ -198,6 +198,7 @@ void Game::OnKeyDown(wxKeyEvent &event)
                     item2->Accept(&visitor2);
                     if(visitor2.IsXRay() && visitor.IsNumber())
                     {
+                        mItems.back()->IncrementCount();
                         item2->AddItem(item);
                         break;
                     }
@@ -207,7 +208,6 @@ void Game::OnKeyDown(wxKeyEvent &event)
                         break;
                     }
                 }
-                mItems.back()->IncrementCount();
                 mItems.erase(loc);
             }
         }
@@ -322,6 +322,42 @@ void Game::NextLevel()
 bool Game::CheckSolved()
 {
     return mBoard->CheckSolution(this);
+}
+
+/**
+ * Checks if board matches solution
+ * @param game class game
+ * @returns Bool indicating correctness
+ */
+void Game::Solve()
+{
+    for(int i = 0; i < 81; i++)
+    {
+        double tempX = mBoard->getMx();
+        double tempY = mBoard->getMy();
+        auto hitItem = HitTest(((double)(i%9) + tempX) * mTileWidth + .5*mTileWidth, ((double)(i/9) + tempY) * mTileHit - .5*mTileHit);
+        if(hitItem == nullptr || hitItem->GetValue() > 8)
+        {
+            CheckIsNumberVisitor visitor;
+            for(auto item: mItems)
+            {
+                item->Accept(&visitor);
+                if(visitor.IsNumber())
+                {
+                    if(item->GetValue() == mBoard->getMSolution().at(i))
+                    {
+                        if(!(item->GetX() < mBoard->GetX() * GetTileWidth() || item->GetX() > (mBoard->GetX() + 9) * GetTileWidth() || item->GetY() < (mBoard->GetY() - 1)* GetTileHit() || item->GetY() > (mBoard->GetY() + 8) * GetTileHit()))
+                        {
+                            continue;
+                        }
+                        item->SetLocation(((double)(i%9) + mBoard->getMx()) * mTileWidth, ((double)(i/9) + mBoard->getMy()) * mTileHit);
+                        item->Update(0);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /**

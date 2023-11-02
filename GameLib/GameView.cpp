@@ -123,7 +123,8 @@ void GameView::Stop() { mTimer.Stop(); }
  */
 void GameView::OnLoadSolve(wxCommandEvent& event)
 {
-    mGame.CheckSolved();
+    mGame.Solve();
+    mGame.CorrectLevel();
 }
 
 /**

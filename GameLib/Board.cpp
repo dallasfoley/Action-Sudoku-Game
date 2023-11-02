@@ -20,7 +20,7 @@ void Board::XmlLoad(wxXmlNode * node)
     node->GetAttribute(L"row").ToDouble(&mY);
     mY++;
     auto tempList = node->GetNodeContent();
-
+    mSolution.clear();
     for(auto c:tempList)
     {
         int i = int(c)-48;
@@ -48,5 +48,26 @@ bool Board::CheckSolution(Game * game)
         }
     }
     return true;
+}
+/**
+ * mSolution getter
+ */
+const vector<int> &Board::getMSolution() const
+{
+    return mSolution;
+}
+/**
+ * mX getter
+ */
+double Board::getMx() const
+{
+    return mX;
+}
+/**
+ * mY getter
+ */
+double Board::getMy() const
+{
+    return mY;
 }
 
