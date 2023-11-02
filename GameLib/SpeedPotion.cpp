@@ -34,7 +34,6 @@ SpeedPotion::SpeedPotion(DeclarationPotion * declaration, wxXmlNode * node, Game
     mGame=game;
     mImage = make_unique<wxImage>(speedPotionImage, wxBITMAP_TYPE_ANY);
     mBitmap = make_unique<wxBitmap>(*mImage);
-    mRNG = game->GetRandom();
 }
 
 
@@ -79,7 +78,8 @@ void SpeedPotion::AffectSparty() {
 
 
 void SpeedPotion::GenerateSpeedModifier() {
-//     Randomly generate a speed modifier
+    // Randomly generate a speed modifier
+    mRNG = mGame->GetRandom();
     std::uniform_real_distribution<> distr(0.5, 3.0); // Range based on our design
     mSpeedModifier = distr(mRNG);
 }
