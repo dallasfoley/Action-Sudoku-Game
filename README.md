@@ -1,4 +1,4 @@
-# Action Audoku Game README
+# Action Sudoku Game README
 ## Overview
 This project involves the development of a game, focusing on object-oriented programming, graphical user interfaces, and game mechanics. The game is developed in C++ using the wxWidgets framework for the graphical interface.
 
