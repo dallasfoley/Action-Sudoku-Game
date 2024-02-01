@@ -7,7 +7,7 @@ Dynamic Gameplay: The game features different levels with varying challenges and
 Interactivity: Includes mouse and keyboard event handling for interactive gameplay.<br />
 Graphical Interface: Utilizes wxGraphicsContext for drawing the game elements and managing graphical states.<br />
 Game Mechanics: Incorporates elements like scoring, levels, and character actions (eating, regurgitating, etc.).<br />
-Visitor Pattern: Implements visitor design patterns for different game items like containers, numbers, and potions.<br />
+OOP Patterns: Implements object-oriented design patterns such as visitor patterns for different game functionalities.<br />
 ## Components
 Game Class:<br />
 Manages game states, updates, and rendering.<br />
@@ -27,7 +27,6 @@ The game progresses through various levels, each with unique challenges.<br />
 ## Technical Details
 Language: C++<br />
 Graphics Framework: wxWidgets<br />
-Pattern Used: Visitor pattern for item interactions.<br />
 XML Configuration: Levels and items are configured using XML files.<br />
 ## Building and Running
 Prerequisites:<br />
